@@ -13,13 +13,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <div className='bg-black bg-cover'>
-        <Image src={tvborder}></Image>
-      </div> */}
-        
-          <div className="bg-black w-full h-full absolute inset-0 overflow-hidden bg-no-repeat bg-center bg-cover">
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-100">
+        <div className="relative w-full h-full">
             <Image src={tvborder}></Image>
-          </div>
+        </div>
+      </div>
     </>
   )
 }
