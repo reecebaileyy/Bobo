@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tv-border {
+    background-image: url('/assets/tvborder.png');
+  }

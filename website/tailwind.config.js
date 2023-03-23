@@ -4,9 +4,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'tvBorder': "url('')",
-        'footer-texture': "url('./public/assets/tvborder.png')",
-      }
+        'tvBorder': "url('./public/assets/tvborder.png')",
+      },
     },
   },
   plugins: [],
