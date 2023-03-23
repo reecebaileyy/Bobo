@@ -14,8 +14,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="fixed inset-0 flex items-center justify-center bg-gray-100">
-        <div className="relative w-full h-full">
-            <Image src={tvborder}></Image>
+        <div className="absolute inset-0">
+            <Image src={tvborder} className="object-cover w-full h-full"></Image>
         </div>
       </div>
     </>
