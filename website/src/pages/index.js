@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import headgif from '../../public/assets/spinhead.gif'
 import tvborder from '../../public/assets/tvborder.png'
-
+import fuzz from '../../public/assets/fuzz.gif'
 
 export default function Home() {
   return (
@@ -14,7 +14,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <div className='overflow-hidden'>
-          <div class="tv-border"></div>
+            <Image className='w-screen h-screen object-cover'src={fuzz}></Image>
+            <div class="tv-border">
+            </div>
         </div>
     </>
   )
