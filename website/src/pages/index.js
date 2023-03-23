@@ -16,13 +16,10 @@ export default function Home() {
       {/* <div className='bg-black bg-cover'>
         <Image src={tvborder}></Image>
       </div> */}
-      <div className="relative w-full h-full">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="w-full h-full bg-no-repeat bg-center bg-cover">
+        
+          <div className="bg-black w-full h-full absolute inset-0 overflow-hidden bg-no-repeat bg-center bg-cover">
             <Image src={tvborder}></Image>
           </div>
-        </div>
-      </div>
     </>
   )
 }
