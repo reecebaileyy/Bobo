@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <div className='overflow-hidden'>
-          <div class="absolute inset-0 z-10 bg-no-repeat bg-center sm:bg-top bg-cover tv-border"></div>
+          <div class="tv-border"></div>
         </div>
     </>
   )
