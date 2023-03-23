@@ -14,10 +14,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         
-      <div class="absolute inset-0 bg-black bg-no-repeat bg-center bg-cover tv-border">
-
-      </div>
-        
+     
+        <div class="absolute w-full h-full inset-0 z-10 bg-no-repeat bg-center sm:bg-top bg-cover tv-border"></div>
     </>
   )
 }
