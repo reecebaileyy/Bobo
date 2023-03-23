@@ -13,9 +13,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        
-        {/* <div class="absolute inset-0 z-10 bg-no-repeat bg-center sm:bg-top bg-cover tv-border"></div> */}
-        <div class="absolute w-full h-screen inset-0 z-10 bg-no-repeat bg-center sm:bg-top bg-cover tv-border"></div>
+        <div className='overflow-hidden'>
+          <div class="absolute inset-0 z-10 bg-no-repeat bg-center sm:bg-top bg-cover tv-border"></div>
+        </div>
     </>
   )
 }
