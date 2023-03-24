@@ -13,8 +13,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <div className='overflow-hidden'>
-            <div class='bg-gray-500 flex flex-col justify-center items-center tv-border'>
+            <div class='bg-gray-300 flex flex-col justify-center items-center tv-border'>
             <h1 className='font-bebas text-9xl animate-pulse'>BoboVision</h1>
+            <h3 className='font-bebas text-4xl'></h3>
             <Image src={headgif} width={200} height={200}></Image>
             </div>
         </div>

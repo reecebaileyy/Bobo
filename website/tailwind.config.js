@@ -7,7 +7,7 @@ module.exports = {
         'tvBorder': "url('./public/assets/tvborder.png')",
       },
       fontFamily: {
-        bebas: ['Bebas Neue'],
+        pressStart: ['Press Start 2P', 'cursive'],
       }
     },
   },
