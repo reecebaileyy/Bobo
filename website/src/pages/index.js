@@ -40,11 +40,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <div className='overflow-hidden'>
-        <div class='bg-gray-300 flex flex-col items-center justify-center tv-border'>
-        <Image className='mt-16' src={BoboVision} width={800} height={800}></Image>
-          <div className='flex justify-around'>
-            <Image className='' src={headgif} width={200} height={200}></Image>
+      <div className="overflow-hidden">
+        <div className="bg-gray-300 flex flex-col items-center justify-center tv-border">
+          <Image className="mt-16" src={BoboVision} width={800} height={800}></Image>
+          <div className="flex flex-col md:flex-row justify-around items-center w-full">
+            <Image className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mb-4 md:mb-0" src={headgif} width={200} height={200}></Image>
             {loadingVisible ? (
               <Image
                 className={`transition-opacity duration-500 ${fadeOutClass}`}
@@ -53,12 +53,11 @@ export default function Home() {
                 height={400}
               ></Image>
             ) : (
-              <Link href="/home" className="text-2xl font-bold font-pressStart mt-20 mr-3">
+              <Link href="/home" className="text-2xl font-bold font-pressStart mt-20 md:mt-0 md:mr-3">
                 <span className="animate-flash">{displayText.slice(0, 1)}</span>
                 {displayText.slice(1)}
               </Link>
             )}
-            <Image className='' src={headgif} width={200} height={200}></Image>
           </div>
         </div>
       </div>
