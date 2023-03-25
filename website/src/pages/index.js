@@ -53,12 +53,16 @@ export default function Home() {
                 height={400}
               ></Image>
             ) : (
-              <Link href="/home" className="text-2xl font-bold font-pressStart mt-20 mr-3">
+              <Link href="/home" className="text-2xl font-black font-pressStart mt-20 mr-3">
                 <span className="animate-flash">{displayText.slice(0, 1)}</span>
                 {displayText.slice(1)}
               </Link>
             )}
             <Image className='sm:hidden md:hidden' src={headgif} width={200} height={200}></Image>
+          </div>
+          <div className="text-center mt-8 mb-4">
+            <h3 className="text-md font-pressStart">&copy; {new Date().getFullYear()} Bobo</h3>
+            <h3 className="text-md font-pressStart">All rights reserved.</h3>
           </div>
         </div>
       </div>
