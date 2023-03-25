@@ -33,44 +33,12 @@ export default function Home() {
   return (
     <>
 
-<Head>
-  <title>BoboVision</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=no" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-    crossorigin="anonymous"
-  />
-  <meta name="theme-color" content="#000000" />
-  <meta name="fortmatic-site-verification" content="j93LgcVZk79qcgyo" />
-  <meta property="og:title" content="Keungz" />
-  <link rel="canonical" href="https://keungz.com/" />
-  <meta name="description" content="Keungz is a superior and invulnerable ethnic group in web3." />
-  <meta property="og:site_name" content="Keungz" />
-  <meta property="og:url" content="https://keungz.com/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://keungz.com/images/preview_kubz.png" />
-  <meta property="og:image:secure_url" content="https://keungz.com/images/preview_kubz.png" />
-  <meta property="og:image:type" content="image/jpg" />
-  <meta property="og:description" content="Keungz is a superior and invulnerable ethnic group in web3." />
-  <meta property="og:image:alt" content="Keungz" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="Keungz" />
-  <meta name="twitter:url" content="https://keungz.com/" />
-  <meta name="twitter:description" content="Keungz is a superior and invulnerable ethnic group in web3." />
-  <meta name="twitter:domain" content="keungz.com" />
-  <meta name="twitter:image" content="https://keungz.com/images/preview_kubz.png" />
-  <meta name="twitter:title" content="Keungz" />
-  <meta name="twitter:image:src" content="https://keungz.com/images/preview_kubz.png" />
-  <meta name="description" content="Its all Bobo.. it always has been" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="/favicon.ico" />
-</Head>
-
+      <Head>
+        <title>BoboVision</title>
+        <meta name="description" content="Its all Bobo.. it always has been" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       
       <div className='overflow-hidden'>
         <div class='bg-gray-300 flex flex-col items-center justify-center tv-border'>
