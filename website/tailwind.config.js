@@ -8,7 +8,7 @@ module.exports = {
       'lg': {'min': '768px', 'max': '1023px'},    // Tablets (landscape) / Laptops
       'xl': {'min': '1024px', 'max': '1279px'},   // Desktops (sm)
       '2xl': {'min': '1280px', 'max': '1535px'},  // Desktops (md)
-      '3xl': {'min': '1536px'},    
+      '3xl': {'min': '1536px'},                   // Wide Boi (lg)
     },
     extend: {
       animation: {
