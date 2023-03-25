@@ -35,11 +35,7 @@ export default function Home() {
 
       <Head>
         <title>BoboVision</title>
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:title" content="Your website title" />
-        <meta property="og:description" content="Your website description" />
-        <meta property="og:image" content="/assets/BoboVision_V2.png" />
+        <meta name="description" content="Its all Bobo.. it always has been" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
