@@ -2,9 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import headgif from '../../public/assets/spinhead.gif'
-import loading from '../../public/assets/loading.gif'
-import BoboVision from '../../public/assets/BoboVision_V3.png'
+import headgif from '../../public/assets/png_gif/spinhead.gif'
+import loading from '../../public/assets/png_gif/loading.gif'
+import BoboVision from '../../public/assets/png_gif/BoboVision_V3.png'
 
 export default function Home() {
 

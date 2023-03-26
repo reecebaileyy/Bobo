@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.2",
-    "erc721a": "^4.2.3"
+    "dotenv": "^16.0.3",
+    "erc721a": "^4.2.3",
+    "erc721a-upgradeable": "^4.2.3"
   }
 }

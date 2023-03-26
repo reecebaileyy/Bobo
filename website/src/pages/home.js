@@ -2,21 +2,48 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
 import { Web3Button } from '@web3modal/react'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
+import { Howl, Howler } from 'howler';
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
-import headgif from '../../public/assets/spinhead.gif'
-import BoboVision from '../../public/assets/BoboVision2.png'
-import discord from '../../public/assets/discord.gif'
-import twitter from '../../public/assets/twitter.gif'
-import lore from '../../public/assets/lore.gif'
-import protocol from '../../public/assets/protocol.gif'
-import profile from '../../public/assets/profile.gif'
+import headgif from '../../public/assets/png_gif/spinhead.gif'
+import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
+import discord from '../../public/assets/png_gif/discord.gif'
+import twitter from '../../public/assets/png_gif/twitter.gif'
+import lore from '../../public/assets/png_gif/lore.gif'
+import protocol from '../../public/assets/png_gif/protocol.gif'
+import profile from '../../public/assets/png_gif/profile.gif'
+import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 
 
 
 export default function Home() {
+
+    //PLAY O PAUSE MUSICA
+    const audioRef = useRef();
+    const { Howl, Howler } = require('howler');
+
+
+    const [isPlaying, setIsPlaying] = useState(false);
+    var sound = new Howl({
+        autoplay: false,
+        loop: false,
+        volume: 0.5,
+        src: ['/assets/audio/nostalgia.mp3']
+    });
+
+    const toglePlay = () => {
+        setIsPlaying(!isPlaying);
+        sound.play()
+    };
+
+    const togleMute = () => {
+        setIsPlaying(!isPlaying);
+        sound.pause()
+    }
+    
+
 
     // STORING USERS ADDRESS
     const { address } = useAccount()
@@ -131,11 +158,11 @@ export default function Home() {
                                     </Link>
                                 </div>
                             ) : <div className='flex flex-col items-center'>
-                                    <Link href="https://www.opensea.io" target="_blank">
-                                        <Image alt='Da protocol' src={headgif} className='w-44 sm:w-20 md:w-32' />
-                                        <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
-                                    </Link>
-                                </div>
+                                <Link href="https://www.opensea.io" target="_blank">
+                                    <Image alt='Da protocol' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                    <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
+                                </Link>
+                            </div>
                         }
                         <div className='flex flex-col items-center'>
                             <Link href="https://twitter.com/itsallbobo" target="_blank" className="flex flex-col items-center">
@@ -172,6 +199,18 @@ export default function Home() {
                             </Link>
                         </div>
                     </div>
+                    <button
+                        className="absolute bottom-0 right-0"
+                        onClick={() => {
+                            setIsPlaying(!isPlaying);
+                        }}
+                    >
+                        {!isPlaying ? (
+                            <HiVolumeOff onClick={toglePlay} />
+                        ) : (
+                            <HiVolumeUp onClick={togleMute} />
+                        )}
+                    </button>
                 </div>
             </div>
         </>
