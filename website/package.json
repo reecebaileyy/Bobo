@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^4.4.1",
     "@heroicons/react": "^1.0.6",
     "@web3modal/ethereum": "^2.2.2",
     "@web3modal/react": "^2.2.2",
+    "aws-amplify": "^5.0.22",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "ethers": "^5.7.2",

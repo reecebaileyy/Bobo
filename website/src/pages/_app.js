@@ -1,4 +1,6 @@
 import '@/styles/globals.css'
+import '@aws-amplify/ui-react'
+import { AmplifyProvider } from '@aws-amplify/ui-react'
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
@@ -14,22 +16,26 @@ export default function App({ Component, pageProps }) {
     autoConnect: true,
     connectors: w3mConnectors({
       appName: "Bobo",
-       projectId,
-      version: 1, 
-      chains }),
+      projectId,
+      version: 1,
+      chains
+    }),
     provider
   })
   const ethereumClient = new EthereumClient(wagmiClient, chains);
 
-  return(
+  return (
     <>
       <WagmiConfig client={wagmiClient}>
-        <Component {...pageProps} />
+        <AmplifyProvider>
+          <Component {...pageProps} />
+        </AmplifyProvider>
+
       </WagmiConfig>
 
-      <Web3Modal 
-        projectId={projectId} 
-        ethereumClient={ethereumClient} 
+      <Web3Modal
+        projectId={projectId}
+        ethereumClient={ethereumClient}
         themeVariables={{
           '--w3m-font-family': 'pressStart, cursive',
           '--w3m-accent-color': '#8c8c8c',
@@ -42,8 +48,8 @@ export default function App({ Component, pageProps }) {
           '--w3m-text-xsmall-regular-size': '.5rem',
           '--w3m-font-weight': '400',
         }}
-        />
+      />
     </>
-     
-  ) 
+
+  )
 }
