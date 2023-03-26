@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { ethers } from 'ethers'
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
-import BoboVision from '../../public/assets/BoboVision2.png'
+import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
 
 
 
