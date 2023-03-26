@@ -32,9 +32,9 @@ export default function Home() {
                     <Link className='sm:hidden' href="/">
                         <Image className='' src={BoboVision} width={500} height={500}></Image>
                     </Link>
-                    <div className="md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden flex flex-col items-center">
+                    <div className=" flex flex-col items-center">
                         <Link href="/">
-                            <Image className='' src={BoboVision} width={500} height={500}></Image>
+                            <Image className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden' src={BoboVision} width={500} height={500}></Image>
                         </Link>
                         <Web3Button className="ml-20"/>
                     </div>
