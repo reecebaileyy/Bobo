@@ -17,7 +17,6 @@ contract Lock is
 {
     using Strings for uint256;
 
-
     // Deployer Address
     address private _owner;
     // The next token ID to be minted.
@@ -33,7 +32,7 @@ contract Lock is
     // Cost
     uint256 public cost = 0.008 ether;
     // Base URI
-    string public baseURI = "https://ipfs.io/ipfs/cid/";
+    string public baseURI = "http://localhost:3000/";
     // Total Number of ScreenAgers
     uint256 public _maxSupply = 4444;
     // Sale active or not
@@ -42,16 +41,18 @@ contract Lock is
     constructor()
         payable
         ERC721A("Test", "Test")
-        // PaymentSplitter(_team, _teamShares)
+    // PaymentSplitter(_team, _teamShares)
     {
         _owner = msg.sender;
         _currentIndex = _startTokenId();
     }
 
+    /*---------- ----------- ---------- Events & Mappings ---------- ----------- ----------*/
+    event TokenRenamed(uint256 indexed tokenId, string newName);
+    mapping(uint256 => string) private _tokenNames;
 
+    /*---------- ----------- ---------- Public Functions ---------- ----------- ----------*/
 
-/*---------- ----------- ---------- Public Functions ---------- ----------- ----------*/
-    
     /** 
     @notice
     Mint Function
@@ -75,6 +76,14 @@ contract Lock is
     }
 
     
+    function renameToken(uint256 tokenId, string memory newName) public {
+        require(ownerOf(tokenId) == msg.sender, "Not the token owner");
+        require(bytes(newName).length > 0, "New name cannot be empty");
+
+        _tokenNames[tokenId] = newName;
+        emit TokenRenamed(tokenId, newName);
+    }
+
     function tokenURI(
         uint256 tokenId
     ) public view virtual override(ERC721A, IERC721A) returns (string memory) {
@@ -82,15 +91,15 @@ contract Lock is
             _exists(tokenId),
             "ERC721Metadata: URI query for nonexistent token"
         );
-            return string(abi.encodePacked(baseURI, tokenId.toString(), ".json"));
-        
+        return string(abi.encodePacked(baseURI, tokenId.toString()));
     }
 
     function owner() public view virtual override returns (address) {
         return _owner;
     }
-/*---------- ----------- ---------- Deployer Functions ---------- ----------- ----------*/
-    
+
+    /*---------- ----------- ---------- Deployer Functions ---------- ----------- ----------*/
+
     function _teamMint() external onlyOwner {
         _safeMint(msg.sender, 1);
     }
@@ -99,14 +108,14 @@ contract Lock is
         revealed = !revealed;
     }
 
-    function _startTokenId() override internal view virtual returns (uint256) {
+    function _startTokenId() internal view virtual override returns (uint256) {
         return 1;
     }
 
     function _flipSale() external onlyOwner {
         isSaleActive = !isSaleActive;
     }
-    
+
     function setSupply(uint256 supply_) public onlyOwner {
         _maxSupply = supply_;
     }
@@ -119,11 +128,11 @@ contract Lock is
         baseURI = uri;
     }
 
-    function burn(uint256 tokenId) onlyOwner external virtual override {
+    function burn(uint256 tokenId) external virtual override onlyOwner {
         _burn(tokenId, true);
     }
 
-/*---------- ----------- ---------- Internal Functions ---------- ----------- ----------*/
+    /*---------- ----------- ---------- Internal Functions ---------- ----------- ----------*/
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
     }
@@ -134,6 +143,4 @@ contract Lock is
     //     0x0529ed359EE75799Fd95b7BC8bDC8511AC1C0A0F, //REPLACE
     //     0x0529ed359EE75799Fd95b7BC8bDC8511AC1C0A0F //REPLACE
     // ];
-
-
 }

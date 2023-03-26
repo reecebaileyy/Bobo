@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
 import { Web3Button } from '@web3modal/react'
-import { useState } from 'react';
+import { useState } from 'react'
+import { ethers } from 'ethers'
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
 import headgif from '../../public/assets/spinhead.gif'
@@ -11,9 +12,7 @@ import discord from '../../public/assets/discord.gif'
 import twitter from '../../public/assets/twitter.gif'
 import lore from '../../public/assets/lore.gif'
 import protocol from '../../public/assets/protocol.gif'
-import space1 from '../../public/assets/space1.gif'
-import { ethers } from 'ethers';
-
+import profile from '../../public/assets/profile.gif'
 
 
 
@@ -123,17 +122,25 @@ export default function Home() {
                             </div>
                         </button>
 
-
+                        {
+                            balance >= 1 ? (
+                                <div className='flex flex-col items-center'>
+                                    <Link href="/profile" className="flex flex-col items-center">
+                                        <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                        <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
+                                    </Link>
+                                </div>
+                            ) : <div className='flex flex-col items-center'>
+                                    <Link href="https://www.opensea.io" target="_blank">
+                                        <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                        <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
+                                    </Link>
+                                </div>
+                        }
                         <div className='flex flex-col items-center'>
                             <Link href="https://twitter.com/itsallbobo" target="_blank" className="flex flex-col items-center">
                                 <Image alt="Bobo's Twitter" src={twitter} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Twitter</h1>
-                            </Link>
-                        </div>
-                        <div className='flex flex-col items-center'>
-                            <Link href="/" className="flex flex-col items-center">
-                                <Image alt='Da protocol' src={protocol} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>About</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>

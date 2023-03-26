@@ -1,0 +1,36 @@
+[
+    {
+      "tokenId": 1,
+      "name": "NFT #1",
+      "description": "Friendly OpenSea Creature",
+      "image": "https://opensea-prod.appspot.com/puffs/3.png",
+      "attributes": [
+        { "trait_type": "Base", "value": "Starfish" },
+        { "trait_type": "Eyes", "value": "Big" },
+        { "trait_type": "Mouth", "value": "Surprised" }
+      ]
+    },
+    {
+      "tokenId": 2,
+      "name": "NFT #2",
+      "description": "Friendly OpenSea Creature",
+      "image": "https://opensea-prod.appspot.com/puffs/4.png",
+      "attributes": [
+        { "trait_type": "Base", "value": "Octopus" },
+        { "trait_type": "Eyes", "value": "Small" },
+        { "trait_type": "Mouth", "value": "Happy" }
+      ]
+    },
+    {
+        "tokenId": 3,
+        "name": "NFT #3",
+        "description": "Friendly OpenSea Creature",
+        "image": "https://opensea-prod.appspot.com/puffs/4.png",
+        "attributes": [
+          { "trait_type": "Base", "value": "Snake" },
+          { "trait_type": "Eyes", "value": "High" },
+          { "trait_type": "Mouth", "value": "Drool" }
+        ]
+      }
+  ]
+  
