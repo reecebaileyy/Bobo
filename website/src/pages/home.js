@@ -126,26 +126,26 @@ export default function Home() {
                             balance >= 1 ? (
                                 <div className='flex flex-col items-center'>
                                     <Link href="/profile" className="flex flex-col items-center">
-                                        <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                        <Image alt='Da protocol' src={headgif} className='w-44 sm:w-20 md:w-32' />
                                         <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                     </Link>
                                 </div>
                             ) : <div className='flex flex-col items-center'>
                                     <Link href="https://www.opensea.io" target="_blank">
-                                        <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                        <Image alt='Da protocol' src={headgif} className='w-44 sm:w-20 md:w-32' />
                                         <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                     </Link>
                                 </div>
                         }
                         <div className='flex flex-col items-center'>
                             <Link href="https://twitter.com/itsallbobo" target="_blank" className="flex flex-col items-center">
-                                <Image alt="Bobo's Twitter" src={twitter} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Twitter</h1>
+                                <Image alt="Bobo's Twitter" src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Search</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Image alt='Da Lore' src={lore} className='w-44 sm:w-20 md:w-32' />
-                            <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Lore</h1>
+                            <Image alt='Da Lore' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                            <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Chat</h1>
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
@@ -155,20 +155,20 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
-                                <Image alt="Bobo's big ass cranium" src={headgif} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Game1</h1>
+                                <Image alt="Bobo's big ass cranium" src={twitter} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Twitter</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
-                                <Image alt="Bobo's big ass cranium" src={headgif} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Game2</h1>
+                                <Image alt="Bobo's big ass cranium" src={lore} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>lore</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
-                                <Image alt="Bobo's Big ass cranium" src={headgif} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Game3</h1>
+                                <Image alt="Bobo's Big ass cranium" src={protocol} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Protocol</h1>
                             </Link>
                         </div>
                     </div>
