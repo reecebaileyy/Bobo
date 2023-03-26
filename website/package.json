@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "@web3modal/ethereum": "^2.2.2",
     "@web3modal/react": "^2.2.2",
     "eslint": "8.36.0",
