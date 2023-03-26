@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@web3modal/ethereum": "^2.2.2",
+    "@web3modal/react": "^2.2.2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "ethers": "^5.7.2",
     "next": "^13.2.4",
     "next-seo": "^5.15.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "wagmi": "^0.12.6",
+    "web3modal": "^1.9.12"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

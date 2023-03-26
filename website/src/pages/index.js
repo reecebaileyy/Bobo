@@ -41,7 +41,7 @@ export default function Home() {
       </Head>
       
       <div className='overflow-hidden'>
-        <div class='bg-gray-300 flex flex-col items-center justify-center tv-border'>
+        <div className='bg-gray-300 flex flex-col items-center justify-center tv-border'>
         <Image className='mt-16' src={BoboVision} width={800} height={800}></Image>
         <div className='flex justify-around sm:flex-col md:flex-col  sm:items-center md:items-center sm:w-full md:w-full'>
             <Image className='sm:max-w-sm md:max-w-md mb-4' src={headgif} width={200} height={200}></Image>
