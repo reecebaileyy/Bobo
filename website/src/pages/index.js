@@ -42,11 +42,12 @@ export default function Home() {
       
       <div className='overflow-hidden'>
         <div className='bg-gray-300 flex flex-col items-center justify-center tv-border'>
-        <Image className='mt-16' src={BoboVision} width={800} height={800}></Image>
+        <Image alt='Bobo Visoin' className='mt-16' src={BoboVision} width={800} height={800}></Image>
         <div className='flex justify-around sm:flex-col md:flex-col  sm:items-center md:items-center sm:w-full md:w-full'>
-            <Image className='sm:max-w-sm md:max-w-md mb-4' src={headgif} width={200} height={200}></Image>
+            <Image alt="Bobo's Big ass head" className='sm:max-w-sm md:max-w-md mb-4' src={headgif} width={200} height={200}></Image>
             {loadingVisible ? (
               <Image
+                alt="Loading..."
                 className={`transition-opacity duration-500 ${fadeOutClass}`}
                 src={loading}
                 width={500}
@@ -58,7 +59,7 @@ export default function Home() {
                 {displayText.slice(1)}
               </Link>
             )}
-            <Image className='sm:hidden md:hidden' src={headgif} width={200} height={200}></Image>
+            <Image alt="Bobo's big ass head" className='sm:hidden md:hidden' src={headgif} width={200} height={200}></Image>
           </div>
           <div className="text-center mt-8 mb-4">
             <h3 className="text-md font-pressStart">&copy; {new Date().getFullYear()} Bobo</h3>

@@ -37,9 +37,7 @@ contract Lock is
     // Total Number of ScreenAgers
     uint256 public _maxSupply = 4444;
     // Sale active or not
-    bool public isSaleActive;
-    // Number of free screens in wallet
-    uint256 public _mintsPerWallet = 1;
+    bool public isSaleActive = true;
 
     constructor()
         payable
@@ -59,15 +57,23 @@ contract Lock is
     Mint Function
   */
     function _mint(uint256 count) external payable nonReentrant {
-        if(balanceOf(msg.sender) < 1) {
-            require(msg.value >= (cost * count) - cost, "Insufficient Payment...");
-            require(isSaleActive);
-        } else {
+        require(isSaleActive, "Sale is not active");
+        uint256 userBalance = balanceOf(msg.sender);
+
+        if (userBalance < 1) {
+            // Allow the user to mint one NFT for free
+            _safeMint(msg.sender, 1);
+            count -= 1;
+        }
+
+        if (count > 0) {
             require(msg.value >= cost * count, "Insufficient Payment");
-            require(isSaleActive);
+            for (uint256 i = 0; i < count; i++) {
+                _safeMint(msg.sender, 1);
+            }
         }
-            _safeMint(msg.sender, count);
-        }
+    }
+
     
     function tokenURI(
         uint256 tokenId
