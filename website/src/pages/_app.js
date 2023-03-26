@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
           '--w3m-accent-color': '#8c8c8c',
           '--w3m-accent-fill-color': '#000000',
           '--w3m-background-color': '#000000',
-          '--w3m-logo-image-url': 'https://bobo-opal.vercel.app/assets/spinhead.gif',
+          '--w3m-logo-image-url': 'https://bobovision.vercel.app/assets/spinhead.gif',
           '--w3m-text-big-bold-size': '15px',
           '--w3m-text-small-regular-size': '.6rem',
           '--w3m-text-xsmall-bold-size': '.4rem',
