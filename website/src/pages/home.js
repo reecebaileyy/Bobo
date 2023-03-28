@@ -173,7 +173,7 @@ export default function Home() {
                         <div className='flex flex-col items-center'>
                             <Link href='/boboChat'>
                                 <Image alt='Da Lore' src={headgif} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Chat</h1>
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2 text-center'>Chat</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
