@@ -238,7 +238,7 @@ export default function Home() {
                             <HiVolumeOff onClick={playSound} />
                         </button>
                     )}
-                    <p className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs'>1 free then it's {priceInEther} ETH</p>
+                    <p className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free then it's {priceInEther} ETH</p>
                     </div>
                 </div>
                 
