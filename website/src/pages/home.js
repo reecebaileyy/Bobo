@@ -102,7 +102,7 @@ export default function Home() {
                             <p className='font-pressStart text-center text-xs animate-pulse'>
                                 1 free per wallet.. then after it's {priceInEther} ETH
                             </p>
-                            <h2 className='font-pressStart text-center'>{current}/{supply} Bobo's Minted</h2>
+                            <h2 className='font-pressStart text-center'>{current}/{supply} Bobos Minted</h2>
                             <Link className='' href="/">
                                 <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                             </Link>
@@ -120,7 +120,7 @@ export default function Home() {
                             <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                         </Link>
                         <Web3Button className="ml-20" />
-                        <h2 className='font-pressStart text-center'>{current}/{supply} Bobo's Minted</h2>
+                        <h2 className='font-pressStart text-center'>{current}/{supply} Bobos Minted</h2>
                     </div>
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
