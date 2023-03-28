@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Web3Button } from '@web3modal/react'
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
-import { Howl, Howler } from 'howler';
+import ReactHowler from "react-howler";
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
 import headgif from '../../public/assets/png_gif/spinhead.gif'
@@ -21,28 +21,16 @@ import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 export default function Home() {
 
     //PLAY O PAUSE MUSICA
-    const audioRef = useRef();
-    const { Howl, Howler } = require('howler');
+    const [playing, setPlaying] = useState(false);
 
-
-    const [isPlaying, setIsPlaying] = useState(false);
-    var sound = new Howl({
-        autoplay: false,
-        loop: false,
-        volume: 0.5,
-        src: ['/assets/audio/nostalgia.mp3']
-    });
-
-    const toglePlay = () => {
-        setIsPlaying(!isPlaying);
-        sound.play()
+    const playSound = () => {
+        setPlaying(true);
     };
 
-    const togleMute = () => {
-        setIsPlaying(!isPlaying);
-        sound.pause()
-    }
-    
+    const pauseSound = () => {
+        setPlaying(false);
+    };
+
 
 
     // STORING USERS ADDRESS
@@ -60,6 +48,14 @@ export default function Home() {
         args: [address]
     })
     const balance = data?.toNumber()
+
+    const { data: mintPrice } = useContractRead({
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        abi: ABI,
+        functionName: 'cost',
+    })
+    const price = mintPrice?.toNumber()
+    const priceInEther = price ? ethers.utils.formatEther(price) : "Loading...";
 
 
     //USE CONTRACT WRITE
@@ -86,9 +82,12 @@ export default function Home() {
             <div className='bg-gray-300 flex items-start justify-start tv-border'>
                 <div className='fixed w-4/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between'>
                     <div className="sm:hidden flex justify-between items-center">
-                        <Link className='' href="/">
-                            <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
-                        </Link>
+                        <div className='flex flex-col-reverse'>
+                            <p className='font-pressStart text-center text-xs'>1 free per wallet.. then after it's {priceInEther} ETH</p>
+                            <Link className='' href="/">
+                                <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
+                            </Link>
+                        </div>
                         <div className="flex flex-col items-center">
                             <Link href="/">
                                 <Image alt='BoboVision' className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden' src={BoboVision} width={500} height={500}></Image>
@@ -102,12 +101,19 @@ export default function Home() {
                             <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                         </Link>
                         <Web3Button className="ml-20" />
+                        <p className='font-pressStart text-center text-xs'>1 free per wallet.. then after it's {priceInEther} ETH</p>
                     </div>
 
                     <div className='grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-gray-300 overflow-y-auto'>
                         <button
                             className="flex flex-col items-center"
-                            onClick={() => mintNFT?.()}
+                            onClick={() => {
+                                if (balance < totalCost) {
+                                    alert("You don't have enough funds to mint.");
+                                } else {
+                                    mintNFT?.();
+                                }
+                            }}
                         >
                             <div className="w-full flex justify-center">
                                 <Image
@@ -148,6 +154,7 @@ export default function Home() {
                                 </h1>
                             </div>
                         </button>
+
 
                         {
                             balance >= 1 ? (
@@ -201,18 +208,16 @@ export default function Home() {
                             </Link>
                         </div>
                     </div>
-                    <button
-                        className="absolute bottom-0 right-0"
-                        onClick={() => {
-                            setIsPlaying(!isPlaying);
-                        }}
-                    >
-                        {!isPlaying ? (
-                            <HiVolumeOff onClick={toglePlay} />
-                        ) : (
-                            <HiVolumeUp onClick={togleMute} />
-                        )}
-                    </button>
+                    <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
+                    {playing ? (
+                        <button className="absolute bottom-0 right-0" onClick={pauseSound}>
+                            <HiVolumeUp onClick={pauseSound} />
+                        </button>
+                    ) : (
+                        <button className="absolute bottom-0 right-0" onClick={playSound}>
+                            <HiVolumeOff onClick={playSound} />
+                        </button>
+                    )}
                 </div>
             </div>
         </>

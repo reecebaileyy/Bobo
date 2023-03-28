@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
 import { Web3Button } from '@web3modal/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
@@ -14,29 +14,29 @@ export default function Profile() {
     // STORING USERS ADDRESS
     const { address } = useAccount()
 
-    //CONTRACT ARGUMENTS FOR MINTING
-    const [mintAmount, setMintAmount] = useState(0);
-    const [totalCost, setTotalCost] = useState(0);
-
-    //USE CONTRACT READ
-    const { data } = useContractRead({
+    const { data: balance } = useContractRead({
         address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
         functionName: 'balanceOf',
-        args: [address]
+        args: [address],
     })
-    const balance = data?.toNumber()
 
+    const [nfts, setNfts] = useState([])
 
-    //USE CONTRACT WRITE
-    const { config } = usePrepareContractWrite({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
-        abi: ABI,
-        functionName: '_mint',
-        args: [mintAmount],
-        overrides: { value: ethers.utils.parseEther(totalCost.toString()) }
-    })
-    const { data: mintData, isSuccess, write: mintNFT } = useContractWrite(config)
+    useEffect(() => {
+        if (balance) {
+            const promises = []
+            for (let i = 0; i < balance; i++) {
+                promises.push(
+                    balance
+                )
+            }
+            Promise.all(promises).then((tokenUris) => {
+                setNfts(tokenUris)
+            })
+        }
+    }, [balance])
+
 
     return (
         <>
@@ -70,8 +70,13 @@ export default function Profile() {
                         <Web3Button className="ml-20" />
                     </div>
 
-                    <div className='font-pressStart grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-gray-300 overflow-y-auto'>
-                        
+                    <div className='font-pressStart grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-blue-300 overflow-y-auto'>
+                        <Image
+                            src={BoboVision}
+                            alt='tset'
+                            width={500}
+                            height={500}
+                        />
                     </div>
 
                 </div>
