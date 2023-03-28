@@ -1,6 +1,6 @@
 import Pusher from "pusher";
-import { messages } from "./get-messages";
-
+import { connectToDB } from "../../lib/db";
+import Message from "../../models/Message";
 
 const pusher = new Pusher({
   appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID,
@@ -10,13 +10,17 @@ const pusher = new Pusher({
   useTLS: true,
 });
 
+
 export default async function handler(req, res) {
     if (req.method === "POST") {
       try {
         const { username, message } = req.body;
         const newMessage = { username, message };
-        messages.push(newMessage); // Update the messages array
-        pusher.trigger("chat-channel", "new-message", newMessage);
+  
+        await connectToDB();
+        const savedMessage = await Message.create(newMessage);
+  
+        pusher.trigger("chat-channel", "new-message", savedMessage);
         res.status(200).send({ status: "success" });
       } catch (error) {
         console.error("Error in /api/send-message:", error);
