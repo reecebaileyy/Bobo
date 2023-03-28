@@ -9,9 +9,6 @@ import ABI from '../abi/BoboABI.json'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
 
 
-
-
-
 export default function Profile() {
 
     // STORING USERS ADDRESS
