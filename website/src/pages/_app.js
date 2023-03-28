@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import '@/styles/globals.css'
 import '@aws-amplify/ui-react'
 import { AmplifyProvider } from '@aws-amplify/ui-react'
