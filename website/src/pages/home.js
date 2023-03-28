@@ -40,7 +40,7 @@ export default function Home() {
     const [mintAmount, setMintAmount] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
 
-    //USE CONTRACT READ
+    //STORE USERS BALANCE
     const { data } = useContractRead({
         address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
@@ -49,6 +49,7 @@ export default function Home() {
     })
     const balance = data?.toNumber()
 
+    //RETRIEVE COST
     const { data: mintPrice } = useContractRead({
         address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
@@ -57,6 +58,21 @@ export default function Home() {
     const price = mintPrice?.toNumber()
     const priceInEther = price ? ethers.utils.formatEther(price) : "Loading...";
 
+    //RETRIEVE COST
+    const { data: maxAmount } = useContractRead({
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        abi: ABI,
+        functionName: '_maxSupply',
+    })
+    const supply = maxAmount?.toNumber()
+
+    //RETRIEVE COST
+    const { data: currentAmount } = useContractRead({
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        abi: ABI,
+        functionName: 'totalSupply',
+    })
+    const current = currentAmount?.toNumber()
 
     //USE CONTRACT WRITE
     const { config } = usePrepareContractWrite({
@@ -82,8 +98,11 @@ export default function Home() {
             <div className='bg-gray-300 flex items-start justify-start tv-border'>
                 <div className='fixed w-4/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between'>
                     <div className="sm:hidden flex justify-between items-center">
-                        <div className='flex flex-col-reverse'>
-                            <p className='font-pressStart text-center text-xs'>1 free per wallet.. then after it's {priceInEther} ETH</p>
+                        <div className='z-10 flex flex-col-reverse'>
+                            <p className='font-pressStart text-center text-xs animate-pulse'>
+                                1 free per wallet.. then after it's {priceInEther} ETH
+                            </p>
+                            <h2 className='font-pressStart text-center'>{current}/{supply} Bobo's Minted</h2>
                             <Link className='' href="/">
                                 <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                             </Link>
@@ -96,20 +115,20 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className='z-10 flex flex-col items-center md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'>
+                    <div className='z-10 gap-1 flex flex-col items-center md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'>
                         <Link href="/">
                             <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                         </Link>
                         <Web3Button className="ml-20" />
-                        <p className='font-pressStart text-center text-xs'>1 free per wallet.. then after it's {priceInEther} ETH</p>
+                        <h2 className='font-pressStart text-center'>{current}/{supply} Bobo's Minted</h2>
                     </div>
 
-                    <div className='grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-gray-300 overflow-y-auto'>
+                    <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
                         <button
                             className="flex flex-col items-center"
                             onClick={() => {
-                                if (balance < totalCost) {
-                                    alert("You don't have enough funds to mint.");
+                                if (Error) {
+                                    alert("You don't have enough funds to mint. -Bobo");
                                 } else {
                                     mintNFT?.();
                                 }
@@ -208,6 +227,7 @@ export default function Home() {
                             </Link>
                         </div>
                     </div>
+                    <div className='sm:flex sm:flex-row'>
                     <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
                     {playing ? (
                         <button className="absolute bottom-0 right-0" onClick={pauseSound}>
@@ -218,7 +238,10 @@ export default function Home() {
                             <HiVolumeOff onClick={playSound} />
                         </button>
                     )}
+                    <p className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs'>1 free then it's {priceInEther} ETH</p>
+                    </div>
                 </div>
+                
             </div>
         </>
     )
