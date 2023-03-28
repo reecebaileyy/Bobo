@@ -30,6 +30,7 @@ export default function App({ Component, pageProps }) {
       <WagmiConfig client={wagmiClient}>
         <AmplifyProvider>
           <Component {...pageProps} />
+          <Analytics />
         </AmplifyProvider>
 
       </WagmiConfig>
