@@ -1,4 +1,6 @@
 import Pusher from "pusher";
+import { messages } from "./get-messages";
+
 
 const pusher = new Pusher({
   appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID,
