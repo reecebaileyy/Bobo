@@ -25,13 +25,13 @@ export default function ChatApp() {
   
       // Send the message to the server
       try {
-        const response = await fetch("http://localhost:3001/api/send-message", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newMessage),
-        });
+        const response = await fetch("/api/send-message", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newMessage),
+          });
   
         if (response.ok) {
           setMessages((messages) => [...messages, newMessage]);
