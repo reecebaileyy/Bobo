@@ -43,8 +43,8 @@ export default function Home() {
       <div className='overflow-hidden'>
         <div className='bg-gray-300 flex flex-col items-center justify-center tv-border'>
         <Image alt='Bobo Visoin' className='mt-16' src={BoboVision} width={800} height={800}></Image>
-        <div className='flex justify-around sm:flex-col md:flex-col  sm:items-center md:items-center sm:w-full md:w-full'>
-            <Image alt="Bobo's Big ass head" className='sm:max-w-sm md:max-w-md mb-4' src={headgif} width={200} height={200}></Image>
+        <div className=' flex justify-around sm:flex-col md:flex-col  sm:items-center md:items-center sm:w-full md:w-full'>
+            <Image alt="Bobo's Big ass head" className='sm:max-w-sm md:max-w-md' src={headgif} width={200} height={200}></Image>
             {loadingVisible ? (
               <Image
                 alt="Loading..."
@@ -54,14 +54,14 @@ export default function Home() {
                 height={400}
               ></Image>
             ) : (
-              <Link href="/home" className="text-2xl font-black font-pressStart mt-20 mr-3">
+              <Link href="/home" className="relative text-2xl font-black font-pressStart mt-20 mr-3">
                 <span className="animate-flash">{displayText.slice(0, 1)}</span>
                 {displayText.slice(1)}
               </Link>
             )}
             <Image alt="Bobo's big ass head" className='sm:hidden md:hidden' src={headgif} width={200} height={200}></Image>
           </div>
-          <div className="text-center mt-8 mb-4">
+          <div className="text-center">
             <h3 className="text-md font-pressStart">&copy; {new Date().getFullYear()} Bobo</h3>
             <h3 className="text-md font-pressStart">All rights reserved.</h3>
           </div>
