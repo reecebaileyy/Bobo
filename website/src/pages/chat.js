@@ -47,15 +47,28 @@ export default function ChatApp() {
     };
 
     useEffect(() => {
+        // Fetch the latest messages when the component mounts
+        const fetchMessages = async () => {
+          try {
+            const response = await fetch("/api/get-messages");
+            const data = await response.json();
+            setMessages(data);
+          } catch (error) {
+            console.error("Error fetching messages:", error);
+          }
+        };
+      
+        fetchMessages();
+      
         const channel = pusher.subscribe("chat-channel");
         channel.bind("new-message", (data) => {
-            setMessages((messages) => [...messages, data]);
+          setMessages((messages) => [...messages, data]);
         });
         return () => {
-            channel.unbind_all();
-            channel.unsubscribe();
+          channel.unbind_all();
+          channel.unsubscribe();
         };
-    }, []);
+      }, []);
 
     return (
         <>

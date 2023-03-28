@@ -9,16 +9,18 @@ const pusher = new Pusher({
 });
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    try {
-      const { username, message } = req.body;
-      pusher.trigger("chat-channel", "new-message", { username, message });
-      res.status(200).send({ status: "success" });
-    } catch (error) {
-      console.error("Error in /api/send-message:", error);
-      res.status(500).send({ status: "error", error: error.message });
+    if (req.method === "POST") {
+      try {
+        const { username, message } = req.body;
+        const newMessage = { username, message };
+        messages.push(newMessage); // Update the messages array
+        pusher.trigger("chat-channel", "new-message", newMessage);
+        res.status(200).send({ status: "success" });
+      } catch (error) {
+        console.error("Error in /api/send-message:", error);
+        res.status(500).send({ status: "error", error: error.message });
+      }
+    } else {
+      res.status(405).send({ status: "error", error: "Method not allowed" });
     }
-  } else {
-    res.status(405).send({ status: "error", error: "Method not allowed" });
   }
-}
