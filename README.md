@@ -24,7 +24,7 @@ git clone https://github.com/UNKNOWNtxn/bobo.git
 
 ## Website
 
-The website folder contains the source code for our project's front-end. It is built using modern web development technologies like React, Next.js, and Tailwind CSS. The website allows users to explore the NFT collection, mint new NFTs, view their collection of Bobos, view their collection baased rank, and interact with the community.
+The website folder contains the source code for our project's front-end, where users can explore our NFT collection and mint new Bobos, view their collection-based rank, and interact with our community. Additionally, we gather smart contract data and enable users to interact with the contract through the Wagmi and Web3Modal interface, making it easy to manage and track their NFTs on the blockchain. Our website is built with modern web development technologies like React, Next.js, and Tailwind CSS, ensuring a seamless user experience.
 
 ![WebsiteDemo](website/screenshots/websitedemo.png)
 
