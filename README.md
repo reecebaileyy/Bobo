@@ -51,4 +51,4 @@ Links for when the project goes live:
 - Etherscan: You can view the smart contract on Etherscan once it's deployed. (Replace this link with your actual Etherscan contract link)
 
 
-# Thank you for exploring the Bobo NFT Project! We hope you enjoy it as much as we enjoyed creating it. If you have any questions or suggestions, please feel free to reach out to our team. Happy minting! 😎
+Thank you for exploring the Bobo NFT Project! We hope you enjoy it as much as we enjoyed creating it. If you have any questions or suggestions, please feel free to reach out to our team. Happy minting! 😎
