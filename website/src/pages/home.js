@@ -5,6 +5,7 @@ import { Web3Button } from '@web3modal/react'
 import { useState, useEffect, useRef } from 'react'
 import { ethers } from 'ethers'
 import ReactHowler from "react-howler";
+import { fetchBalance } from '@wagmi/core'
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
 import headgif from '../../public/assets/png_gif/spinhead.gif'
@@ -35,13 +36,35 @@ export default function Home() {
     // STORING USERS ADDRESS
     const { address } = useAccount()
 
+    // STORING THE USERS $$$
+    const [totalMoney, setTotalMoney] = useState(0);
+    useEffect(() => {
+        const fetchUserBalance = async () => {
+            if (address) {
+                const balanceData = await fetchBalance({ address: address });
+                if (balanceData.value) {
+                    const balance = ethers.utils.formatEther(balanceData.value);
+                    console.log('Fetched balance:', balance);
+                    setTotalMoney(balance);
+                } else {
+                    console.error('Balance data is not available:', balanceData);
+                }
+            }
+        };
+        
+        
+
+        fetchUserBalance();
+    }, [address]);
+
+
     //CONTRACT ARGUMENTS FOR MINTING
     const [mintAmount, setMintAmount] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
 
     //STORE USERS BALANCE
     const { data } = useContractRead({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
         abi: ABI,
         functionName: 'balanceOf',
         args: [address]
@@ -50,7 +73,7 @@ export default function Home() {
 
     //RETRIEVE COST
     const { data: mintPrice } = useContractRead({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
         abi: ABI,
         functionName: 'cost',
     })
@@ -59,7 +82,7 @@ export default function Home() {
 
     //RETRIEVE COST
     const { data: maxAmount } = useContractRead({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
         abi: ABI,
         functionName: '_maxSupply',
     })
@@ -67,7 +90,7 @@ export default function Home() {
 
     //RETRIEVE COST
     const { data: currentAmount } = useContractRead({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
         abi: ABI,
         functionName: 'totalSupply',
     })
@@ -75,7 +98,7 @@ export default function Home() {
 
     //USE CONTRACT WRITE
     const { config } = usePrepareContractWrite({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
         abi: ABI,
         functionName: '_mint',
         args: [mintAmount],
@@ -88,7 +111,7 @@ export default function Home() {
         // and update the tokenCount state with the fetched value.
         // For this example, we'll set a sample token count.
         // STORING USERS ADDRESS
-       
+
         console.log(balance)
     }, []);
 
@@ -109,7 +132,7 @@ export default function Home() {
                     <div className="sm:hidden flex justify-between items-center">
                         <div className='z-10 flex flex-col-reverse justify-center items-center'>
                             <p className='font-pressStart text-center text-xs animate-pulse'>
-                                1 free per wallet.. then after it's {priceInEther} ETH
+                                1 free Bobo per wallet.. then after it's {priceInEther} ETH
                             </p>
                             <h2 className='font-pressStart text-center'>{current}/{supply} Bobos Minted</h2>
                             <Link className='' href="/">
@@ -136,12 +159,19 @@ export default function Home() {
                         <button
                             className="flex flex-col items-center"
                             onClick={() => {
-                                if (Error) {
-                                    alert("You don't have enough funds to mint. -Bobo");
+                                console.log('totalMoney:', totalMoney);
+                                console.log('totalCost:', totalCost);
+                                if (totalMoney < totalCost) {
+                                    alert("YOU NEED MORE FUNDS BOBO!!")
+                                } else if (mintAmount > (supply - current)) {
+                                    alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO")
+                                } else if (mintAmount == 0) {
+                                    alert("Come Bobo on at least get more than one Bobo...")
                                 } else {
                                     mintNFT?.();
                                 }
-                            }}
+                            }
+                            }
                         >
                             <div className="w-full flex justify-center">
                                 <Image
@@ -200,7 +230,7 @@ export default function Home() {
                             </div>
                         }
                         <div className='flex flex-col items-center'>
-                            <Link href="https://twitter.com/itsallbobo" target="_blank" className="flex flex-col items-center">
+                            <Link href="/" className="flex flex-col items-center">
                                 <Image alt="Bobo's Twitter" src={headgif} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Search</h1>
                             </Link>
@@ -218,7 +248,7 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Link href="/" className="flex flex-col items-center">
+                            <Link href="https://twitter.com/itsallbobo" target="_blank" className="flex flex-col items-center">
                                 <Image alt="Bobo's big ass cranium" src={twitter} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Twitter</h1>
                             </Link>
@@ -237,20 +267,20 @@ export default function Home() {
                         </div>
                     </div>
                     <div className='sm:flex sm:flex-row'>
-                    <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
-                    {playing ? (
-                        <button className="absolute bottom-0 right-0" onClick={pauseSound}>
-                            <HiVolumeUp onClick={pauseSound} />
-                        </button>
-                    ) : (
-                        <button className="absolute bottom-0 right-0" onClick={playSound}>
-                            <HiVolumeOff onClick={playSound} />
-                        </button>
-                    )}
-                    <p className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free then it's {priceInEther} ETH</p>
+                        <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
+                        {playing ? (
+                            <button className="absolute bottom-0 right-0" onClick={pauseSound}>
+                                <HiVolumeUp onClick={pauseSound} />
+                            </button>
+                        ) : (
+                            <button className="absolute bottom-0 right-0" onClick={playSound}>
+                                <HiVolumeOff onClick={playSound} />
+                            </button>
+                        )}
+                        <p className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free Bobo per wallet then {priceInEther} ETH</p>
                     </div>
                 </div>
-                
+
             </div>
         </>
     )

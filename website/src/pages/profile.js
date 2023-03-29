@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from "next/link";
 import TokenDivs from '../components/TokenDivs';
 import { Web3Button } from '@web3modal/react'
+import ReactHowler from "react-howler";
+import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
@@ -12,13 +14,26 @@ import headgif from '../../public/assets/png_gif/spinhead.gif'
 
 
 
+
 export default function Profile() {
+
+    //PLAY O PAUSE MUSICA
+    const [playing, setPlaying] = useState(false);
+
+    const playSound = () => {
+        setPlaying(true);
+    };
+
+    const pauseSound = () => {
+        setPlaying(false);
+    };
+
 
     // STORING USERS ADDRESS
     const { address } = useAccount()
 
     const { data: balanceOf } = useContractRead({
-        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
         abi: ABI,
         functionName: 'balanceOf',
         args: [address],
@@ -76,25 +91,66 @@ export default function Profile() {
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
                         {
                             balance >= 100 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>MEGA WHALE BOBO</span></div>
+                                <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br>
+                                    <span className='text-red-500 animate-pulse'>M</span>
+                                    <span className='text-yellow-500 animate-pulse'>E</span>
+                                    <span className='text-green-500 animate-pulse'>G</span>
+                                    <span className='text-blue-500 animate-pulse'>A </span>
+                                    <span className='text-indigo-500 animate-pulse'>W</span>
+                                    <span className='text-purple-500 animate-pulse'>H</span>
+                                    <span className='text-pink-500 animate-pulse'>A</span>
+                                    <span className='text-red-400 animate-pulse'>L</span>
+                                    <span className='text-yellow-400 animate-pulse'>E </span>
+                                    <span className='text-green-400 animate-pulse'>B</span>
+                                    <span className='text-blue-400 animate-pulse'>O</span>
+                                    <span className='text-indigo-400 animate-pulse'>B</span>
+                                    <span className='text-purple-400 animate-pulse'>O</span>
+                                </div>
                             ) : balance >= 75 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>Bag Holder Bobo</span></div>
-                            ) : balance >= 50 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>FOMO Bobo</span></div>
-                            ) : balance >= 40 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>Whale Bobo</span></div>
-                            ) : balance >= 30 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>Diamond Handz Bobo</span></div>
-                            ) : balance >= 20 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>Gold Bobo</span></div>
-                            ) : balance >= 15 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>Silver Bobo</span></div>
-                            ) : balance >= 10 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span>Bronze Bobo</span></div>
-                            ) : balance >= 5 ? (
-                                <div className='font-pressStart text-sm'>Rank: <span className='animate-pulse'>Peasant Bobo</span></div>
-                            ) : (
-                                <div className='font-pressStart text-sm'>Rank: <span className='animate-flash'>Brokie Bobo</span></div>
+                                <div className='font-pressStart text-sm whitespace-nowrap'>
+                                    Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden' />
+                                    <span className='animate-pulse text-yellow-300'>B</span>
+                                    <span className='animate-pulse text-blue-500'>a</span>
+                                    <span className='animate-pulse text-red-500'>g </span>
+                                    <span className='animate-pulse text-yellow-300'>H</span>
+                                    <span className='animate-pulse text-blue-500'>o</span>
+                                    <span className='animate-pulse text-red-500'>l</span>
+                                    <span className='animate-pulse text-yellow-300'>d</span>
+                                    <span className='animate-pulse text-blue-500'>e</span>
+                                    <span className='animate-pulse text-red-500'>r </span>
+                                    <span className='animate-pulse text-yellow-300'>B</span>
+                                    <span className='animate-pulse text-blue-500'>o</span>
+                                    <span className='animate-pulse text-red-500'>b</span>
+                                    <span className='animate-pulse text-yellow-300'>o</span>
+                                </div>) : balance >= 50 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>
+                                        Rank:
+                                        <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br>
+                                        <span className='animate-pulse text-red-500'>F</span>
+                                        <span className='animate-pulse text-blue-500'>O</span>
+                                        <span className='animate-pulse text-red-500'>M</span>
+                                        <span className='animate-pulse text-blue-500'>O</span>
+                                        <span className='animate-pulse text-red-500'> B</span>
+                                        <span className='animate-pulse text-blue-500'>o</span>
+                                        <span className='animate-pulse text-red-500'>b</span>
+                                        <span className='animate-pulse text-blue-500'>o</span>
+
+
+                                    </div>
+                                ) : balance >= 40 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-pulse text-blue-800'>Whale Bobo</span></div>
+                                ) : balance >= 30 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-pulse text-blue-400'>Diamond Handz Bobo</span></div>
+                                ) : balance >= 20 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-pulse text-yellow-300'>Gold Bobo</span></div>
+                                ) : balance >= 15 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-pulse text-slate-100'>Silver Bobo</span></div>
+                                ) : balance >= 10 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-pulse text-orange-700'>Bronze Bobo</span></div>
+                                ) : balance >= 5 ? (
+                                    <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-pulse text-lime-800'>Peasant Bobo</span></div>
+                                ) : (
+                                <div className='font-pressStart text-sm whitespace-nowrap'>Rank: <br className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'></br><span className='animate-flash text-yellow-800'>Brokie Bobo</span></div>
                             )
                         }
                         <div className="col-span-4 sm:col-span-2 md:col-span-3 text-center font-bold text-xs font-pressStart">
@@ -104,7 +160,18 @@ export default function Profile() {
                         <TokenDivs />
                     </div>
 
-
+                    <div className='sm:flex sm:flex-row'>
+                        <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/profile.mp3"]} />
+                        {playing ? (
+                            <button className="absolute bottom-0 right-0" onClick={pauseSound}>
+                                <HiVolumeUp onClick={pauseSound} />
+                            </button>
+                        ) : (
+                            <button className="absolute bottom-0 right-0" onClick={playSound}>
+                                <HiVolumeOff onClick={playSound} />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </>

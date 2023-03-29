@@ -7,12 +7,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "erc721a/contracts/extensions/ERC721AQueryable.sol";
 
 contract Lock is
     Ownable,
     ERC721A,
+    ERC721AQueryable,
     IERC721ABurnable,
-    // PaymentSplitter,
+    PaymentSplitter,
     ReentrancyGuard
 {
     using Strings for uint256;
@@ -41,7 +43,7 @@ contract Lock is
     constructor()
         payable
         ERC721A("Test", "Test")
-    // PaymentSplitter(_team, _teamShares)
+        PaymentSplitter(_team, _teamShares)
     {
         _owner = msg.sender;
         _currentIndex = _startTokenId();
@@ -75,14 +77,6 @@ contract Lock is
         }
     }
 
-    
-    function renameToken(uint256 tokenId, string memory newName) public {
-        require(ownerOf(tokenId) == msg.sender, "Not the token owner");
-        require(bytes(newName).length > 0, "New name cannot be empty");
-
-        _tokenNames[tokenId] = newName;
-        emit TokenRenamed(tokenId, newName);
-    }
 
     function tokenURI(
         uint256 tokenId
@@ -112,6 +106,29 @@ contract Lock is
         return 1;
     }
 
+    function tokensOfOwner(address user) external view virtual override returns (uint256[] memory) {
+        unchecked {
+            uint256 tokenIdsIdx;
+            address currOwnershipAddr;
+            uint256 tokenIdsLength = balanceOf(user);
+            uint256[] memory tokenIds = new uint256[](tokenIdsLength);
+            TokenOwnership memory ownership;
+            for (uint256 i = _startTokenId(); tokenIdsIdx != tokenIdsLength; ++i) {
+                ownership = _ownershipAt(i);
+                if (ownership.burned) {
+                    continue;
+                }
+                if (ownership.addr != address(0)) {
+                    currOwnershipAddr = ownership.addr;
+                }
+                if (currOwnershipAddr == user) {
+                    tokenIds[tokenIdsIdx++] = i;
+                }
+            }
+            return tokenIds;
+        }
+    }
+
     function _flipSale() external onlyOwner {
         isSaleActive = !isSaleActive;
     }
@@ -138,9 +155,9 @@ contract Lock is
     }
 
     // Team Address For Payout
-    // uint256[] private _teamShares = [100];
-    // address[] private _team = [
-    //     0x0529ed359EE75799Fd95b7BC8bDC8511AC1C0A0F, //REPLACE
-    //     0x0529ed359EE75799Fd95b7BC8bDC8511AC1C0A0F //REPLACE
-    // ];
+    uint256[] private _teamShares = [50, 50];
+    address[] private _team = [
+        0x0529ed359EE75799Fd95b7BC8bDC8511AC1C0A0F, //REPLACE
+        0x57b18277B530Fa0C1748C29F9b1887B7691FF701 //REPLACE
+    ];
 }

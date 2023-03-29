@@ -5,11 +5,11 @@ import { AmplifyProvider } from '@aws-amplify/ui-react'
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { mainnet, goerli } from 'wagmi/chains'
+import { mainnet, sepolia } from 'wagmi/chains'
 
 export default function App({ Component, pageProps }) {
 
-  const chains = [goerli]
+  const chains = [sepolia]
   const projectId = 'e701565bb8066da9dc03e29a0d3d9274'
 
   const { provider } = configureChains(chains, [w3mProvider({ projectId })])
