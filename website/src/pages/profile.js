@@ -73,7 +73,6 @@ export default function Profile() {
                         <Web3Button className="ml-20" />
                     </div>
 
-<<<<<<< HEAD
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
                         {
                             balance >= 100 ? (
@@ -103,15 +102,6 @@ export default function Profile() {
                         </div>
                         <div className="col-span-4 sm:col-span-2 md:col-span-3"></div>
                         <TokenDivs />
-=======
-                    <div className='font-pressStart grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-blue-300 overflow-y-auto'>
-                        <Image
-                            src={BoboVision}
-                            alt='tset'
-                            width={500}
-                            height={500}
-                        />
->>>>>>> parent of 888b57b (update)
                     </div>
 
 
@@ -121,3 +111,7 @@ export default function Profile() {
     )
 
 }
+
+
+
+

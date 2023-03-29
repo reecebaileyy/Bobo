@@ -107,13 +107,13 @@ export default function Home() {
             <div className='bg-gray-300 flex items-start justify-start tv-border'>
                 <div className='fixed w-4/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between'>
                     <div className="sm:hidden flex justify-between items-center">
-                        <div className='z-10 flex flex-col-reverse'>
+                        <div className='z-10 flex flex-col-reverse justify-center items-center'>
                             <p className='font-pressStart text-center text-xs animate-pulse'>
                                 1 free per wallet.. then after it's {priceInEther} ETH
                             </p>
                             <h2 className='font-pressStart text-center'>{current}/{supply} Bobos Minted</h2>
                             <Link className='' href="/">
-                                <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
+                                <Image alt='BoboVision' className='items-center' src={BoboVision} width={500} height={500}></Image>
                             </Link>
                         </div>
                         <div className="flex flex-col items-center">
