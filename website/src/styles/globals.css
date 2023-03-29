@@ -3,6 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes pulse {
+  50% {
+      opacity: .35;
+  }
+}
+.animate-pulse {
+  animation: pulse .5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 @font-face {
     font-family: 'pressStart';
     src: url('/fonts/PressStart2P-Regular.ttf') format('truetype');
