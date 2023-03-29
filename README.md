@@ -24,7 +24,7 @@ git clone https://github.com/UNKNOWNtxn/bobo.git
 
 ## Website
 
-The website folder contains the source code for our project's front-end. It is built using modern web development technologies like React, Next.js, and Tailwind CSS. The website allows users to explore the NFT collection, mint new NFTs, and interact with the community.
+The website folder contains the source code for our project's front-end. It is built using modern web development technologies like React, Next.js, and Tailwind CSS. The website allows users to explore the NFT collection, mint new NFTs, view their collection of Bobos, view their collection baased rank, and interact with the community.
 
 To run the website locally, navigate to the website folder and install the required dependencies:
 ```bash
@@ -47,8 +47,7 @@ To deploy the smart contract, follow the instructions in the smart-contract fold
 
 Links for when the project goes live:
 
-- OpenSea: Once the project is live, you'll be able to find the collection on OpenSea. (Replace this link with your actual OpenSea collection link)
-- Etherscan: You can view the smart contract on Etherscan once it's deployed. (Replace this link with your actual Etherscan contract link)
-
+- OpenSea: Once the project is live, you'll be able to find the collection on OpenSea. 
+- Etherscan: You can view the smart contract on Etherscan once it's deployed. 
 
 Thank you for exploring the Bobo NFT Project! We hope you enjoy it as much as we enjoyed creating it. If you have any questions or suggestions, please feel free to reach out to our team. Happy minting! 😎
