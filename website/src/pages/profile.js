@@ -69,7 +69,7 @@ export default function Profile() {
                         </Link>
                         <Web3Button className="ml-20" />
                     </div>
-
+                    
                     <div className='font-pressStart grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-blue-300 overflow-y-auto'>
                         <Image
                             src={BoboVision}
