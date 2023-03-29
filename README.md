@@ -26,6 +26,8 @@ git clone https://github.com/UNKNOWNtxn/bobo.git
 
 The website folder contains the source code for our project's front-end. It is built using modern web development technologies like React, Next.js, and Tailwind CSS. The website allows users to explore the NFT collection, mint new NFTs, view their collection of Bobos, view their collection baased rank, and interact with the community.
 
+![WebsiteDemo](website/screenshots/websitedemo.png)
+
 To run the website locally, navigate to the website folder and install the required dependencies:
 ```bash
 cd website
