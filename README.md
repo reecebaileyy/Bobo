@@ -50,4 +50,6 @@ Links for when the project goes live:
 - OpenSea: Once the project is live, you'll be able to find the collection on OpenSea. 
 - Etherscan: You can view the smart contract on Etherscan once it's deployed. 
 
-Thank you for exploring the Bobo NFT Project! We hope you enjoy it as much as we enjoyed creating it. If you have any questions or suggestions, please feel free to reach out to our team. Happy minting! 😎
+Thank you for exploring the Bobo NFT Project! We hope you enjoy it as much as we enjoyed creating it. If you have any questions or suggestions, please feel free to reach out to our team. Happy minting! 
+
+![BoboVision](website/public/assets/png_gif/BoboVision_V2.png)
