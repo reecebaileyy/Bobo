@@ -19,7 +19,7 @@ Bobo is a unique and captivating NFT project that combines beautiful artwork, a 
 To begin exploring the Bobo NFT Project, simply clone the repository using the following command:
 
 ```bash
-git clone https://github.com/your-username/bobo-nft-project.git
+git clone https://github.com/UNKNOWNtxn/bobo.git
 ```
 
 ## Website
