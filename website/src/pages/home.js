@@ -106,15 +106,6 @@ export default function Home() {
     })
     const { data: mintData, isSuccess, write: mintNFT } = useContractWrite(config)
 
-    useEffect(() => {
-        // Fetch the token count from your API or other data source
-        // and update the tokenCount state with the fetched value.
-        // For this example, we'll set a sample token count.
-        // STORING USERS ADDRESS
-
-        console.log(balance)
-    }, []);
-
 
     return (
         <>
