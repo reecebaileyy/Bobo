@@ -24,7 +24,7 @@ git clone https://github.com/UNKNOWNtxn/bobo.git
 
 ## Website
 
-The website folder contains the source code for our project's front-end, where users can explore our NFT collection and mint new Bobos, view their collection-based rank, and interact with our community. Additionally, we gather smart contract data and enable users to interact with the contract through the Wagmi and Web3Modal interface, making it easy to manage and track their NFTs on the blockchain. Our website is built with modern web development technologies like React, Next.js, and Tailwind CSS, ensuring a seamless user experience.
+The website folder contains the source code for our project's front-end, where users can explore our NFT collection and mint new Bobos, view their collection-based rank, and interact with our community. Additionally, we gather smart contract data and enable users to interact with the contract through the Wagmi and Web3Modal interface, making it easy to manage and track their NFTs on the blockchain. Our website is built with modern web development technologies like React, Next.js, and Tailwind CSS, ensuring a seamless user experience. You can view the development version of our website here bobovision.vercel.app all blockchain transactions will be hosted on the Sepolia Testnet. We are still building so dont mind the errors 😝
 
 ![WebsiteDemo](website/screenshots/websitedemo.png)
 
