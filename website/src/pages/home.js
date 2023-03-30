@@ -14,8 +14,10 @@ import discord from '../../public/assets/png_gif/discord.gif'
 import twitter from '../../public/assets/png_gif/twitter.gif'
 import lore from '../../public/assets/png_gif/lore.gif'
 import protocol from '../../public/assets/png_gif/protocol.gif'
+import chat from '../../public/assets/png_gif/chat.gif'
 import profile from '../../public/assets/png_gif/Identification.gif'
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
+import mint from '../../public/assets/png_gif/mint.gif'
 
 
 
@@ -170,7 +172,7 @@ export default function Home() {
                             <div className="w-full flex justify-center">
                                 <Image
                                     alt="Bobo's Big Ass Cranium"
-                                    src={headgif}
+                                    src={mint}
                                     className="w-44 sm:w-20 md:w-32"
                                 />
                             </div>
@@ -231,7 +233,7 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href='/chat'>
-                                <Image alt='Da Lore' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                <Image alt='Da Lore' src={chat} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2 text-center'>Chat</h1>
                             </Link>
                         </div>
