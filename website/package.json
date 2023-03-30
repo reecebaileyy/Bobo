@@ -35,6 +35,7 @@
     "react-howler": "^5.2.0",
     "react-icons": "^4.8.0",
     "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
     "wagmi": "^0.12.6",
     "web3modal": "^1.9.12"
   },

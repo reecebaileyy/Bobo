@@ -1,19 +1,21 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
+import { io } from 'socket.io-client'
 import { Web3Button } from '@web3modal/react'
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { useState, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
+import { getDisplayName } from 'next/dist/shared/lib/utils';
 
 
 
 
-export default function Profile() {
+export default function Chat() {
 
-    //PLAY O PAUSE MUSICA
+    // PLAY OR PAUSE MUSIC
     const [playing, setPlaying] = useState(false);
 
     const playSound = () => {
@@ -24,11 +26,49 @@ export default function Profile() {
         setPlaying(false);
     };
 
-    //STORING USERS ADDRESS/ENS AS USERNAME
+    // STORING USERS ADDRESS/ENS AS USERNAME
     const { account } = useAccount();
     const [username, setUsername] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+
+    // DISPLAY MESSAGES FUNCTIONALITY
+    useEffect(() => {
+        const messageInput = document.getElementById('message-input');
+        const form = document.getElementById('form');
+
+        const displayMessage = (message) => {
+            setMessages(prevMessages => [...prevMessages, message]);
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+
+            if (message === '') return;
+            displayMessage(message);
+            console.log(message)
+            setMessage('');
+        });
+
+        return () => {
+            form.removeEventListener('submit', () => {});
+        }
+
+    }, []);
+
+    // CHAT SERVER LOGIC
+    const socket = io('http://localhost:3001');
+    socket.on('message', message => {
+        setMessages(prevMessages => [...prevMessages, message]);
+    });
+
+    const sendMessage = e => {
+        e.preventDefault();
+        if (!message) return;
+        socket.emit('send-message', message);
+        setMessage('');
+    };
 
 
     return (
@@ -64,6 +104,39 @@ export default function Profile() {
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
 
+
+
+                        <div id="message-container" className="w-4/5 max-w-6xl">
+                            {messages.map((message, index) => (
+                                <div key={index}>{message}</div>
+                            ))}
+                        </div>
+                        <footer className="fixed bottom-0 w-full py-4">
+                            <div className="flex justify-center">
+                                <form id="form" className="w-4/5 max-w-6xl flex items-center">
+                                    <input
+                                        type="text"
+                                        id="message-input"
+                                        className="font-pressStart flex-grow border-2 border-gray-300 rounded-l px-4 py-2 focus:border-blue-500 focus:outline-none"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                    />
+                                    <button
+                                        type="submit"
+                                        id="send-button"
+                                        className="font-pressStart bg-black hover:bg-blue-600 text-white font-bold px-6 py-2 rounded-r"
+                                        onClick={
+                                            (e) => {
+                                                sendMessage(e);
+                                                setMessage('');
+                                            }
+                                        }
+                                    >
+                                        Send
+                                    </button>
+                                </form>
+                            </div>
+                        </footer>
 
                     </div>
 
