@@ -14,7 +14,7 @@ import discord from '../../public/assets/png_gif/discord.gif'
 import twitter from '../../public/assets/png_gif/twitter.gif'
 import lore from '../../public/assets/png_gif/lore.gif'
 import protocol from '../../public/assets/png_gif/protocol.gif'
-import profile from '../../public/assets/png_gif/profile.gif'
+import profile from '../../public/assets/png_gif/Identification.gif'
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 
 
@@ -152,7 +152,10 @@ export default function Home() {
                             onClick={() => {
                                 console.log('totalMoney:', totalMoney);
                                 console.log('totalCost:', totalCost);
-                                if (totalMoney < totalCost) {
+                                if (!address) {
+                                    alert("First Connect, Then Bobo XD!!!")
+                                }
+                                else if (totalMoney < totalCost) {
                                     alert("YOU NEED MORE FUNDS BOBO!!")
                                 } else if (mintAmount > (supply - current)) {
                                     alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO")
@@ -209,13 +212,13 @@ export default function Home() {
                             balance >= 1 ? (
                                 <div className='flex flex-col items-center'>
                                     <Link href="/profile" className="flex flex-col items-center">
-                                        <Image alt='Da protocol' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                        <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
                                         <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                     </Link>
                                 </div>
                             ) : <div className='flex flex-col items-center'>
                                 <Link href="https://www.opensea.io" target="_blank">
-                                    <Image alt='Da protocol' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                    <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
                                     <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                 </Link>
                             </div>
