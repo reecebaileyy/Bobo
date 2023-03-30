@@ -32,38 +32,6 @@ export default function Profile() {
   const [messages, setMessages] = useState([]);
 
 
-    useEffect(() => {
-        setUsername(account);
-
-        const socket = io('http://localhost:3001');
-
-        socket.on('connect', () => {
-            console.log('Connected to server');
-        });
-
-        socket.on('message', (message) => {
-            setMessages((messages) => [...messages, message]);
-        });
-
-        return () => {
-            socket.disconnect();
-        };
-    }, [account]);
-
-    const handleSendMessage = (event) => {
-        event.preventDefault();
-
-        const socket = io('http://localhost:3001');
-
-        socket.emit('message', {
-            username,
-            message,
-        });
-
-        setMessage('');
-    };
-
-
     return (
         <>
 
