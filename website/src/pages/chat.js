@@ -37,38 +37,32 @@ export default function Chat() {
         const messageInput = document.getElementById('message-input');
         const form = document.getElementById('form');
 
-        const displayMessage = (message) => {
-            setMessages(prevMessages => [...prevMessages, message]);
-        }
-
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const message = messageInput.value.trim();
+            const message = messageInput.value
 
-            if (message === '') return;
-            displayMessage(message);
+            if (message === '') return
+            displayMessage(message)
+            socket.emit('send-message', message)
             console.log(message)
-            setMessage('');
-        });
+            messageInput.value = ''
+            
+        })
 
-        return () => {
-            form.removeEventListener('submit', () => {});
+        function displayMessage(message) {
+            const div = document.createElement('div')
+            div.textContent = message
+            div.className = 'font-pressStart' 
+            document.getElementById('message-container').append(div)
         }
 
     }, []);
 
+
+
     // CHAT SERVER LOGIC
     const socket = io('http://localhost:3001');
-    socket.on('message', message => {
-        setMessages(prevMessages => [...prevMessages, message]);
-    });
 
-    const sendMessage = e => {
-        e.preventDefault();
-        if (!message) return;
-        socket.emit('send-message', message);
-        setMessage('');
-    };
 
 
     return (
@@ -107,9 +101,7 @@ export default function Chat() {
 
 
                         <div id="message-container" className="w-4/5 max-w-6xl">
-                            {messages.map((message, index) => (
-                                <div key={index}>{message}</div>
-                            ))}
+                            
                         </div>
                         <footer className="fixed bottom-0 w-full py-4">
                             <div className="flex justify-center">
@@ -125,12 +117,6 @@ export default function Chat() {
                                         type="submit"
                                         id="send-button"
                                         className="font-pressStart bg-black hover:bg-blue-600 text-white font-bold px-6 py-2 rounded-r"
-                                        onClick={
-                                            (e) => {
-                                                sendMessage(e);
-                                                setMessage('');
-                                            }
-                                        }
                                     >
                                         Send
                                     </button>
