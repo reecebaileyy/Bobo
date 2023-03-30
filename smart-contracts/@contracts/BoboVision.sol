@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-
-
 import "erc721a/contracts/ERC721A.sol";
 import "erc721a/contracts/interfaces/IERC721ABurnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -79,7 +77,6 @@ contract Lock is
         }
     }
 
-
     function tokenURI(
         uint256 tokenId
     ) public view virtual override(ERC721A, IERC721A) returns (string memory) {
@@ -87,7 +84,15 @@ contract Lock is
             _exists(tokenId),
             "ERC721Metadata: URI query for nonexistent token"
         );
-        return string(abi.encodePacked(baseURI, tokenId.toString()));
+        return
+            string(
+                abi.encodePacked(
+                    baseURI,
+                    "metadata/",
+                    tokenId.toString(),
+                    ".json"
+                )
+            );
     }
 
     function owner() public view virtual override returns (address) {
@@ -108,14 +113,20 @@ contract Lock is
         return 1;
     }
 
-    function tokensOfOwner(address user) external view virtual override returns (uint256[] memory) {
+    function tokensOfOwner(
+        address user
+    ) external view virtual override returns (uint256[] memory) {
         unchecked {
             uint256 tokenIdsIdx;
             address currOwnershipAddr;
             uint256 tokenIdsLength = balanceOf(user);
             uint256[] memory tokenIds = new uint256[](tokenIdsLength);
             TokenOwnership memory ownership;
-            for (uint256 i = _startTokenId(); tokenIdsIdx != tokenIdsLength; ++i) {
+            for (
+                uint256 i = _startTokenId();
+                tokenIdsIdx != tokenIdsLength;
+                ++i
+            ) {
                 ownership = _ownershipAt(i);
                 if (ownership.burned) {
                     continue;
