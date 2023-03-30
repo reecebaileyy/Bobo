@@ -5,7 +5,7 @@ export default function Document() {
       <Head>
         <meta property="og:title" content="BoboVision" />
         <meta property="og:description" content="It's all Bobo.. always has been" />
-        <meta property="og:image" content="/assets/BoboVision_V2.png" />
+        <meta property="og:image" content="/assets/png_audio/BoboVision_V2.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </Head>
