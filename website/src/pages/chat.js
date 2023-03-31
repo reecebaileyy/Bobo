@@ -58,8 +58,8 @@ export default function Chat() {
 
     useEffect(() => {
         socketRef.current = io('https://bobo-chat.herokuapp.com/'); // Use the ref to store the socket object
-        socketRef.current.on('receive-message', ({ username, message, balance }) => {
-            displayMessage(username, message, balance);
+        socketRef.current.on('receive-message', ({ username, message }) => {
+            displayMessage(username, message);
         });
 
         // Clean up the socket connection when the component unmounts
@@ -77,17 +77,14 @@ export default function Chat() {
             e.preventDefault();
             const message = messageInput.value;
             const username = usernameRef.current;
-            const balanceValue = balance; // Get the balance value
             if (message === '') return;
-            displayMessage(username, message, balanceValue); // pass the correct arguments to the displayMessage function
-            socketRef.current.emit('send-message', { username, message, balance }); // Use the ref to access the socket object
+            displayMessage(username, message); // pass the correct arguments to the displayMessage function
+            socketRef.current.emit('send-message', { username, message }); // Use the ref to access the socket object
             console.log(address);
             console.log(message);
             console.log(username);
             messageInput.value = '';
         };
-
-        console.log(`balance: $(balance)`)
 
         form.addEventListener('submit', handleSendMessage);
 
@@ -99,39 +96,14 @@ export default function Chat() {
 
     // CHAT SERVER LOGIC
 
-    function getUsernameClassName(balance) {
-        if (balance >= 100) {
-            return 'text-red-500 animate-pulse';
-        } else if (balance >= 75) {
-            return 'text-yellow-300 animate-pulse';
-        } else if (balance >= 50) {
-            return 'text-red-500 animate-pulse';
-        } else if (balance >= 40) {
-            return 'text-blue-800 animate-pulse';
-        } else if (balance >= 30) {
-            return 'text-blue-400 animate-pulse';
-        } else if (balance >= 20) {
-            return 'text-yellow-300 animate-pulse';
-        } else if (balance >= 15) {
-            return 'text-slate-100 animate-pulse';
-        } else if (balance >= 10) {
-            return 'text-orange-700 animate-pulse';
-        } else if (balance >= 5) {
-            return 'text-lime-800 animate-pulse';
-        } else {
-            return 'text-yellow-800 animate-flash';
-        }
-    }
-    
 
-
-    function displayMessage(username, message, balance) {
+    function displayMessage(username, message) {
         const messageContainer = document.createElement('div');
         messageContainer.className = 'mb-4';
     
         const userDiv = document.createElement('div');
         userDiv.textContent = username;
-        userDiv.className = `font-pressStart text-xs mb-1 ${getUsernameClassName(balance)}`;
+        userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
     
         const textDiv = document.createElement('div');
         textDiv.textContent = message;
