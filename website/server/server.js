@@ -18,7 +18,6 @@ io.on('connection', socket => {
 
 instrument(io, {
     auth: false,
-    mode: "development",
   });
   
   httpServer.listen(process.env.PORT || 3001);
