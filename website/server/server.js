@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 3001;
 
 const io = require("socket.io")(httpServer, {
     cors: {
-        origin: ["https://bobovision.vercel.app", "https://admin.socket.io"],
+        origin: ["https://gentle-plains-30378.herokuapp.com", "https://admin.socket.io"],
         credentials: true
     }
 });
