@@ -14,7 +14,6 @@ import headgif from '../../public/assets/png_gif/spinhead.gif'
 
 
 
-
 export default function Profile() {
 
     //PLAY O PAUSE MUSICA
