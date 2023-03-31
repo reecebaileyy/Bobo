@@ -6,10 +6,8 @@ import { Web3Button } from '@web3modal/react'
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { useState, useEffect, useRef } from 'react'
-import { useAccount } from 'wagmi'
 import { getAccount } from '@wagmi/core'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
-import { getDisplayName } from 'next/dist/shared/lib/utils';
 
 
 
@@ -33,62 +31,77 @@ export default function Chat() {
     const usernameRef = useRef(username); // Create a ref to store the username
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const socket = io('http://localhost:3001');
     console.log('account:', address); // Log the account value here
-  
+
+
+
     // DISPLAY MESSAGES FUNCTIONALITY
     useEffect(() => {
-      setUsername(address ? address : 'Pleb');
-      usernameRef.current = address ? address : 'Pleb';
+        setUsername(address ? address : 'Pleb');
+        usernameRef.current = address ? address : 'Pleb';
     }, [address]);
-  
-    // Add the event listener when the component mounts
+
+    const socketRef = useRef(); // Add this line to create a ref for the socket
+
     useEffect(() => {
-      const messageInput = document.getElementById('message-input');
-      const form = document.getElementById('form');
-  
-      const handleSendMessage = (e) => {
-        e.preventDefault();
-        const message = messageInput.value;
-        const username = usernameRef.current;
-        if (message === '') return;
-        displayMessage(username, message); // pass the correct arguments to the displayMessage function
-        socket.emit('send-message', { username, message });
-        console.log(address);
-        console.log(message);
-        console.log(username);
-        messageInput.value = '';
-      };
-  
-      form.addEventListener('submit', handleSendMessage);
-  
-      // Remove the event listener when the component unmounts
-      return () => {
-        form.removeEventListener('submit', handleSendMessage);
-      };
+        socketRef.current = io('http://localhost:3001'); // Use the ref to store the socket object
+        socketRef.current.on('receive-message', ({ username, message }) => {
+            displayMessage(username, message);
+        });
+
+        // Clean up the socket connection when the component unmounts
+        return () => {
+            socketRef.current.disconnect();
+        };
+    }, []);
+
+    // ...
+
+    useEffect(() => {
+        const messageInput = document.getElementById('message-input');
+        const form = document.getElementById('form');
+
+        const handleSendMessage = (e) => {
+            e.preventDefault();
+            const message = messageInput.value;
+            const username = usernameRef.current;
+            if (message === '') return;
+            displayMessage(username, message); // pass the correct arguments to the displayMessage function
+            socketRef.current.emit('send-message', { username, message }); // Use the ref to access the socket object
+            console.log(address);
+            console.log(message);
+            console.log(username);
+            messageInput.value = '';
+        };
+
+        form.addEventListener('submit', handleSendMessage);
+
+        // Remove the event listener when the component unmounts
+        return () => {
+            form.removeEventListener('submit', handleSendMessage);
+        };
     }, [address]);
-  
+
     // CHAT SERVER LOGIC
-    const socket = io('http://localhost:3001');
-    socket.on('receive-message', ({ username, message }) => { // use the correct parameter names here
-      displayMessage(username, message);
-    })
-  
+
+
     function displayMessage(username, message) {
-      const messageContainer = document.createElement('div');
-      messageContainer.className = 'mb-4';
-  
-      const userDiv = document.createElement('div');
-      userDiv.textContent = username;
-      userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
-  
-      const textDiv = document.createElement('div');
-      textDiv.textContent = message;
-      textDiv.className = 'font-pressStart break-words text-sm';
-  
-      messageContainer.append(userDiv);
-      messageContainer.append(textDiv);
-  
-      document.getElementById('message-container').append(messageContainer);
+        const messageContainer = document.createElement('div');
+        messageContainer.className = 'mb-4';
+
+        const userDiv = document.createElement('div');
+        userDiv.textContent = username;
+        userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
+
+        const textDiv = document.createElement('div');
+        textDiv.textContent = message;
+        textDiv.className = 'font-pressStart break-words text-sm';
+
+        messageContainer.append(userDiv);
+        messageContainer.append(textDiv);
+
+        document.getElementById('message-container').append(messageContainer);
     }
 
 

@@ -13,6 +13,7 @@
     "@aws-amplify/ui-react": "^4.4.1",
     "@heroicons/react": "^1.0.6",
     "@pusher/pusher-websocket-react-native": "^1.2.1",
+    "@socket.io/admin-ui": "^0.5.1",
     "@vercel/analytics": "^0.1.11",
     "@web3modal/ethereum": "^2.2.2",
     "@web3modal/react": "^2.2.2",
