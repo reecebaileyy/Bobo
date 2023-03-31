@@ -10,7 +10,6 @@ import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContra
 import ABI from '../abi/BoboABI.json'
 import headgif from '../../public/assets/png_gif/spinhead.gif'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
-import discord from '../../public/assets/png_gif/discord.gif'
 import twitter from '../../public/assets/png_gif/twitter.gif'
 import lore from '../../public/assets/png_gif/lore.gif'
 import protocol from '../../public/assets/png_gif/protocol.gif'
