@@ -54,7 +54,6 @@ export default function Chat() {
         };
     }, []);
 
-    // ...
 
     useEffect(() => {
         const messageInput = document.getElementById('message-input');
@@ -138,7 +137,7 @@ export default function Chat() {
                         <div id="message-container" className="col-span-4 6w-4/5 max-w-6xl mb-4">
 
                         </div>
-                        <footer className="fixed bottom-0 w-full py-4">
+                        <footer className="z-10 fixed bottom-0 w-full py-4">
                             <div className="flex justify-center">
                                 <form id="form" className="w-full sm:w-4/5 sm:max-w-6xl flex items-center">
                                     <input
