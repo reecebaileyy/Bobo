@@ -21,4 +21,4 @@ instrument(io, {
     mode: "development",
   });
   
-  httpServer.listen(3001);
+  httpServer.listen(process.env.port || 3001);
