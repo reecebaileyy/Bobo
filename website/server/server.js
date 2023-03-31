@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 3001;
 
 const io = require("socket.io")(httpServer, {
     cors: {
-        origin: ["https://bobovision.vercel.app/chat", "https://admin.socket.io", "http://localhost:3000"],
+        origin: ["https://bobovision.vercel.app", "https://admin.socket.io", "http://localhost:3000"],
         credentials: true
     }
 });
@@ -19,6 +19,5 @@ io.on('connection', socket => {
   httpServer.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
   });
-  
   
  
