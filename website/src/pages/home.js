@@ -18,7 +18,7 @@ import chat from '../../public/assets/png_gif/chat.gif'
 import profile from '../../public/assets/png_gif/Identification.gif'
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import mint from '../../public/assets/png_gif/mint.gif'
-
+import etherscan from '../../public/assets/png_gif/etherscan.gif'
 
 
 export default function Home() {
@@ -239,7 +239,7 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="https://sepolia.etherscan.io/address/0x0d390e21a4a7568d7a1e9344c53efa9f2cc1866d#code" target="_blank" className="flex flex-col items-center">
-                                <Image alt='Da Contract' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                <Image alt='Da Contract' src={etherscan} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Contract</h1>
                             </Link>
                         </div>
