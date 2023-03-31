@@ -86,20 +86,26 @@ export default function Chat() {
     function displayMessage(username, message) {
         const messageContainer = document.createElement('div');
         messageContainer.className = 'mb-4';
-
+    
         const userDiv = document.createElement('div');
         userDiv.textContent = username;
         userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
-
+    
         const textDiv = document.createElement('div');
         textDiv.textContent = message;
         textDiv.className = 'font-pressStart break-words text-sm';
-
+    
         messageContainer.append(userDiv);
         messageContainer.append(textDiv);
-
-        document.getElementById('message-container').append(messageContainer);
+    
+        const messageDisplay = document.getElementById('message-container');
+        messageDisplay.append(messageContainer);
+    
+        // Scroll to the bottom of the message container
+        messageDisplay.scrollTo(0, messageDisplay.scrollHeight);
     }
+    
+    
 
 
     return (
@@ -134,7 +140,7 @@ export default function Chat() {
                     </div>
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-                        <div id="message-container" className="col-span-4 6w-4/5 max-w-6xl mb-4">
+                    <div id="message-container" className="col-span-4 w-4/5 max-w-6xl mb-4 overflow-y-auto flex flex-col">
 
                         </div>
                         <footer className="z-10 fixed bottom-0 w-full py-4">
