@@ -1,5 +1,5 @@
-const { instrument } = require("@socket.io/admin-ui");
 const httpServer = require("http").createServer();
+const PORT = process.env.PORT || 3001;
 
 const io = require("socket.io")(httpServer, {
     cors: {
@@ -15,9 +15,7 @@ io.on('connection', socket => {
     });
 
 })
-
-instrument(io, {
-    auth: false,
-  });
   
-  httpServer.listen(process.env.PORT || 3001);
+  httpServer.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });
