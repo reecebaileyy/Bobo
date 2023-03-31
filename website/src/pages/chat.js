@@ -143,7 +143,7 @@ export default function Chat() {
                                     <input
                                         type="text"
                                         id="message-input"
-                                        className="font-pressStart w-full border-2 border-gray-300 rounded-l py-2 focus:border-blue-500 focus:outline-none"
+                                        className="z-20 font-pressStart w-full border-2 border-gray-300 rounded-l py-2 focus:border-blue-500 focus:outline-none"
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                     />
