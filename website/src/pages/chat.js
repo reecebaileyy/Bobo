@@ -30,8 +30,6 @@ export default function Chat() {
     const [username, setUsername] = useState('Pleb');
     const usernameRef = useRef(username); // Create a ref to store the username
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-    const socket = io('http://localhost:3001');
     console.log('account:', address); // Log the account value here
 
 
@@ -45,7 +43,7 @@ export default function Chat() {
     const socketRef = useRef(); // Add this line to create a ref for the socket
 
     useEffect(() => {
-        socketRef.current = io('http://localhost:3001'); // Use the ref to store the socket object
+        socketRef.current = io('https://bobo-chat.herokuapp.com/'); // Use the ref to store the socket object
         socketRef.current.on('receive-message', ({ username, message }) => {
             displayMessage(username, message);
         });
