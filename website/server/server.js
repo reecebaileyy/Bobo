@@ -21,4 +21,4 @@ instrument(io, {
     mode: "development",
   });
   
-  httpServer.listen("https://gentle-plains-30378.herokuapp.com" || 3001);
+  httpServer.listen(process.env.PORT || 3001);
