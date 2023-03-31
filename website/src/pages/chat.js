@@ -7,9 +7,9 @@ import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { useState, useEffect, useRef } from 'react'
 import { getAccount } from '@wagmi/core'
+import { useAccount, useContractRead } from 'wagmi'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
-
-
+import ABI from '../abi/BoboABI.json'
 
 
 export default function Chat() {
@@ -24,6 +24,20 @@ export default function Chat() {
     const pauseSound = () => {
         setPlaying(false);
     };
+
+
+    // STORING USERS ADDRESS
+    const { addy } = useAccount()
+
+    const { data: balanceOf } = useContractRead({
+        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+        abi: ABI,
+        functionName: 'balanceOf',
+        args: [addy],
+    })
+    const balance = balanceOf?.toNumber()
+
+
 
     // STORING USERS ADDRESS/ENS AS USERNAME
     const { address } = getAccount() ?? {};
@@ -44,8 +58,8 @@ export default function Chat() {
 
     useEffect(() => {
         socketRef.current = io('https://bobo-chat.herokuapp.com/'); // Use the ref to store the socket object
-        socketRef.current.on('receive-message', ({ username, message }) => {
-            displayMessage(username, message);
+        socketRef.current.on('receive-message', ({ username, message, balance }) => {
+            displayMessage(username, message, balance);
         });
 
         // Clean up the socket connection when the component unmounts
@@ -63,14 +77,17 @@ export default function Chat() {
             e.preventDefault();
             const message = messageInput.value;
             const username = usernameRef.current;
+            const balanceValue = balance; // Get the balance value
             if (message === '') return;
-            displayMessage(username, message); // pass the correct arguments to the displayMessage function
-            socketRef.current.emit('send-message', { username, message }); // Use the ref to access the socket object
+            displayMessage(username, message, balanceValue); // pass the correct arguments to the displayMessage function
+            socketRef.current.emit('send-message', { username, message, balance }); // Use the ref to access the socket object
             console.log(address);
             console.log(message);
             console.log(username);
             messageInput.value = '';
         };
+
+        console.log(`balance: $(balance)`)
 
         form.addEventListener('submit', handleSendMessage);
 
@@ -82,14 +99,39 @@ export default function Chat() {
 
     // CHAT SERVER LOGIC
 
+    function getUsernameClassName(balance) {
+        if (balance >= 100) {
+            return 'text-red-500 animate-pulse';
+        } else if (balance >= 75) {
+            return 'text-yellow-300 animate-pulse';
+        } else if (balance >= 50) {
+            return 'text-red-500 animate-pulse';
+        } else if (balance >= 40) {
+            return 'text-blue-800 animate-pulse';
+        } else if (balance >= 30) {
+            return 'text-blue-400 animate-pulse';
+        } else if (balance >= 20) {
+            return 'text-yellow-300 animate-pulse';
+        } else if (balance >= 15) {
+            return 'text-slate-100 animate-pulse';
+        } else if (balance >= 10) {
+            return 'text-orange-700 animate-pulse';
+        } else if (balance >= 5) {
+            return 'text-lime-800 animate-pulse';
+        } else {
+            return 'text-yellow-800 animate-flash';
+        }
+    }
+    
 
-    function displayMessage(username, message) {
+
+    function displayMessage(username, message, balance) {
         const messageContainer = document.createElement('div');
         messageContainer.className = 'mb-4';
     
         const userDiv = document.createElement('div');
         userDiv.textContent = username;
-        userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
+        userDiv.className = `font-pressStart text-xs mb-1 ${getUsernameClassName(balance)}`;
     
         const textDiv = document.createElement('div');
         textDiv.textContent = message;

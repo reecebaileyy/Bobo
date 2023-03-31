@@ -11,7 +11,7 @@ import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContra
 import ABI from '../abi/BoboABI.json'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
 import headgif from '../../public/assets/png_gif/spinhead.gif'
-
+import Chat from './chat'; // Make sure to import the Chat component
 
 
 export default function Profile() {
