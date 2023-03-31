@@ -8,8 +8,8 @@ const io = require("socket.io")(httpServer, {
 
 httpServer.listen(3001);
 io.on('connection', socket => {
-    console.log(socket.id)
-    socket.on('send-message', message => {
-        console.log(message)
-    })
+    socket.on('send-message', ({ name, message }) => {
+       io.emit('receive-message', { name, message }); // Pass the data object
+    });
+
 })

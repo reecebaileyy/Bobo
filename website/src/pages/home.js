@@ -162,7 +162,7 @@ export default function Home() {
                                 } else if (mintAmount > (supply - current)) {
                                     alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO")
                                 } else if (mintAmount == 0) {
-                                    alert("Come Bobo on at least get more than one Bobo...")
+                                    alert("Come Bobo on at least get one Bobo...")
                                 } else {
                                     mintNFT?.();
                                 }
@@ -214,38 +214,38 @@ export default function Home() {
                             balance >= 1 ? (
                                 <div className='flex flex-col items-center'>
                                     <Link href="/profile" className="flex flex-col items-center">
-                                        <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                        <Image alt='Profile' src={profile} className='w-44 sm:w-20 md:w-32' />
                                         <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                     </Link>
                                 </div>
                             ) : <div className='flex flex-col items-center'>
                                 <Link href="https://www.opensea.io" target="_blank">
-                                    <Image alt='Da protocol' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                    <Image alt='Profile' src={profile} className='w-44 sm:w-20 md:w-32' />
                                     <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                 </Link>
                             </div>
                         }
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
-                                <Image alt="Bobo's Twitter" src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                <Image alt="Da Memes" src={headgif} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Search</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href='/chat'>
-                                <Image alt='Da Lore' src={chat} className='w-44 sm:w-20 md:w-32' />
+                                <Image alt='Da Chat' src={chat} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2 text-center'>Chat</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Link href="/" className="flex flex-col items-center">
-                                <Image alt='Da Discord' src={discord} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Discord</h1>
+                            <Link href="https://sepolia.etherscan.io/address/0x0d390e21a4a7568d7a1e9344c53efa9f2cc1866d#code" target="_blank" className="flex flex-col items-center">
+                                <Image alt='Da Contract' src={headgif} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Contract</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="https://twitter.com/itsallbobo" target="_blank" className="flex flex-col items-center">
-                                <Image alt="Bobo's big ass cranium" src={twitter} className='w-44 sm:w-20 md:w-32' />
+                                <Image alt="Da Twitter" src={twitter} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Twitter</h1>
                             </Link>
                         </div>
@@ -257,8 +257,8 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
-                                <Image alt="Bobo's Big ass cranium" src={protocol} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Protocol</h1>
+                                <Image alt="BoboVision" src={protocol} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Vision</h1>
                             </Link>
                         </div>
                     </div>

@@ -5,8 +5,9 @@ import { io } from 'socket.io-client'
 import { Web3Button } from '@web3modal/react'
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAccount } from 'wagmi'
+import { getAccount } from '@wagmi/core'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
 import { getDisplayName } from 'next/dist/shared/lib/utils';
 
@@ -27,42 +28,68 @@ export default function Chat() {
     };
 
     // STORING USERS ADDRESS/ENS AS USERNAME
-    const { account } = useAccount();
-    const [username, setUsername] = useState('');
+    const { address } = getAccount() ?? {};
+    const [username, setUsername] = useState('Pleb');
+    const usernameRef = useRef(username); // Create a ref to store the username
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-
+    console.log('account:', address); // Log the account value here
+  
     // DISPLAY MESSAGES FUNCTIONALITY
     useEffect(() => {
-        const messageInput = document.getElementById('message-input');
-        const form = document.getElementById('form');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const message = messageInput.value
-
-            if (message === '') return
-            displayMessage(message)
-            socket.emit('send-message', message)
-            console.log(message)
-            messageInput.value = ''
-            
-        })
-
-        function displayMessage(message) {
-            const div = document.createElement('div')
-            div.textContent = message
-            div.className = 'font-pressStart' 
-            document.getElementById('message-container').append(div)
-        }
-
-    }, []);
-
-
-
+      setUsername(address ? address : 'Pleb');
+      usernameRef.current = address ? address : 'Pleb';
+    }, [address]);
+  
+    // Add the event listener when the component mounts
+    useEffect(() => {
+      const messageInput = document.getElementById('message-input');
+      const form = document.getElementById('form');
+  
+      const handleSendMessage = (e) => {
+        e.preventDefault();
+        const message = messageInput.value;
+        const username = usernameRef.current;
+        if (message === '') return;
+        displayMessage(username, message); // pass the correct arguments to the displayMessage function
+        socket.emit('send-message', { username, message });
+        console.log(address);
+        console.log(message);
+        console.log(username);
+        messageInput.value = '';
+      };
+  
+      form.addEventListener('submit', handleSendMessage);
+  
+      // Remove the event listener when the component unmounts
+      return () => {
+        form.removeEventListener('submit', handleSendMessage);
+      };
+    }, [address]);
+  
     // CHAT SERVER LOGIC
     const socket = io('http://localhost:3001');
-
+    socket.on('receive-message', ({ username, message }) => { // use the correct parameter names here
+      displayMessage(username, message);
+    })
+  
+    function displayMessage(username, message) {
+      const messageContainer = document.createElement('div');
+      messageContainer.className = 'mb-4';
+  
+      const userDiv = document.createElement('div');
+      userDiv.textContent = username;
+      userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
+  
+      const textDiv = document.createElement('div');
+      textDiv.textContent = message;
+      textDiv.className = 'font-pressStart break-words text-sm';
+  
+      messageContainer.append(userDiv);
+      messageContainer.append(textDiv);
+  
+      document.getElementById('message-container').append(messageContainer);
+    }
 
 
     return (
@@ -97,19 +124,16 @@ export default function Chat() {
                     </div>
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
+                        <div id="message-container" className="col-span-4 6w-4/5 max-w-6xl mb-4">
 
-
-
-                        <div id="message-container" className="w-4/5 max-w-6xl">
-                            
                         </div>
                         <footer className="fixed bottom-0 w-full py-4">
                             <div className="flex justify-center">
-                                <form id="form" className="w-4/5 max-w-6xl flex items-center">
+                                <form id="form" className="w-full sm:w-4/5 sm:max-w-6xl flex items-center">
                                     <input
                                         type="text"
                                         id="message-input"
-                                        className="font-pressStart flex-grow border-2 border-gray-300 rounded-l px-4 py-2 focus:border-blue-500 focus:outline-none"
+                                        className="font-pressStart w-full border-2 border-gray-300 rounded-l py-2 focus:border-blue-500 focus:outline-none"
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                     />
@@ -127,7 +151,7 @@ export default function Chat() {
                     </div>
 
                     <div className='sm:flex sm:flex-row'>
-                        <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/profile.mp3"]} />
+                        <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/chat.mp3"]} />
                         {playing ? (
                             <button className="absolute bottom-0 right-0" onClick={pauseSound}>
                                 <HiVolumeUp onClick={pauseSound} />
