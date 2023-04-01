@@ -65,7 +65,7 @@ export default function Home() {
 
     //STORE USERS BALANCE
     const { data } = useContractRead({
-        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
         functionName: 'balanceOf',
         args: [address]
@@ -74,7 +74,7 @@ export default function Home() {
 
     //RETRIEVE COST
     const { data: mintPrice } = useContractRead({
-        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
         functionName: 'cost',
     })
@@ -83,7 +83,7 @@ export default function Home() {
 
     //RETRIEVE COST
     const { data: maxAmount } = useContractRead({
-        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
         functionName: '_maxSupply',
     })
@@ -91,7 +91,7 @@ export default function Home() {
 
     //RETRIEVE COST
     const { data: currentAmount } = useContractRead({
-        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
         functionName: 'totalSupply',
     })
@@ -99,13 +99,15 @@ export default function Home() {
 
     //USE CONTRACT WRITE
     const { config } = usePrepareContractWrite({
-        address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+        address: '0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9',
         abi: ABI,
         functionName: '_mint',
         args: [mintAmount],
         overrides: { value: ethers.utils.parseEther(totalCost.toString()) }
     })
     const { data: mintData, isSuccess, write: mintNFT } = useContractWrite(config)
+
+    
 
     const handleMint = () => {
         console.log('totalMoney:', totalMoney);
@@ -241,7 +243,7 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Link href="https://sepolia.etherscan.io/address/0x0d390e21a4a7568d7a1e9344c53efa9f2cc1866d#code" target="_blank" className="flex flex-col items-center">
+                            <Link href="https://sepolia.etherscan.io/address/0x85dDe73b1a3a3a55F9147226D6c8AC07E33BD8C9#code" target="_blank" className="flex flex-col items-center">
                                 <Image alt='Da Contract' src={etherscan} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Contract</h1>
                             </Link>
