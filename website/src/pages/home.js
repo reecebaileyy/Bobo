@@ -164,16 +164,30 @@ export default function Home() {
                     </div>
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-                        <button
-
+                    <button
                             className="flex flex-col items-center"
-                            onClick={handleMint}
-                            onTouchEnd={handleMint}
+                            onClick={() => {
+                                console.log('totalMoney:', totalMoney);
+                                console.log('totalCost:', totalCost);
+                                if (!address) {
+                                    alert("First Connect, Then Bobo XD!!!")
+                                }
+                                else if (totalMoney < totalCost) {
+                                    alert("YOU NEED MORE FUNDS BOBO!!")
+                                } else if (mintAmount > (supply - current)) {
+                                    alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO")
+                                } else if (mintAmount == 0) {
+                                    alert("Come Bobo on at least get more than one Bobo...")
+                                } else {
+                                    mintNFT?.();
+                                }
+                            }
+                            }
                         >
                             <div className="w-full flex justify-center">
                                 <Image
                                     alt="Bobo's Big Ass Cranium"
-                                    src={mint}
+                                    src={headgif}
                                     className="w-44 sm:w-20 md:w-32"
                                 />
                             </div>
