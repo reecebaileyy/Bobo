@@ -108,19 +108,7 @@ export default function Home() {
     const { data: mintData, isSuccess, write: mintNFT } = useContractWrite(config)
 
     const handleMint = () => {
-        console.log('totalMoney:', totalMoney);
-        console.log('totalCost:', totalCost);
-        if (!address) {
-            alert("First Connect, Then Bobo XD!!!");
-        } else if (totalMoney < totalCost) {
-            alert("YOU NEED MORE FUNDS BOBO!!");
-        } else if (mintAmount > (supply - current)) {
-            alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO");
-        } else if (mintAmount == 0) {
-            alert("Come Bobo on at least get one Bobo...");
-        } else {
             mintNFT?.();
-        }
     };
 
 
@@ -178,32 +166,32 @@ export default function Home() {
                                 />
                             </div>
                             <div className="flex items-center justify-center mt-2">
-                            <input
-  className="bg-black rounded-md font-pressStart text-white text-center"
-  type="number"
-  min="1"
-  value={mintAmount}
-  style={{
-      width: `${Math.max(45, mintAmount.toString().length * 8)}px`,
-      padding: '0 4px',
-  }}
-  onClick={(e) => e.preventDefault()}
-  onChange={(e) => {
-      e.preventDefault();
-      const inputValue = e.target.value;
-      if (inputValue !== "") {
-          const newMintAmount = parseInt(inputValue);
-          setMintAmount(newMintAmount);
-          if (balance == 0) {
-              setTotalCost(newMintAmount * 0.008 - 0.008);
-          } else {
-              setTotalCost(newMintAmount * 0.008);
-          }
-      } else {
-          setMintAmount(0);
-      }
-  }}
-/>
+                                <input
+                                    className="z-30 bg-black rounded-md font-pressStart text-white text-center"
+                                    type="number"
+                                    min="1"
+                                    value={mintAmount}
+                                    style={{
+                                        width: `${Math.max(45, mintAmount.toString().length * 8)}px`,
+                                        padding: '0 4px',
+                                    }}
+                                    onClick={(e) => e.preventDefault()}
+                                    onChange={(e) => {
+                                        e.preventDefault();
+                                        const inputValue = e.target.value;
+                                        if (inputValue !== "") {
+                                            const newMintAmount = parseInt(inputValue);
+                                            setMintAmount(newMintAmount);
+                                            if (balance == 0) {
+                                                setTotalCost(newMintAmount * 0.008 - 0.008);
+                                            } else {
+                                                setTotalCost(newMintAmount * 0.008);
+                                            }
+                                        } else {
+                                            setMintAmount(0);
+                                        }
+                                    }}
+                                />
 
                                 <h1 className="font-pressStart text-3xl sm:text-xl md:text-2xl ml-2">
                                     Mint
