@@ -52,8 +52,8 @@ export default function Home() {
                 }
             }
         };
-        
-        
+
+
 
         fetchUserBalance();
     }, [address]);
@@ -107,6 +107,22 @@ export default function Home() {
     })
     const { data: mintData, isSuccess, write: mintNFT } = useContractWrite(config)
 
+    const handleMint = () => {
+        console.log('totalMoney:', totalMoney);
+        console.log('totalCost:', totalCost);
+        if (!address) {
+            alert("First Connect, Then Bobo XD!!!");
+        } else if (totalMoney < totalCost) {
+            alert("YOU NEED MORE FUNDS BOBO!!");
+        } else if (mintAmount > (supply - current)) {
+            alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO");
+        } else if (mintAmount == 0) {
+            alert("Come Bobo on at least get one Bobo...");
+        } else {
+            mintNFT?.();
+        }
+    };
+
 
     return (
         <>
@@ -149,24 +165,10 @@ export default function Home() {
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
                         <button
+
                             className="flex flex-col items-center"
-                            onClick={() => {
-                                console.log('totalMoney:', totalMoney);
-                                console.log('totalCost:', totalCost);
-                                if (!address) {
-                                    alert("First Connect, Then Bobo XD!!!")
-                                }
-                                else if (totalMoney < totalCost) {
-                                    alert("YOU NEED MORE FUNDS BOBO!!")
-                                } else if (mintAmount > (supply - current)) {
-                                    alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO")
-                                } else if (mintAmount == 0) {
-                                    alert("Come Bobo on at least get one Bobo...")
-                                } else {
-                                    mintNFT?.();
-                                }
-                            }
-                            }
+                            onClick={handleMint}
+                            onTouchEnd={handleMint}
                         >
                             <div className="w-full flex justify-center">
                                 <Image
