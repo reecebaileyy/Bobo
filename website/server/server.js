@@ -9,8 +9,8 @@ const io = require("socket.io")(httpServer, {
 });
 
 io.on('connection', socket => {
-    socket.on('send-message', ({ username, message }) => {
-       socket.broadcast.emit('receive-message', { username, message }); // Pass the data object
+    socket.on('send-message', ({ username, message, colorClass }) => {
+       socket.broadcast.emit('receive-message', { username, message, colorClass }); // Pass the data object
        console.log(`${username}: ${message}`)
     });
 

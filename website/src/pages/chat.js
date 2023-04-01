@@ -97,7 +97,7 @@ export default function Chat() {
 
 
 
-    function displayMessage(username, message) {
+    function displayMessage(username, message, usernameClassName) {
         const messageContainer = document.createElement('div');
         messageContainer.className = 'mb-4';
 
@@ -123,38 +123,39 @@ export default function Chat() {
 
     // CHAT SERVER LOGIC
     const socketRef = useRef(); // Add this line to create a ref for the socket
-
+    
     useEffect(() => {
-        socketRef.current = io('https://bobo-chat.herokuapp.com/'); // Use the ref to store the socket object
-        socketRef.current.on('receive-message', ({ username, message }) => {
-            displayMessage(username, message); // Pass the usernameClassName variable here
-        }, [usernameClassName]);
+        socketRef.current = io('https://bobo-chat.herokuapp.com/');
+        socketRef.current.on('receive-message', ({ username, message, colorClass }) => { // Change to colorClass
+            displayMessage(username, message, colorClass); // Pass the colorClass variable here
+        });
     
         // Clean up the socket connection when the component unmounts
         return () => {
             socketRef.current.disconnect();
         };
-    });
+    }, []);
 
     useEffect(() => {
         const messageInput = document.getElementById('message-input');
         const form = document.getElementById('form');
-
+    
         const handleSendMessage = (e) => {
             e.preventDefault();
             const message = messageInput.value;
             const username = usernameRef.current;
+            const colorClass = usernameClassName; // Add this line
             if (message === '') return;
-            displayMessage(username, message, usernameClassName); // pass the correct arguments to the displayMessage function
-            socketRef.current.emit('send-message', { username, message }); // Use the ref to access the socket object
+            displayMessage(username, message, colorClass);
+            socketRef.current.emit('send-message', { username, message, colorClass }); // Pass colorClass here
             console.log(address);
             console.log(message);
             console.log(username);
             messageInput.value = '';
         };
-
+    
         form.addEventListener('submit', handleSendMessage);
-
+    
         // Remove the event listener when the component unmounts
         return () => {
             form.removeEventListener('submit', handleSendMessage);
