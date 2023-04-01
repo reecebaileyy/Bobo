@@ -267,12 +267,12 @@ export default function Home() {
                     <div className='sm:flex sm:flex-row'>
                         <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
                         {playing ? (
-                            <button className="z-10 absolute bottom-0 right-0" onClick={pauseSound}>
-                                <HiVolumeUp onClick={pauseSound} />
+                            <button className="z-10 absolute bottom-0 right-0" onClick={handleMint}>
+                                <HiVolumeUp onClick={handleMint} />
                             </button>
                         ) : (
-                            <button className="z-10 absolute bottom-0 right-0" onClick={playSound}>
-                                <HiVolumeOff onClick={playSound} />
+                            <button className="z-10 absolute bottom-0 right-0" onClick={handleMint}>
+                                <HiVolumeOff onClick={handleMint} />
                             </button>
                         )}
                         <p className='z-5 md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free per wallet then {priceInEther} ETH</p>
