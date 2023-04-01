@@ -16,18 +16,16 @@ export default function Chat() {
 
     // PLAY OR PAUSE MUSIC
     const [playing, setPlaying] = useState(false);
-
     const playSound = () => {
         setPlaying(true);
     };
-
     const pauseSound = () => {
         setPlaying(false);
     };
 
 
     // STORING USERS ADDRESS
-    const { addy } = useAccount()
+    const { address: addy } = useAccount()
 
     const { data: balanceOf } = useContractRead({
         address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
@@ -35,8 +33,6 @@ export default function Chat() {
         functionName: 'balanceOf',
         args: [addy],
     })
-    const balance = balanceOf?.toNumber()
-
 
 
     // STORING USERS ADDRESS/ENS AS USERNAME
@@ -47,27 +43,98 @@ export default function Chat() {
     console.log('account:', address); // Log the account value here
 
 
-
     // DISPLAY MESSAGES FUNCTIONALITY
     useEffect(() => {
-        setUsername(address ? address : 'Pleb');
-        usernameRef.current = address ? address : 'Pleb';
+        setUsername(address ? address : 'Brokie');
+        usernameRef.current = address ? address : 'Brokie';
+
     }, [address]);
 
+    
+
+    function getUsernameClassName() {
+        const balance = balanceOf?.toNumber();
+        console.log("Balance:", balance);
+
+        if (balance >= 100) {
+            return 'text-red-500';
+        } else if (balance >= 75) {
+            return 'text-yellow-300';
+        } else if (balance >= 50) {
+            return 'text-red-500';
+        } else if (balance >= 40) {
+            return 'text-blue-800';
+        } else if (balance >= 30) {
+            return 'text-blue-400';
+        } else if (balance >= 20) {
+            return 'text-yellow-300';
+        } else if (balance >= 15) {
+            return 'text-slate-100';
+        } else if (balance >= 10) {
+            return 'text-orange-700';
+        } else if (balance >= 5) {
+            return 'text-lime-800';
+        } else {
+            return 'text-yellow-800';
+        }
+    }
+
+    const [usernameClassName, setUsernameClassName] = useState('text-yellow-800');
+
+
+    useEffect(() => {
+        const newUsernameClassName = getUsernameClassName();
+        setUsernameClassName(newUsernameClassName);
+        console.log("Updated class name:", newUsernameClassName);
+        console.log("New class name:", usernameClassName);
+    });
+    
+    useEffect(() => {
+        console.log("NEW class name:", usernameClassName);
+    }, [usernameClassName]);
+
+
+
+
+
+    function displayMessage(username, message) {
+        const messageContainer = document.createElement('div');
+        messageContainer.className = 'mb-4';
+
+        const userDiv = document.createElement('div');
+        userDiv.textContent = username;
+        
+        userDiv.className = `font-pressStart text-xs mb-1 ${usernameClassName}`;
+
+        const textDiv = document.createElement('div');
+        textDiv.textContent = message;
+        textDiv.className = 'font-pressStart break-words text-sm';
+
+        messageContainer.append(userDiv);
+        messageContainer.append(textDiv);
+
+        const messageDisplay = document.getElementById('message-container');
+        messageDisplay.append(messageContainer);
+
+        // Scroll to the bottom of the message container
+        messageDisplay.scrollTo(0, messageDisplay.scrollHeight);
+    }
+
+
+    // CHAT SERVER LOGIC
     const socketRef = useRef(); // Add this line to create a ref for the socket
 
     useEffect(() => {
         socketRef.current = io('https://bobo-chat.herokuapp.com/'); // Use the ref to store the socket object
         socketRef.current.on('receive-message', ({ username, message }) => {
-            displayMessage(username, message);
-        });
-
+            displayMessage(username, message); // Pass the usernameClassName variable here
+        }, [usernameClassName]);
+    
         // Clean up the socket connection when the component unmounts
         return () => {
             socketRef.current.disconnect();
         };
-    }, []);
-
+    });
 
     useEffect(() => {
         const messageInput = document.getElementById('message-input');
@@ -78,7 +145,7 @@ export default function Chat() {
             const message = messageInput.value;
             const username = usernameRef.current;
             if (message === '') return;
-            displayMessage(username, message); // pass the correct arguments to the displayMessage function
+            displayMessage(username, message, usernameClassName); // pass the correct arguments to the displayMessage function
             socketRef.current.emit('send-message', { username, message }); // Use the ref to access the socket object
             console.log(address);
             console.log(message);
@@ -92,34 +159,7 @@ export default function Chat() {
         return () => {
             form.removeEventListener('submit', handleSendMessage);
         };
-    }, [address]);
-
-    // CHAT SERVER LOGIC
-
-
-    function displayMessage(username, message) {
-        const messageContainer = document.createElement('div');
-        messageContainer.className = 'mb-4';
-    
-        const userDiv = document.createElement('div');
-        userDiv.textContent = username;
-        userDiv.className = 'font-pressStart text-blue-600 text-xs mb-1';
-    
-        const textDiv = document.createElement('div');
-        textDiv.textContent = message;
-        textDiv.className = 'font-pressStart break-words text-sm';
-    
-        messageContainer.append(userDiv);
-        messageContainer.append(textDiv);
-    
-        const messageDisplay = document.getElementById('message-container');
-        messageDisplay.append(messageContainer);
-    
-        // Scroll to the bottom of the message container
-        messageDisplay.scrollTo(0, messageDisplay.scrollHeight);
-    }
-    
-    
+    }, [address, usernameClassName]);
 
 
     return (
@@ -154,7 +194,7 @@ export default function Chat() {
                     </div>
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-                    <div id="message-container" className="col-span-4 w-4/5 max-w-6xl mb-4 overflow-y-auto flex flex-col">
+                        <div id="message-container" className="col-span-4 w-4/5 max-w-6xl mb-4 overflow-y-auto flex flex-col">
 
                         </div>
                         <footer className="z-10 fixed bottom-0 w-full py-4">
