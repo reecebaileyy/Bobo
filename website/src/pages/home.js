@@ -251,7 +251,7 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Link href="/" className="flex flex-col items-center">
+                            <Link href="/lore" className="flex flex-col items-center">
                                 <Image alt="Bobo's big ass cranium" src={lore} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Lore</h1>
                             </Link>
