@@ -174,6 +174,7 @@ export default function Home() {
                                 <Image
                                     alt="Bobo's Big Ass Cranium"
                                     src={mint}
+                                    onClick={handleMint}
                                     className="w-44 sm:w-20 md:w-32"
                                 />
                             </div>
@@ -205,7 +206,7 @@ export default function Home() {
                                     }}
                                 />
 
-                                <h1 className="font-pressStart text-3xl sm:text-xl md:text-2xl ml-2">
+                                <h1 onClick={handleMint} className="font-pressStart text-3xl sm:text-xl md:text-2xl ml-2">
                                     Mint
                                 </h1>
                             </div>
@@ -267,12 +268,12 @@ export default function Home() {
                     <div className='sm:flex sm:flex-row'>
                         <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
                         {playing ? (
-                            <button className="z-10 absolute bottom-0 right-0" onClick={handleMint}>
-                                <HiVolumeUp onClick={handleMint} />
+                            <button className="z-10 absolute bottom-0 right-0" onClick={pauseSound}>
+                                <HiVolumeUp onClick={pauseSound} />
                             </button>
                         ) : (
-                            <button className="z-10 absolute bottom-0 right-0" onClick={handleMint}>
-                                <HiVolumeOff onClick={handleMint} />
+                            <button className="z-10 absolute bottom-0 right-0" onClick={playSound}>
+                                <HiVolumeOff onClick={playSound} />
                             </button>
                         )}
                         <p className='z-5 md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free per wallet then {priceInEther} ETH</p>
