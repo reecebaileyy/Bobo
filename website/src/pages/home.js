@@ -168,7 +168,7 @@ export default function Home() {
 
                             className="z-30 flex flex-col items-center"
                             onClick={handleMint}
-                            onTouchEnd={handleMint}
+                            onTouchStart={handleMint}
                         >
                             <div className="w-full flex justify-center">
                                 <Image
