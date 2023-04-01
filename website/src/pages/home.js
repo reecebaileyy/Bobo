@@ -167,8 +167,6 @@ export default function Home() {
                         <button
 
                             className="z-30 flex flex-col items-center"
-                            onClick={handleMint}
-                            onTouchStart={handleMint}
                         >
                             <div className="w-full flex justify-center">
                                 <Image
@@ -180,7 +178,7 @@ export default function Home() {
                             </div>
                             <div className="flex items-center justify-center mt-2">
                                 <input
-                                    className="z-30 bg-black rounded-md font-pressStart text-white text-center"
+                                    className="z-50 bg-black rounded-md font-pressStart text-white text-center"
                                     type="number"
                                     min="1"
                                     value={mintAmount}
