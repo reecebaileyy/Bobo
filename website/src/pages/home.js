@@ -206,7 +206,7 @@ export default function Home() {
                                     }}
                                 />
 
-                                <h1 className="font-pressStart text-3xl sm:text-xl md:text-2xl ml-2">
+                                <h1 onClick={handleMint} className="font-pressStart text-3xl sm:text-xl md:text-2xl ml-2">
                                     Mint
                                 </h1>
                             </div>
