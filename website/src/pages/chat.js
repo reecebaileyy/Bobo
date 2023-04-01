@@ -37,7 +37,7 @@ export default function Chat() {
 
     // STORING USERS ADDRESS/ENS AS USERNAME
     const { address } = getAccount() ?? {};
-    const [username, setUsername] = useState('Pleb');
+    const [username, setUsername] = useState('Brokie');
     const usernameRef = useRef(username); // Create a ref to store the username
     const [message, setMessage] = useState('');
     console.log('account:', address); // Log the account value here
