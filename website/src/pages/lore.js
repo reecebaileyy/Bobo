@@ -10,18 +10,8 @@ import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContra
 import ABI from '../abi/BoboABI.json'
 import { WindupChildren, useSkip } from "windups";
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
-import { HiVolumeOff, HiVolumeUp, HiAcademicCap } from 'react-icons/hi';
-
-function SkipButton({ skip }) {
-    return (
-      <button
-        className="text-purple-700 absolute bottom-0 left-0"
-        onClick={skip}
-      >
-        <HiAcademicCap/>
-      </button>
-    );
-  }
+import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
+import { BsFillSkipEndCircleFill } from "react-icons/bs";
 
 export default function Home() {
 
@@ -36,24 +26,11 @@ export default function Home() {
         setPlaying(false);
     };
 
+    function SkipButton() {
         const skip = useSkip();
+        return <BsFillSkipEndCircleFill className='static' onClick={skip}>{"Skip"}</BsFillSkipEndCircleFill>;
+      }
 
-
-      const [text, setText] = useState("");
-      const [showImage, setShowImage] = useState(false);
-      const [secondText, setSecondText] = useState("");
-  
-      useEffect(() => {
-          setText(
-              "In the mysterious realm of the digital metaverse, an extraordinary phenomenon unfolded, giving birth to an exceptional life form... This remarkable little guy has multiple personalities, outfits, and more features, allow us to introduce Bobo, a quirky and seemingly derpy character."
-          );
-      }, []);
-  
-      const onTextFinished = () => {
-          setShowImage(true);
-          setSecondText("Bobo, despite his clumsy and dorky exterior, hides a god-like secret within. Possessing an unparalleled understanding of the chaotic and unpredictable world of NFTs and cryptocurrency, Bobo has harnessed the power to amass degenerate gains that baffle even the most seasoned crypto enthusiasts.");
-      };
-  
 
     return (
         <>
@@ -91,37 +68,32 @@ export default function Home() {
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
                         <div className='col-span-4 font-pressStart text-center'>
-                        <h1 className='col-start-2 underline mb-4 text-purple-900'>Click the purple arrow to skip dialoge</h1>
-                            <WindupChildren className='m-0 p-0' onFinished={onTextFinished}>
-                            <SkipButton/>
-                            {text} 
-                            </WindupChildren>
+                            <h1 className='col-start-2 underline mb-4 text-purple-900'>Click the arrow to skip dialoge</h1>
+                            <WindupChildren>
+                            <SkipButton />
+                                {"In the mysterious realm of the digital metaverse, an extraordinary phenomenon unfolded, giving birth to an exceptional NFT project called BoboVision. This remarkable collection of unique digital art pieces features a quirky and seemingly derpy character known as Bobo."}
+                                <Image src={BoboVision}></Image>
+                                {"Bobo, despite his clumsy and dorky exterior, hides a god-like secret within. Possessing an unparalleled understanding of the chaotic and unpredictable world of NFTs and cryptocurrency, Bobo has harnessed the power to amass degenerate gains that baffle even the most seasoned crypto enthusiasts."}
+                                <Image src={BoboVision}></Image>
+                                {"The legend of Bobo began when he was discovered by a group of NFT degens, who were relentlessly hunting for the next big project. Drawn in by his peculiar appearance and a mysterious aura that seemed to surround him, they decided to mint the first-ever Bobo NFT. Little did they know, this simple action would unlock Bobo's hidden potential and forever change the course of the metaverse."}
+                                <Image src={BoboVision}></Image>
+                                {"As the collection gained popularity, the true power of Bobo became increasingly apparent. Those who held Bobos began to notice a drastic change in their fortunes. The seemingly innocuous character began to guide his followers to make daring and lucrative decisions, resulting in unbelievable gains that defied all logic and reason."}
+                                <Image src={BoboVision}></Image>
+                                {"Rumors spread far and wide, and the BoboVision project quickly became a beacon for NFT degens seeking fortune and glory. Intrigued by the tales of Bobo's seemingly supernatural abilities, they flocked to acquire these priceless tokens, hoping to secure a piece of the legend and share in Bobo's divine wisdom."}
+                                <Image src={BoboVision}></Image>
+                                {"Unbeknownst to many, the secret to Bobo's success lay in his god-like understanding of the complex forces that drive the NFT market. With an innate ability to predict trends, identify hidden gems, and navigate the treacherous world of digital assets, Bobo's power transcended that of any mere mortal."}
+                                <Image src={BoboVision}></Image>
+                                {"Yet, Bobo remained an enigma, his true origins shrouded in mystery. Some whispered that he was a digital manifestation of an ancient deity, long thought lost to the sands of time. Others believed he was the creation of a mastermind coder, who imbued him with the knowledge of a thousand lifetimes."}
+                                <Image src={BoboVision}></Image>
+                                {"No matter his origins, one thing was certain: Bobo had become an icon, a symbol of the unpredictable and exhilarating world of NFTs. His mere presence brought hope and excitement to the legions of degens who followed in his footsteps, eager to learn from his unparalleled wisdom and share in his legendary gains."}
+                                <Image src={BoboVision}></Image>
+                                {"And so, Bobo and his visionaries continued to thrive, a testament to the enduring allure of digital art, the relentless pursuit of fortune, and the enduring enigma that was Bobo. With each new piece of the collection, his legend only grew, solidifying his place as a true titan of the metaverse."}
+                                <Image src={BoboVision}></Image>
+                            </WindupChildren> 
                         </div>
-                        {showImage ? (
-                            <div className="col-span-4 flex justify-center">
-                                <Image src="/assets/png_gif/BoboVision2.png" width={500} height={500} alt="Your image description" />
-                            </div>
-                        ) : (
-                            <div className="col-span-4 flex justify-center">
-                            </div>
-                        )}
-
-                        {onTextFinished ? (
-                            <div className='col-span-4 font-pressStart text-center'>
-                            <WindupChildren className='m-0 p-0'>
-                            <SkipButton skip={skip}/>
-                            {secondText} 
-                            </WindupChildren>
-                        </div>
-                        ) : (
-                            <div className="col-span-4 flex justify-center">
-                            </div>
-                        )}
-                        
                     </div>
 
                     <div className='sm:flex sm:flex-row'>
-                    
                         <ReactHowler playing={playing} pause={pauseSound} volume={0.05} src={["/assets/audio/lore.mp3"]} />
                         {playing ? (
                             <button className="absolute bottom-0 right-0" onClick={pauseSound}>
@@ -135,7 +107,7 @@ export default function Home() {
                     </div>
 
                 </div>
-                
+
 
             </div>
         </>

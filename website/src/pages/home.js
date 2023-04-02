@@ -211,25 +211,25 @@ export default function Home() {
                         </button>
 
 
-                        {
-                            balance >= 1 ? (
-                                <div className='flex flex-col items-center'>
-                                    <Link href="/profile" className="flex flex-col items-center">
-                                        <Image alt='Profile' src={profile} className='w-44 sm:w-20 md:w-32' />
-                                        <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
-                                    </Link>
-                                </div>
-                            ) : <div className='flex flex-col items-center'>
-                                <Link href="https://www.opensea.io" target="_blank">
+                        {balance >= 1 ? (
+                            <div className='flex flex-col items-center'>
+                                <Link href="/profile" className="flex flex-col items-center">
                                     <Image alt='Profile' src={profile} className='w-44 sm:w-20 md:w-32' />
                                     <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                 </Link>
                             </div>
-                        }
+                        ) : (
+                            <div className='flex flex-col items-center'>
+                                <Link href="https://www.opensea.io" target="_blank" onClick={() => { window.alert("YOU NEED SOME BOBOS FIRST!!!!") }}>
+                                    <Image alt='Profile' src={profile} className='w-44 sm:w-20 md:w-32' />
+                                    <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
+                                </Link>
+                            </div>
+                        )}
                         <div className='flex flex-col items-center'>
-                            <Link href="/" className="flex flex-col items-center">
+                            <Link href="/bobos" className="flex flex-col items-center">
                                 <Image alt="Da Memes" src={headgif} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Search</h1>
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Bobos</h1>
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
