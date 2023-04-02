@@ -71,18 +71,18 @@ export default function Profile() {
             <div className='bg-gray-300 flex items-start justify-start tv-border'>
                 <div className='fixed w-4/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between'>
                     <div className="sm:hidden flex justify-between items-center">
-                        <Link className='' href="/">
+                        <Link className='' href="/home">
                             <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                         </Link>
                         <div className="flex flex-col items-center">
-                            <Link href="/">
+                            <Link href="/home">
                                 <Image alt='BoboVision' className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden' src={BoboVision} width={500} height={500}></Image>
                             </Link>
                             <Web3Button className="ml-20" />
                         </div>
                     </div>
                     <div className='z-10 flex flex-col items-center md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'>
-                        <Link href="/">
+                        <Link href="/home">
                             <Image alt='BoboVision' className='' src={BoboVision} width={500} height={500}></Image>
                         </Link>
                         <Web3Button className="ml-20" />

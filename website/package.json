@@ -38,7 +38,8 @@
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "wagmi": "^0.12.6",
-    "web3modal": "^1.9.12"
+    "web3modal": "^1.9.12",
+    "windups": "^1.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
