@@ -264,7 +264,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className='sm:flex sm:flex-row'>
-                        <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/nostalgia.mp3"]} />
+                        <ReactHowler playing={playing} pause={pauseSound} volume={0.5} src={["/assets/audio/nostalgia.mp3"]} />
                         {playing ? (
                             <button className="z-10 absolute bottom-0 right-0" onClick={pauseSound}>
                                 <HiVolumeUp onClick={pauseSound} />

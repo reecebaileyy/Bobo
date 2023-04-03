@@ -222,7 +222,7 @@ export default function Chat() {
                     </div>
 
                     <div className='sm:flex sm:flex-row'>
-                        <ReactHowler playing={playing} pause={pauseSound} src={["/assets/audio/chat.mp3"]} />
+                        <ReactHowler playing={playing} pause={pauseSound} volume={0.5} src={["/assets/audio/chat.mp3"]} />
                         {playing ? (
                             <button className="absolute bottom-0 right-0" onClick={pauseSound}>
                                 <HiVolumeUp onClick={pauseSound} />
