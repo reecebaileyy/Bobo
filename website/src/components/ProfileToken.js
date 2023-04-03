@@ -34,7 +34,7 @@ function Token({ tokenId }) {
     const updatedMetadata = { ...metadata, name: newName };
     // Update metadata on your server
     // This assumes you have an API to update metadata
-    await fetch(`/api/updateMetadata/${tokenId}`, {
+    await fetch(`/api/updateMetadata`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedMetadata),
