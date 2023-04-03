@@ -5,16 +5,6 @@
         "src": "package.json",
         "use": "@vercel/next"
       }
-    ],
-    "routes": [
-      {
-        "src": "/metadata/(.*)",
-        "dest": "/api/metadata/$1"
-      },
-      {
-        "src": "/update-metadata/(.*)",
-        "dest": "/api/update-metadata/$1"
-      }
     ]
   }
   
