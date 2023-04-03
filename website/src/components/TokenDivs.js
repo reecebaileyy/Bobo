@@ -1,32 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useContractRead, useAccount } from "wagmi";
+import { useContractRead } from "wagmi";
 import ABI from "../abi/BoboABI.json";
 import Token from "./Token";
 
-const TokenDivs = () => {
+const TotalTokenDivs = () => {
   const [tokenIds, setTokenIds] = useState([]);
-  const { address } = useAccount();
 
-  const { data: balanceOf } = useContractRead({
+  const { data: totalSupply } = useContractRead({
     address: "0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D",
     abi: ABI,
-    functionName: "balanceOf",
-    args: [address],
-  });
-
-  const { data: tokensOfOwner } = useContractRead({
-    address: "0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D",
-    abi: ABI,
-    functionName: "tokensOfOwner",
-    args: [address],
-    shouldExecute: balanceOf?.gt(0),
+    functionName: "totalSupply",
   });
 
   useEffect(() => {
-    if (tokensOfOwner) {
-      setTokenIds(tokensOfOwner);
+    if (totalSupply) {
+      const tokens = [];
+      for (let i = 0; i < totalSupply.toNumber(); i++) {
+        tokens.push(i);
+      }
+      setTokenIds(tokens);
     }
-  }, [tokensOfOwner]);
+  }, [totalSupply]);
 
   return (
     <>
@@ -37,4 +31,4 @@ const TokenDivs = () => {
   );
 };
 
-export default TokenDivs;
+export default TotalTokenDivs;
