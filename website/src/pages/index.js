@@ -63,7 +63,8 @@ export default function Home() {
           </div>
           <div className="text-center">
             <h3 className="text-md font-pressStart">&copy; {new Date().getFullYear()} Bobo</h3>
-            <h3 className="text-md font-pressStart">All rights reserved.</h3>
+            <h3 className="text-md font-pressStart">All rights reserved...</h3>
+            <p className='text-xs font-pressStart'>Because BOBO has FOMO</p>
           </div>
         </div>
       </div>
