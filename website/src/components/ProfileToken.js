@@ -31,7 +31,7 @@ function ProfileToken({ tokenId }) {
 
     const handleRename = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/update-metadata/${tokenId}`, {
+          const response = await fetch(`/update-metadata/${tokenId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
