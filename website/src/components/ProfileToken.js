@@ -9,7 +9,7 @@ function ProfileToken({ tokenId }) {
 
     useEffect(() => {
         async function fetchMetadata() {
-            const res = await fetch('/api/metadata/');
+            const res = await fetch(`https://bobovision.vercel.app/metadata/${tokenId}.json`);
             const data = await res.json();
             setMetadata(data);
         }
@@ -31,19 +31,16 @@ function ProfileToken({ tokenId }) {
 
     const handleRename = async () => {
         try {
-<<<<<<< HEAD
-          const response = await fetch(`/api/metadata`, {
-=======
           const response = await fetch(`http://localhost:3001/update-metadata/${tokenId}`, {
->>>>>>> parent of 366bb48 (Update ProfileToken.js)
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ newName }),
-          })
-          const data = await response.json();
-          console.log(data)
+            body: JSON.stringify({
+              ...metadata,
+              name: newName,
+            }),
+          });
       
           if (response.ok) {
             console.log('Metadata updated successfully');
@@ -60,6 +57,20 @@ function ProfileToken({ tokenId }) {
         }
       };
       
+
+    const updateMetadataName = async () => {
+        if (newName === '') return;
+        const updatedMetadata = { ...metadata, name: newName };
+        // Update metadata on your server
+        // This assumes you have an API to update metadata
+        await fetch(`/api/updateMetadata/${tokenId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedMetadata),
+        });
+        setMetadata(updatedMetadata);
+        setNewName('');
+      };
 
     if (!imageUrl) return null;
 
