@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
-import TokenDivs from '../components/TokenDivs';
+import Rename from '../components/Rename';
 import { Web3Button } from '@web3modal/react'
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
@@ -157,7 +157,7 @@ export default function Profile() {
                             You have {balance} Bobos... not counting yourself
                         </div>
                         <div className="col-span-4 sm:col-span-2 md:col-span-3"></div>
-                        <TokenDivs />
+                        <Rename />
                     </div>
 
                     <div className='sm:flex sm:flex-row'>

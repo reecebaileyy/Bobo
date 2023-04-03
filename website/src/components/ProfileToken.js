@@ -46,7 +46,7 @@ function Token({ tokenId }) {
   if (!imageUrl) return null;
 
   return (
-    <div className="flex flex-col items-center font-pressStart">
+    <div className="flex flex-col items-center font-pressStart text-center">
       <Link
         href={`https://opensea.io/assets/ethereum/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/${tokenId}`}
         target="_blank"
@@ -68,10 +68,10 @@ function Token({ tokenId }) {
         type="text"
         value={newName}
         onChange={handleNameChange}
-        placeholder="Enter new name"
-        className="my-2"
+        placeholder="name"
+        className="my-2 w-3/4 text-center rounded-lg" 
       />
-      <button onClick={updateMetadataName} className="bg-blue-500 text-white py-1 px-2 rounded">
+      <button onClick={updateMetadataName} className="bg-black text-white py-1 px-2 rounded-lg">
         Update Name
       </button>
     </div>

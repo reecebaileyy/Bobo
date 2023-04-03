@@ -3,21 +3,11 @@ import Image from 'next/image'
 import Link from "next/link";
 import { Web3Button } from '@web3modal/react'
 import { useState, useEffect, useRef } from 'react'
-import { ethers } from 'ethers'
 import ReactHowler from "react-howler";
-import { fetchBalance } from '@wagmi/core'
-import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
-import ABI from '../abi/BoboABI.json'
-import headgif from '../../public/assets/png_gif/spinhead.gif'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
-import twitter from '../../public/assets/png_gif/twitter.gif'
-import lore from '../../public/assets/png_gif/lore.gif'
-import protocol from '../../public/assets/png_gif/protocol.gif'
-import chat from '../../public/assets/png_gif/chat.gif'
-import profile from '../../public/assets/png_gif/Identification.gif'
+import TokenDivs from '../components/TokenDivs'
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
-import mint from '../../public/assets/png_gif/mint.gif'
-import etherscan from '../../public/assets/png_gif/etherscan.gif'
+
 
 
 export default function Home() {
@@ -72,7 +62,7 @@ export default function Home() {
                     </div>
 
                     <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-                        
+                        <TokenDivs />
                     </div>
                     <div className='sm:flex sm:flex-row'>
                         <ReactHowler playing={playing} pause={pauseSound} volume={0.05} src={["/assets/audio/bobo.mp3"]} />

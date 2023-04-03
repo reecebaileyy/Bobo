@@ -3,7 +3,7 @@ import { useContractRead } from "wagmi";
 import ABI from "../abi/BoboABI.json";
 import Token from "./Token";
 
-const TotalTokenDivs = () => {
+const TokenDivs = () => {
   const [tokenIds, setTokenIds] = useState([]);
 
   const { data: totalSupply } = useContractRead({
@@ -31,4 +31,4 @@ const TotalTokenDivs = () => {
   );
 };
 
-export default TotalTokenDivs;
+export default TokenDivs;
