@@ -1,14 +1,17 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
-import Rename from '../components/Rename';
+import TokenDivs from '../components/TokenDivs';
 import { Web3Button } from '@web3modal/react'
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { useState, useEffect } from 'react'
-import { useAccount, useContractRead } from 'wagmi'
+import { ethers } from 'ethers'
+import { useContractWrite, usePrepareContractWrite, useAccount, usePrepareContractRead, useContractRead } from 'wagmi'
 import ABI from '../abi/BoboABI.json'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
+import headgif from '../../public/assets/png_gif/spinhead.gif'
+import Chat from './chat'; // Make sure to import the Chat component
 
 
 
@@ -154,7 +157,7 @@ export default function Profile() {
                             You have {balance} Bobos... not counting yourself
                         </div>
                         <div className="col-span-4 sm:col-span-2 md:col-span-3"></div>
-                        <Rename />
+                        <TokenDivs />
                     </div>
 
                     <div className='sm:flex sm:flex-row'>

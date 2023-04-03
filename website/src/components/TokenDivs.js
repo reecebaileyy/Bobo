@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useContractRead, useAccount } from "wagmi";
 import ABI from "../abi/BoboABI.json";
-import ProfileToken from "./ProfileToken";
+import Token from "./Token";
 
-const Rename = () => {
+const TokenDivs = () => {
   const [tokenIds, setTokenIds] = useState([]);
   const { address } = useAccount();
 
@@ -31,10 +31,10 @@ const Rename = () => {
   return (
     <>
       {tokenIds.map((tokenId) => (
-        <ProfileToken key={tokenId} tokenId={tokenId} />
+        <Token key={tokenId} tokenId={tokenId} />
       ))}
     </>
   );
 };
 
-export default Rename;
+export default TokenDivs;

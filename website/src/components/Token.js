@@ -41,7 +41,7 @@ function Token({ tokenId }) {
             height={200}
           />
         )}
-        Bobo #{parseInt(tokenId, 10)}
+        Bobo #{tokenId.toNumber()}
       </div>
     </Link>
   );

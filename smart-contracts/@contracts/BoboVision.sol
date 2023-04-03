@@ -32,7 +32,7 @@ contract Lock is
     // Token symbol
     string private _symbol;
     // Cost
-    uint256 public cost = 0.008 ether;
+    uint256 public cost = 0.0035 ether;
     // Base URI
     string public baseURI = "http://localhost:3000/";
     // Total Number of ScreenAgers
