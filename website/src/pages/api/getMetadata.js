@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         return;
       }
 
-      res.status(200).json(metadata.metadata);
+      res.status(200).json(metadata);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
