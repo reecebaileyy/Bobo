@@ -9,7 +9,7 @@ function Token({ tokenId }) {
 
   useEffect(() => {
     async function fetchMetadata() {
-      const res = await fetch(`https://bobovision.vercel.app/metadata/${tokenId}.json`);
+      const res = await fetch(`/api/getMetadata?token=${tokenId}`);
       const data = await res.json();
       setMetadata(data);
     }
