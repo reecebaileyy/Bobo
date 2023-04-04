@@ -30,18 +30,33 @@ function Token({ tokenId }) {
   };
 
   const updateMetadataName = async () => {
-    if (newName === '') return;
-    const updatedMetadata = { ...metadata, name: newName };
-    // Update metadata on your server
-    // This assumes you have an API to update metadata
-    await fetch(`/api/updateMetadata`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedMetadata),
-    });
-    setMetadata(updatedMetadata);
-    setNewName('');
+    const token = tokenId.toString()
+    console.log(token, newName)
+    try {
+      const res = await fetch('/api/updateMetadata', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, newName }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data.message);
+        setMetadata({ ...metadata, name: newName });
+      } else {
+        const error = await res.json();
+        console.error(error.message);
+      }
+    } catch (error) {
+      console.log(token)
+      console.error('Failed to update metadata name:', error);
+    }
   };
+  
+
 
   if (!imageUrl) return null;
 
