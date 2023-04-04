@@ -43,7 +43,6 @@ function Token({ tokenId }) {
       const data = await res.json();
 
       if (res.ok) {
-        const data = await res.json();
         console.log(data.message);
         setMetadata({ ...metadata, name: newName });
       } else {

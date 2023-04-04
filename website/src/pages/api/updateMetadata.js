@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const metadataDirectory = path.join(__dirname, '..', '..', '..', 'public', 'metadata');
+const metadataDirectory = path.join(process.cwd(), 'public', 'metadata');
 
 export default async function handler(req, res) {
   const { token, newName } = req.body;
