@@ -1,0 +1,15 @@
+{
+    "name": "Bobo NFT #16",
+    "description": "This is a Bobo NFT",
+    "image": "/images/1.gif",
+    "attributes": [
+      {
+        "trait_type": "Color",
+        "value": "Blue"
+      },
+      {
+        "trait_type": "Size",
+        "value": "Small"
+      }
+    ]
+  }

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const dbConnect = require('./lib/dbConnect').default;
+const dbConnect = require('./lib/mongodb').default;
 const Metadata = require('./models/Metadata');
 
 const metadataDirectory = path.join(process.cwd(), 'public', 'metadata');

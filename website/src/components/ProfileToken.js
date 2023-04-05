@@ -2,61 +2,71 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function Token({ tokenId }) {
-  const [metadata, setMetadata] = useState(null);
+function Token({ token, initialMetadata }) {
+  const [metadata, setMetadata] = useState(initialMetadata);
   const [imageUrl, setImageUrl] = useState(null);
   const [newName, setNewName] = useState('');
+  
 
   useEffect(() => {
+    console.log('First useEffect hook called with token:', token);
     async function fetchMetadata() {
+      console.log('Fetching metadata for token', token);
       try {
-        const res = await fetch(`/api/getMetadata?token=${tokenId}`);
+        const res = await fetch(`/api/getMetadata?token=${token}`);
+        console.log('Response:', res);
         if (res.ok) {
           const data = await res.json();
+          console.log('Metadata:', data);
           setMetadata(data);
+          console.log('Metadata state:', metadata);
         } else {
-          console.error(`Failed to fetch metadata for token ${tokenId}: ${res.statusText}`);
+          console.error(`Failed to fetch metadata for token ${token}: ${res.statusText}`);
+          console.log('Error response:', await res.json());
         }
       } catch (error) {
-        console.error(`Failed to fetch metadata for token ${tokenId}: ${error.message}`);
+        console.error(`Failed to fetch metadata for token ${token}: ${error.message}`);
       }
     }
-
-    if (tokenId) {
+    
+  
+    if (token) {
       fetchMetadata();
     }
-  }, [tokenId]);
+  }, [token]);
 
   useEffect(() => {
+    // console.log('Metadata:', metadata);
+  console.log('Image URL:', imageUrl);
     if (metadata) {
-      setImageUrl(metadata.image);
+      console.log('Metadata:', metadata);
+      if (metadata && metadata.image) {
+        setImageUrl(metadata.image);
+      }
     }
   }, [metadata]);
 
+  console.log('Image:', imageUrl)
   const handleNameChange = (event) => {
     setNewName(event.target.value);
   };
 
   const updateMetadataName = async () => {
-    const token = tokenId.toString();
     try {
       const res = await fetch('/api/updateMetadata', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token, newName }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, name: newName }),
       });
       if (res.ok) {
-        const data = await res.json();
-        console.log(data.message);
         setMetadata({ ...metadata, name: newName });
+        alert('Metadata updated successfully');
       } else {
-        const error = await res.json();
-        console.error(`Failed to update metadata name for token ${tokenId}: ${error.message}`);
+        const errorData = await res.json();
+        alert(`Error updating metadata: ${errorData.message}`);
       }
     } catch (error) {
-      console.error(`Failed to update metadata name for token ${tokenId}: ${error.message}`);
+      alert(`Error updating metadata: ${error.message}`);
     }
   };
 
@@ -71,20 +81,20 @@ function Token({ tokenId }) {
   return (
     <div className="flex flex-col items-center font-pressStart text-center">
       <Link
-        href={`https://opensea.io/assets/ethereum/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/${tokenId}`}
+        href={`https://opensea.io/assets/ethereum/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/${token}`}
         target="_blank"
-        key={tokenId}
+        key={token}
       >
         <div>
           {imageUrl && (
             <Image
               src={imageUrl}
-              alt={`Bobo NFT #${tokenId}`}
+              alt={`Bobo NFT #${token}`}
               width={200}
               height={200}
             />
           )}
-          Bobo #{parseInt(tokenId, 10)}
+          Bobo #{parseInt(token, 10)}
         </div>
       </Link>
       <input
