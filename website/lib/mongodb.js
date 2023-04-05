@@ -30,7 +30,9 @@ async function connectToDatabase() {
   }
 
   cached.conn = await cached.promise;
+  console.log('Connected to database:', cached.conn)
   return cached.conn;
+  
 }
 
 module.exports = { connectToDatabase };

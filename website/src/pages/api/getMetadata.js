@@ -5,7 +5,7 @@ module.exports = async function handler(req, res) {
     const { token } = req.query;
     console.log('Requested token:', token);
     const { client, db } = await connectToDatabase();
-  
+    
     try {
       const dbName = client.db("test").databaseName;
       const collectionName = db.collection('metadatas').collectionName;

@@ -7,7 +7,6 @@ function Token({ token, initialMetadata }) {
   const [imageUrl, setImageUrl] = useState(null);
   const [newName, setNewName] = useState('');
   
-
   useEffect(() => {
     console.log('First useEffect hook called with token:', token);
     async function fetchMetadata() {
