@@ -9,9 +9,17 @@ function Token({ tokenId }) {
 
   useEffect(() => {
     async function fetchMetadata() {
-      const res = await fetch(`/api/getMetadata?token=${tokenId}`);
-      const data = await res.json();
-      setMetadata(data);
+      try {
+        const res = await fetch(`/api/getMetadata?token=${tokenId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setMetadata(data);
+        } else {
+          console.error(`Failed to fetch metadata for token ${tokenId}: ${res.statusText}`);
+        }
+      } catch (error) {
+        console.error(`Failed to fetch metadata for token ${tokenId}: ${error.message}`);
+      }
     }
 
     if (tokenId) {
@@ -30,8 +38,7 @@ function Token({ tokenId }) {
   };
 
   const updateMetadataName = async () => {
-    const token = tokenId.toString()
-    console.log(token, newName)
+    const token = tokenId.toString();
     try {
       const res = await fetch('/api/updateMetadata', {
         method: 'POST',
@@ -40,24 +47,26 @@ function Token({ tokenId }) {
         },
         body: JSON.stringify({ token, newName }),
       });
-      const data = await res.json();
-
       if (res.ok) {
+        const data = await res.json();
         console.log(data.message);
         setMetadata({ ...metadata, name: newName });
       } else {
         const error = await res.json();
-        console.error(error.message);
+        console.error(`Failed to update metadata name for token ${tokenId}: ${error.message}`);
       }
     } catch (error) {
-      console.log(token)
-      console.error('Failed to update metadata name:', error);
+      console.error(`Failed to update metadata name for token ${tokenId}: ${error.message}`);
     }
   };
-  
 
-
-  if (!imageUrl) return null;
+  if (!metadata || !imageUrl) {
+    return (
+      <div className="flex flex-col items-center font-pressStart text-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center font-pressStart text-center">
