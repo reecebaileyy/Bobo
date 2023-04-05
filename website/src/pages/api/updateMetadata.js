@@ -1,7 +1,3 @@
-const dbConnect = require('../../../lib/dbConnect').default;
-const Metadata = require('../../../models/Metadata');
-
-const metadataDirectory = path.join(process.cwd(), 'public', 'metadata');
 
 export default async function handler(req, res) {
   const { token, newName } = req.body;
@@ -16,17 +12,6 @@ export default async function handler(req, res) {
     return;
   } else {
     try {
-      await dbConnect();
-
-      const metadata = await Metadata.findOne({ token: Number(token) });
-
-      if (!metadata) {
-        res.status(404).json({ message: 'Metadata not found' });
-        return;
-      }
-
-      metadata.metadata.name = newName;
-      await metadata.save();
 
       res.status(200).json({ message: 'Metadata name updated successfully' });
     } catch (error) {

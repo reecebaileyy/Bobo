@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { MongoClient } from "mongodb";
 require('dotenv').config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -8,11 +8,11 @@ if (!MONGODB_URI) {
 }
 
 async function dbConnect() {
-  if (mongoose.connection.readyState >= 1) {
+  if (MongoClient.connection.readyState >= 1) {
     return;
   }
 
-  return mongoose.connect(MONGODB_URI, {
+  return MongoClient.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

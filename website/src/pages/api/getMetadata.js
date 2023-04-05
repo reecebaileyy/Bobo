@@ -1,5 +1,3 @@
-import dbConnect from '../../../lib/dbConnect';
-import Metadata from '../../../models/Metadata';
 
 export default async function handler(req, res) {
   const { token } = req.query;
@@ -14,16 +12,7 @@ export default async function handler(req, res) {
     return;
   } else {
     try {
-      await dbConnect();
 
-      const metadata = await Metadata.findOne({ token: Number(token) });
-
-      if (!metadata) {
-        res.status(404).json({ message: 'Metadata not found' });
-        return;
-      }
-
-      res.status(200).json(metadata);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });

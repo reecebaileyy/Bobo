@@ -4,6 +4,17 @@ import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createClient, WagmiConfig, useAccount } from 'wagmi'
 import { mainnet, sepolia } from 'wagmi/chains'
+import { MongoClient } from "mongodb";
+
+export async function getStaticProps(){
+  const client = await MongoClient.connect(MONGODB_URI);
+  const db = client.db();
+
+  const yourCollection = db.collection("metadatas");
+  const data = JSON.parse(JSON.stringify(await yourCollection.find().toArray()));
+  console.log(data)
+  client.close();
+}
 
 export default function App({ Component, pageProps }) {
 
@@ -28,7 +39,6 @@ export default function App({ Component, pageProps }) {
       <WagmiConfig client={wagmiClient}>
           <Component {...pageProps} />
           <Analytics />
-
       </WagmiConfig>
 
       <Web3Modal
