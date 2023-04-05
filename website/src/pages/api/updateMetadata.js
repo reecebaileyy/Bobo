@@ -1,7 +1,9 @@
 const dbConnect = require('../../../lib/dbConnect').default;
 const Metadata = require('../../../models/Metadata');
 
-async function handler(req, res) {
+const metadataDirectory = path.join(process.cwd(), 'public', 'metadata');
+
+export default async function handler(req, res) {
   const { token, newName } = req.body;
 
   if (req.method !== 'POST') {
