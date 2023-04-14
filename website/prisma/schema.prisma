@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type MetadatasMetadata {
+  attributes  MetadatasMetadataAttributes[]
+  description String
+  image       String
+  name        String
+}
+
+type MetadatasMetadataAttributes {
+  trait_type String
+  value      String
+}
+
+model metadatas {
+  id       String            @id @default(auto()) @map("_id") @db.ObjectId
+  v        Int               @map("__v")
+  metadata MetadatasMetadata
+  token    Int
+}
