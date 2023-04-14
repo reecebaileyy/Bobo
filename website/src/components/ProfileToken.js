@@ -16,16 +16,18 @@ function Token({ tokenId }) {
         }
         const data = await response.json();
         console.log("response", data)
-        setImageUrl(data?.metadata?.image);
+        setImageUrl("https://www.bobovision.xyz" + data?.metadata?.image);
+        console.log("image", imageUrl)
       } catch (error) {
         console.error(error.message);
       }
     }
     fetchMetadata();
+    // console.log("second render:", imageUrl)
   }, [tokenId]);
   
   
-
+  console.log("first render:", imageUrl)
   return (
     <div className="flex flex-col items-center font-pressStart text-center">
       <Link
