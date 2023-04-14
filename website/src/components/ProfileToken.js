@@ -26,6 +26,10 @@ function Token({ tokenId }) {
     }
     fetchMetadata();
   }, [tokenId]);
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value);
+  };
   
   
   return (
@@ -50,7 +54,7 @@ function Token({ tokenId }) {
       <input
         type="text"
         value={newName}
-        
+        onChange={handleNameChange}
         placeholder="name"
         className="my-2 w-3/4 text-center rounded-lg" 
       />
