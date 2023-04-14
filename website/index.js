@@ -5,7 +5,13 @@ const prisma = new PrismaClient()
 async function main() {
   // Connect the client
   await prisma.$connect()
-  const allMetadata = await prisma.metadatas.findMany()
+  const allMetadata = await prisma.metadatas.findMany({
+    where: {
+        token: {
+            in: [1]
+        }
+    }
+  })
   console.log(allMetadata)
 }
 

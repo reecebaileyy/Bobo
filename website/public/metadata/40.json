@@ -1,7 +1,7 @@
 {
     "name": "Bobo NFT #1",
     "description": "This is a Bobo NFT",
-    "image": "/images/4.gif",
+    "image": "https://www.bobovision.xyz/images/4.gif",
     "attributes": [
       {
         "trait_type": "Color",
