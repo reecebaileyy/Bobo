@@ -15,6 +15,7 @@ function Token({ tokenId }) {
           throw new Error(`Failed to fetch tokens: ${errorData.error}`);
         }
         const data = await response.json();
+        console.log("response", data)
         setImageUrl(data?.metadata?.image);
       } catch (error) {
         console.error(error.message);

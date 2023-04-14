@@ -1,14 +1,14 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const dbConnect = require('./lib/mongodb').default;
+const { connectToDatabase } = require('./lib/mongodb'); 
 const Metadata = require('./models/Metadata');
 
 const metadataDirectory = path.join(process.cwd(), 'public', 'metadata');
 
 (async () => {
   try {
-    await dbConnect();
+    const { db } = await connectToDatabase(); 
 
     const files = fs.readdirSync(metadataDirectory);
 
@@ -17,11 +17,10 @@ const metadataDirectory = path.join(process.cwd(), 'public', 'metadata');
       const metadataPath = path.join(metadataDirectory, file);
       const metadataJSON = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
 
-      const existingMetadata = await Metadata.findOne({ token });
+      const existingMetadata = await db.collection('metadatas').findOne({ token }); // Use the db object to query the collection
 
       if (!existingMetadata) {
-        const newMetadata = new Metadata({ token, metadata: metadataJSON });
-        await newMetadata.save();
+        await db.collection('metadatas').insertOne({ token, metadata: metadataJSON }); // Use the db object to insert new metadata
         console.log(`Imported token ${token}`);
       } else {
         console.log(`Token ${token} already exists in the database`);
