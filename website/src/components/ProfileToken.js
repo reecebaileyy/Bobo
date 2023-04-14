@@ -9,25 +9,25 @@ function Token({ tokenId }) {
   useEffect(() => {
     async function fetchMetadata() {
       try {
-        const response = await fetch(`/api/tokens/${tokenId}`);
+        const response = await fetch(`/api/tokens/${tokenId.toString()}`);
+        console.log("response", response)
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(`Failed to fetch tokens: ${errorData.error}`);
         }
-        const data = await response.json();
-        console.log("response", data)
-        setImageUrl("https://www.bobovision.xyz" + data?.metadata?.image);
+        const { data } = await response.json();
+        console.log("data", data)
+        console.log("TOKEN", tokenId.toString())
+         setImageUrl("https://www.bobovision.xyz/images/" + tokenId.toString() + ".gif");
         console.log("image", imageUrl)
       } catch (error) {
         console.error(error.message);
       }
     }
     fetchMetadata();
-    // console.log("second render:", imageUrl)
   }, [tokenId]);
   
   
-  console.log("first render:", imageUrl)
   return (
     <div className="flex flex-col items-center font-pressStart text-center">
       <Link

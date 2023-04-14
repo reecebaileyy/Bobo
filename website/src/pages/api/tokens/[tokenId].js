@@ -1,10 +1,11 @@
 import { getTokenById } from '../../../../lib/prisma/tokens';
 
 export default async function handler(req, res) {
-  const { tokenId } = req.query;
-  console.log('Requested tokenId:', tokenId);
+  
   if (req.method === 'GET') {
     try {
+      const { tokenId } = req.query;
+    console.log('Requested tokenId:', tokenId);
       const { token } = await getTokenById(parseInt(tokenId, 10));
       console.log('Token from API:', token); 
       res.status(200).json({token});

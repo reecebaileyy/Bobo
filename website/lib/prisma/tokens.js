@@ -13,7 +13,7 @@ export async function getTokens() {
 
 
 export async function getTokenById(tokenId) {
-    console.log('Searching for tokenId:', tokenId); // Add this line
+    console.log('Searching for tokenId:', tokenId); 
     try {
         console.log("hello")
         const tokens = await prisma.metadatas.findMany({
