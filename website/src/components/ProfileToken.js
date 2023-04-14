@@ -44,7 +44,7 @@ function Token({ tokenId }) {
               height={200}
             />
           )}
-          Bobo #4
+          Bobo #{tokenId.toString()}
         </div>
       </Link>
       <input
