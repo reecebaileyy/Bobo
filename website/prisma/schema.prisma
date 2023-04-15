@@ -23,5 +23,5 @@ model metadatas {
   id       String            @id @default(auto()) @map("_id") @db.ObjectId
   v        Int               @map("__v")
   metadata MetadatasMetadata
-  token    Int
+  token    Int              @unique
 }
