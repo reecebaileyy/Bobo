@@ -60,7 +60,7 @@ function Token({ tokenId }) {
       console.error(error.message);
   
       // Show error message
-      alert("oops Bobo is rugging.. that one more time");
+      alert("Oops Bobo is rugging.. that one more time");
     }
   };
   
