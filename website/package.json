@@ -38,7 +38,6 @@
     "react-dom": "18.2.0",
     "react-howler": "^5.2.0",
     "react-icons": "^4.8.0",
-    "redis": "^4.6.5",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "wagmi": "^0.12.6",
