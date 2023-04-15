@@ -45,18 +45,25 @@ function Token({ tokenId }) {
         },
         body: JSON.stringify({ newName }),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Failed to update name: ${errorData.error}`);
       }
-
+  
+      // Show success message
+      alert("Roger that, your new name has been updated");
+  
       // Refresh the page after updating the name
       router.replace(router.asPath);
     } catch (error) {
       console.error(error.message);
+  
+      // Show error message
+      alert("oops Bobo is rugging.. that one more time");
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center font-pressStart text-center">

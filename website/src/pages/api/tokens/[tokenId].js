@@ -1,4 +1,5 @@
-import { getTokenById } from '../../../../lib/prisma/tokens';
+const path = require('path');
+const { getTokenById } = require(path.resolve(process.cwd(), 'lib/prisma/tokens'));
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
