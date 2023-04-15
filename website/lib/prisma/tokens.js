@@ -13,23 +13,18 @@ export async function getTokens() {
 
 
 export async function getTokenById(tokenId) {
-    console.log('Searching for tokenId:', tokenId); 
     try {
-        console.log("hello")
-        const tokens = await prisma.metadatas.findMany({
+        console.log('Searching for tokenId:', tokenId);
+        const token = await prisma.metadatas.findMany({
             where: {
-                token: {
-                    in: [tokenId]
-                }
-            }
-          });
-        console.log("Token:", tokens)
-        const token = tokens.length > 0 ? tokens[0] : null;
-
-        return { token };
-    }
-    catch (error) {
+                token: tokenId,
+            },
+        });
+        console.log('Found token:', token);
+        return token;
+    } catch (error) {
+        console.error(error);
         return { error };
     }
 }
-  
+
