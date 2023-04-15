@@ -1,7 +1,6 @@
 import { getTokenById } from 'lib/prisma/tokens';
 
 export default async function handler(req, res) {
-  console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
   if (req.method === 'GET') {
     try {
