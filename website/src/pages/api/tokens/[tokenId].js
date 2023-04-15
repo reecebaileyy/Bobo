@@ -1,15 +1,14 @@
 import { getTokenById } from 'lib/prisma/tokens';
 
 export default async function handler(req, res) {
-
   if (req.method === 'GET') {
+    const tokenId = parseInt(req.query.tokenId, 10);
     try {
-      const tokenId = parseInt(req.query.tokenId, 10);
       console.log('Requested tokenId:', tokenId);
       const tokenData = await getTokenById(tokenId);
       console.log('Token data from API:', tokenData);
-      if (tokenData.length > 0) {
-        res.status(200).json(tokenData[0].metadata);
+      if (tokenData.metadata) {
+        res.status(200).json(tokenData.metadata);
       } else {
         res.status(404).json({ error: 'Token not found', tokenId: tokenId, tokenData: tokenData });
       }
