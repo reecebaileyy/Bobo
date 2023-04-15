@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource mongo {
+datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
@@ -20,7 +20,7 @@ type MetadatasMetadataAttributes {
 }
 
 model metadatas {
-  id       String            @id @default(auto()) @map("_id") @mongo.ObjectId
+  id       String            @id @default(auto()) @map("_id") @db.ObjectId
   v        Int               @map("__v")
   metadata MetadatasMetadata
   token    Int
