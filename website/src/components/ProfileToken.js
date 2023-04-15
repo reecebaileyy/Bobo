@@ -52,7 +52,7 @@ function Token({ tokenId }) {
       }
   
       // Show success message
-      alert("Roger that, your new name has been updated");
+      alert("Bobo hears you.. your new name has been updated");
   
       // Refresh the page after updating the name
       router.replace(router.asPath);
@@ -60,7 +60,7 @@ function Token({ tokenId }) {
       console.error(error.message);
   
       // Show error message
-      alert("oops Bobo is rugging.. that one more time");
+      alert("Oops Bobo is rugging.. that one more time");
     }
   };
   
