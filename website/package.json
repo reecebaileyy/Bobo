@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
-    "prisma:generate": "prisma generate"
+    "vercel-build": "npx prisma generate && npx prisma migrate deploy && next build",
+    "prisma:generate": "npx prisma generate"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.4.1",
