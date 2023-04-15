@@ -1,4 +1,4 @@
-import { PrismaClient } from path.join(process.cwd(), '@prisma/client');
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const asyncHandler = (handler) => (req, res) =>
