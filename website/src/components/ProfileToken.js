@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 
 function Token({ tokenId }) {
   const [imageUrl, setImageUrl] = useState(null);
   const [newName, setNewName] = useState('');
-  
+
   useEffect(() => {
     async function fetchMetadata() {
       try {
@@ -18,7 +20,7 @@ function Token({ tokenId }) {
         const { data } = await response.json();
         console.log("data", data)
         console.log("TOKEN", tokenId.toString())
-         setImageUrl("https://www.bobovision.xyz/images/" + tokenId.toString() + ".gif");
+        setImageUrl("https://www.bobovision.xyz/images/" + tokenId.toString() + ".gif");
         console.log("image", imageUrl)
       } catch (error) {
         console.error(error.message);
@@ -27,17 +29,41 @@ function Token({ tokenId }) {
     fetchMetadata();
   }, [tokenId]);
 
+
+  const router = useRouter();
+
   const handleNameChange = (event) => {
     setNewName(event.target.value);
   };
-  
-  
+
+  const handleNameUpdate = async () => {
+    try {
+      const response = await fetch(`/api/tokens/${tokenId}/update-name`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newName }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to update name: ${errorData.error}`);
+      }
+
+      // Refresh the page after updating the name
+      router.replace(router.asPath);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center font-pressStart text-center">
       <Link
         href={`https://opensea.io/assets/ethereum/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/5`}
         target="_blank"
-        
+
       >
         <div>
           {imageUrl && (
@@ -56,9 +82,12 @@ function Token({ tokenId }) {
         value={newName}
         onChange={handleNameChange}
         placeholder="name"
-        className="my-2 w-3/4 text-center rounded-lg" 
+        className="my-2 w-3/4 text-center rounded-lg"
       />
-      <button  className="bg-black text-white py-1 px-2 rounded-lg">
+      <button
+        onClick={handleNameUpdate}
+        className="bg-black text-white py-1 px-2 rounded-lg"
+      >
         Update Name
       </button>
     </div>
