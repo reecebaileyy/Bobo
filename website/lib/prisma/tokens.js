@@ -1,5 +1,4 @@
 const { prisma } = require('./index');
-const { getAsync, setAsync } = require('../redis');
 
 export async function getTokens() {
     try {
