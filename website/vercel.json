@@ -1,8 +1,0 @@
-{
-    "functions": {
-      "api/tokens/[tokenId].js": {
-        "maxDuration": 30
-      }
-    }
-  }
-  
