@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+const { prisma } = require('../../../../../lib/prisma/index');
 
 const asyncHandler = (handler) => (req, res) =>
     handler(req, res).catch((error) => {

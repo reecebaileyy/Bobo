@@ -1,4 +1,4 @@
-import prisma from ".";
+const { prisma } = require('./index');
 
 export async function getTokens() {
     try {
