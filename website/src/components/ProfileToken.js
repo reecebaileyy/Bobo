@@ -52,7 +52,7 @@ function Token({ tokenId }) {
       }
   
       // Show success message
-      alert("Bobo hears.. your new name has been updated");
+      alert("your new name has been updated");
   
       // Refresh the page after updating the name
       router.replace(router.asPath);
