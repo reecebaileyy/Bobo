@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 const globalForPrisma = globalThis.prisma === undefined ? {} : { prisma: globalThis.prisma };
 
