@@ -1,5 +1,5 @@
 import { getTokenById } from 'lib/prisma/tokens';
-import { getAsync, setAsync } from 'lib/redis';
+import { getAsync, setAsync, delAsync } from 'lib/redis';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
@@ -35,7 +35,29 @@ export default async function handler(req, res) {
     } catch (error) {
       res.status(500).json({ error: error.message, tokenId: tokenId });
     }
-  } else {
+  } else if (req.method === 'POST') {
+    try {
+      const tokenId = parseInt(req.query.tokenId, 10);
+      const { newName } = req.body;
+
+      if (!newName) {
+        res.status(400).json({ error: 'New name is required' });
+        return;
+      }
+
+      // Update token name in the database
+      await updateTokenName(tokenId, newName);
+
+      // Invalidate cache for the updated token
+      const cacheKey = `token:${tokenId}`;
+      await delAsync(cacheKey);
+
+      res.status(200).json({ success: 'Token name updated' });
+    } catch (error) {
+      res.status(500).json({ error: error.message, tokenId: tokenId });
+    }
+  }
+   else {
     res.status(405).json({ error: 'Method not allowed' });
   }
 }
