@@ -7,21 +7,20 @@ import { useRouter } from 'next/router';
 function Token({ tokenId }) {
   const [imageUrl, setImageUrl] = useState(null);
   const [newName, setNewName] = useState('');
+  const [metadata, setMetadata] = useState(null);
 
   useEffect(() => {
     async function fetchMetadata() {
       try {
-        const response = await fetch(`/api/tokens/${tokenId.toString()}`);
-        console.log("response", response)
+        const response = await fetch(`/api/tokens/getMetadata?tokenId=${tokenId.toString()}`);
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(`Failed to fetch tokens: ${errorData.error}`);
         }
-        const { data } = await response.json();
-        console.log("data", data)
-        console.log("TOKEN", tokenId.toString())
+        const responseData = await response.json();
+        const metadata = responseData;
+        setMetadata(metadata);
         setImageUrl("https://www.bobovision.xyz/images/" + tokenId.toString() + ".gif");
-        console.log("image", imageUrl)
       } catch (error) {
         console.error(error.message);
       }
@@ -81,7 +80,7 @@ function Token({ tokenId }) {
               height={200}
             />
           )}
-          Bobo #{tokenId.toString()}
+          {metadata && <div className="my-2">{metadata.name}</div>}
         </div>
       </Link>
       <input
