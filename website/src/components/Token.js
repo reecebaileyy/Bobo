@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function Token({ tokenId }) {
   const [metadata, setMetadata] = useState(null);
@@ -8,15 +9,24 @@ function Token({ tokenId }) {
 
   useEffect(() => {
     async function fetchMetadata() {
-      const res = await fetch(`https://bobovision.vercel.app/metadata/${tokenId}.json`);
-      const data = await res.json();
-      setMetadata(data);
+      try {
+        const response = await fetch(`/api/tokens/getMetadata?tokenId=${tokenId.toString()}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Failed to fetch tokens: ${errorData.error}`);
+        }
+        const responseData = await response.json();
+        const metadata = responseData;
+        setMetadata(metadata);
+        setImageUrl("https://www.bobovision.xyz/images/" + tokenId.toString() + ".gif");
+      } catch (error) {
+        console.error(error.message);
+      }
     }
-
-    if (tokenId) {
-      fetchMetadata();
-    }
+    fetchMetadata();
   }, [tokenId]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (metadata) {
@@ -41,7 +51,7 @@ function Token({ tokenId }) {
             height={200}
           />
         )}
-        Bobo #{parseInt(tokenId, 10)}
+        {metadata && <div className="my-2">{metadata.name}</div>}
       </div>
     </Link>
   );
