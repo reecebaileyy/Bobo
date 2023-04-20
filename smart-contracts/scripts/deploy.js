@@ -2,8 +2,8 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy();
+  const Boogers = await hre.ethers.getContractFactory("Boogers");
+  const lock = await Boogers.deploy();
 
   await lock.deployed();
 

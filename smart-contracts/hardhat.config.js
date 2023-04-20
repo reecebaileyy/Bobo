@@ -2,9 +2,9 @@ require("@nomicfoundation/hardhat-toolbox");
 require('dotenv').config()
 
 module.exports = {
-  defaultNetwork: "sepolia",
+  defaultNetwork: "goerli",
   networks: {
-    sepolia: {
+    goerli: {
       url: process.env.INFURA_SEPOLIA_URL,
       accounts: [process.env.PRIVATE_KEY]
     }
@@ -28,6 +28,8 @@ module.exports = {
     timeout: 40000
   },
   etherscan: {
-    apiKey: process.env.API_KEY
+    apiKey: {
+      goerli: process.env.API_KEY
+    }
   }
 }
