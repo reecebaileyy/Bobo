@@ -12,7 +12,7 @@ import headgif from '../../public/assets/png_gif/spinhead.gif'
 import BoboVision from '../../public/assets/png_gif/BoboVision2.png'
 import twitter from '../../public/assets/png_gif/twitter.gif'
 import lore from '../../public/assets/png_gif/lore.gif'
-import protocol from '../../public/assets/png_gif/protocol.gif'
+import OSicon from '../../public/assets/png_gif/OSicon.gif'
 import chat from '../../public/assets/png_gif/chat.gif'
 import profile from '../../public/assets/png_gif/Identification.gif'
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
@@ -258,8 +258,8 @@ export default function Home() {
                         </div>
                         <div className='flex flex-col items-center'>
                             <Link href="/" className="flex flex-col items-center">
-                                <Image alt="BoboVision" src={protocol} className='w-44 sm:w-20 md:w-32' />
-                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Vision</h1>
+                                <Image alt="BoboVision" src={OSicon} className='w-44 sm:w-20 md:w-32' />
+                                <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Opensea</h1>
                             </Link>
                         </div>
                     </div>
