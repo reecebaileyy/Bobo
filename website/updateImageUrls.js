@@ -2,7 +2,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function updateImageUrls() {
-  const baseURL = 'https://www.bobo.vision';
+  const oldBaseURL = 'https://www.bobovision.xyz';
+  const newBaseURL = 'https://www.bobo.vision';
 
   const allMetadata = await prisma.metadatas.findMany();
 
@@ -12,8 +13,8 @@ async function updateImageUrls() {
     const metadata = metadataRecord.metadata;
     console.log(`Processing metadata for ${metadata.name}:`, metadata);
 
-    if (metadata.image && metadata.image.startsWith('/')) {
-      const newImageUrl = baseURL + metadata.image;
+    if (metadata.image && metadata.image.startsWith(oldBaseURL)) {
+      const newImageUrl = metadata.image.replace(oldBaseURL, newBaseURL);
       await prisma.metadatas.update({
         where: { id: metadataRecord.id },
         data: { metadata: { ...metadata, image: newImageUrl } },
@@ -24,6 +25,7 @@ async function updateImageUrls() {
     }
   }
 }
+
 
 updateImageUrls()
   .catch((e) => {
