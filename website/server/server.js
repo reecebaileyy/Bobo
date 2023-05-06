@@ -1,0 +1,23 @@
+const httpServer = require("http").createServer();
+const PORT = process.env.PORT || 3001;
+
+const io = require("socket.io")(httpServer, {
+    cors: {
+        origin: ["https://bobo.vision", "https://admin.socket.io", "http://localhost:3000", "https://www.bobo.vision"],
+        credentials: true
+    }
+});
+
+io.on('connection', socket => {
+    socket.on('send-message', ({ username, message, colorClass }) => {
+       socket.broadcast.emit('receive-message', { username, message, colorClass }); // Pass the data object
+       console.log(`${username}: ${message}`)
+    });
+
+})
+  
+  httpServer.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });
+  
+ 
