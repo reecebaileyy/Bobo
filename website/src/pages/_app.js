@@ -6,7 +6,7 @@ import { configureChains, createClient, WagmiConfig, useAccount } from 'wagmi'
 import { mainnet, sepolia } from 'wagmi/chains'
 import { MongoClient } from "mongodb";
 
-export async function getStaticProps(){
+export async function getStaticProps() {
   const client = await MongoClient.connect(MONGODB_URI);
   const db = client.db();
 
@@ -36,27 +36,30 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <WagmiConfig client={wagmiClient}>
+      <div className="custom-cursor">
+        <WagmiConfig client={wagmiClient}>
           <Component {...pageProps} />
           <Analytics />
-      </WagmiConfig>
+        </WagmiConfig>
 
-      <Web3Modal
-        projectId={projectId}
-        ethereumClient={ethereumClient}
-        themeVariables={{
-          '--w3m-font-family': 'pressStart, cursive',
-          '--w3m-accent-color': '#8c8c8c',
-          '--w3m-accent-fill-color': '#000000',
-          '--w3m-background-color': '#000000',
-          '--w3m-logo-image-url': 'https://bobovision.vercel.app/assets/png_gif/spinhead.gif',
-          '--w3m-text-big-bold-size': '15px',
-          '--w3m-text-small-regular-size': '.6rem',
-          '--w3m-text-xsmall-bold-size': '.4rem',
-          '--w3m-text-xsmall-regular-size': '.5rem',
-          '--w3m-font-weight': '400',
-        }}
-      />
+        <Web3Modal
+          projectId={projectId}
+          ethereumClient={ethereumClient}
+          themeVariables={{
+            '--w3m-font-family': 'pressStart, cursive',
+            '--w3m-accent-color': '#8c8c8c',
+            '--w3m-accent-fill-color': '#000000',
+            '--w3m-background-color': '#000000',
+            '--w3m-logo-image-url': 'https://bobovision.vercel.app/assets/png_gif/spinhead.gif',
+            '--w3m-text-big-bold-size': '15px',
+            '--w3m-text-small-regular-size': '.6rem',
+            '--w3m-text-xsmall-bold-size': '.4rem',
+            '--w3m-text-xsmall-regular-size': '.5rem',
+            '--w3m-font-weight': '400',
+          }}
+        />
+      </div>
+
     </>
 
   )

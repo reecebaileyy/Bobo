@@ -18,7 +18,7 @@ function Token({ tokenId }) {
         const responseData = await response.json();
         const metadata = responseData;
         setMetadata(metadata);
-        setImageUrl("https://www.bobovision.xyz/images/" + tokenId.toString() + ".gif");
+        setImageUrl("https://www.bobo.vision/images/" + tokenId.toString() + ".gif");
       } catch (error) {
         console.error(error.message);
       }

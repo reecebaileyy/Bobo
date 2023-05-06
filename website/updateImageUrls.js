@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function updateImageUrls() {
-  const baseURL = 'https://www.bobovision.xyz';
+  const baseURL = 'https://www.bobo.vision';
 
   const allMetadata = await prisma.metadatas.findMany();
 

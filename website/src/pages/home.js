@@ -111,13 +111,13 @@ export default function Home() {
         console.log('totalMoney:', totalMoney);
         console.log('totalCost:', totalCost);
         if (!address) {
-            alert("First Connect, Then Bobo XD!!!");
+            alert("FIRST CONNECT, THEN FUCKIN BOBO!!!");
         } else if (totalMoney < totalCost) {
             alert("YOU NEED MORE FUNDS BOBO!!");
         } else if (mintAmount > (supply - current)) {
             alert("TOO SLOW BOBOS ALL SOLD OUT.. GO SWEEP FCKIN BOBO");
         } else if (mintAmount == 0) {
-            alert("Come Bobo on at least get one Bobo...");
+            alert("COME ON SER.. AT LEAST GET 1 BOBO :/");
         } else {
             mintNFT?.();
         }
@@ -140,9 +140,9 @@ export default function Home() {
                     <div className="sm:hidden flex justify-between items-center">
                         <div className='z-10 flex flex-col-reverse justify-center items-center'>
                             <p className='font-pressStart text-center text-xs animate-pulse'>
-                                1 free Bobo per wallet.. then after it's {priceInEther} ETH
+                                1 free Bobo per wallet.. then after it's 0.002 ETH
                             </p>
-                            <h2 className='font-pressStart text-center'>{current}/{supply} Bobos Minted</h2>
+                            <h2 className='font-pressStart text-center'>0/2222 Bobos Minted</h2>
                             <Link className='' href="/">
                                 <Image alt='BoboVision' className='items-center' src={BoboVision} width={500} height={500}></Image>
                             </Link>
@@ -220,7 +220,7 @@ export default function Home() {
                             </div>
                         ) : (
                             <div className='flex flex-col items-center'>
-                                <Link href="https://www.opensea.io" target="_blank" onClick={() => { window.alert("YOU NEED SOME BOBOS FIRST!!!!") }}>
+                                <Link href="/home" onClick={() => { window.alert("YOU NEED SOME BOBOS FIRST!!!!") }}>
                                     <Image alt='Profile' src={profile} className='w-44 sm:w-20 md:w-32' />
                                     <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Profile</h1>
                                 </Link>
@@ -264,7 +264,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className='sm:flex sm:flex-row'>
-                        <ReactHowler playing={playing} pause={pauseSound} volume={0.5} src={["/assets/audio/nostalgia.mp3"]} />
+                        <ReactHowler playing={playing} pause={pauseSound} volume={0.5} src={["/assets/audio/bobo.mp3"]} />
                         {playing ? (
                             <button className="z-10 absolute bottom-0 right-0" onClick={pauseSound}>
                                 <HiVolumeUp onClick={pauseSound} />
@@ -274,7 +274,7 @@ export default function Home() {
                                 <HiVolumeOff onClick={playSound} />
                             </button>
                         )}
-                        <p className='z-5 md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free per wallet then {priceInEther} ETH</p>
+                        <p className='z-5 md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden font-pressStart text-center text-xs animate-pulse'>1 free per wallet then 0.002 ETH</p>
                     </div>
                 </div>
 
