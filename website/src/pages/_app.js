@@ -18,7 +18,7 @@ export async function getStaticProps() {
 
 export default function App({ Component, pageProps }) {
 
-  const chains = [sepolia]
+  const chains = [sepolia, mainnet]
   const projectId = 'e701565bb8066da9dc03e29a0d3d9274'
 
   const { provider } = configureChains(chains, [w3mProvider({ projectId })])

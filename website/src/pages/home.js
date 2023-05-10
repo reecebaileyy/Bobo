@@ -140,9 +140,9 @@ export default function Home() {
                     <div className="sm:hidden flex justify-between items-center">
                         <div className='z-10 flex flex-col-reverse justify-center items-center'>
                             <p className='font-pressStart text-center text-xs animate-pulse'>
-                                1 free Bobo per wallet.. then after it's 0.002 ETH
+                                Mint coming soon Bobos!!
                             </p>
-                            <h2 className='font-pressStart text-center'>0/2222 Bobos Minted</h2>
+                            <h2 className='font-pressStart text-center'>Stay Tuned</h2>
                             <Link className='' href="/">
                                 <Image alt='BoboVision' className='items-center' src={BoboVision} width={500} height={500}></Image>
                             </Link>
@@ -239,7 +239,7 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <Link href="https://sepolia.etherscan.io/address/0x0d390e21a4a7568d7a1e9344c53efa9f2cc1866d#code" target="_blank" className="flex flex-col items-center">
+                            <Link href="https://etherscan.io" target="_blank" className="flex flex-col items-center">
                                 <Image alt='Da Contract' src={etherscan} className='w-44 sm:w-20 md:w-32' />
                                 <h1 className='font-pressStart text-3xl sm:text-xl md:text-2xl mt-2'>Contract</h1>
                             </Link>
