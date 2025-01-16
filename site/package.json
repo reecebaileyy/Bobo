@@ -18,7 +18,8 @@
     "react-howler": "^5.2.0",
     "react-icons": "^5.4.0",
     "viem": "^2.22.8",
-    "wagmi": "^2.14.8"
+    "wagmi": "^2.14.8",
+    "windups": "^1.2.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
