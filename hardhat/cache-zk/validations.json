@@ -5,9 +5,9 @@
       "contracts/HelloAbstract.sol:HelloAbstract": {
         "src": "contracts\\HelloAbstract.sol:4",
         "version": {
-          "withMetadata": "2087029a9ae4d33d973fc3e5a471202ec507be4e4d6fd51eaa3aef369211859c",
-          "withoutMetadata": "2087029a9ae4d33d973fc3e5a471202ec507be4e4d6fd51eaa3aef369211859c",
-          "linkedWithoutMetadata": "2087029a9ae4d33d973fc3e5a471202ec507be4e4d6fd51eaa3aef369211859c"
+          "withMetadata": "9e905012b40c843c7a12c67fb907600a1e2a774fe429e59432923e13074efe54",
+          "withoutMetadata": "9e905012b40c843c7a12c67fb907600a1e2a774fe429e59432923e13074efe54",
+          "linkedWithoutMetadata": "9e905012b40c843c7a12c67fb907600a1e2a774fe429e59432923e13074efe54"
         },
         "inherit": [],
         "libraries": [],
@@ -23,32 +23,7 @@
           "flat": false,
           "namespaces": {}
         },
-        "solcVersion": "0.8.28"
-      }
-    },
-    {
-      "contracts/HelloAbstract.sol:HelloAbstract": {
-        "src": "contracts\\HelloAbstract.sol:4",
-        "version": {
-          "withMetadata": "2c5f434194aef048e36e362f311299b312d2339116dee0f1d5c412c2fad3d3ab",
-          "withoutMetadata": "2c5f434194aef048e36e362f311299b312d2339116dee0f1d5c412c2fad3d3ab",
-          "linkedWithoutMetadata": "2c5f434194aef048e36e362f311299b312d2339116dee0f1d5c412c2fad3d3ab"
-        },
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "sayHello()"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.2",
-          "flat": false,
-          "namespaces": {}
-        },
-        "solcVersion": "0.8.28"
+        "solcVersion": "0.8.24"
       }
     }
   ]

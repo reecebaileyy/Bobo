@@ -2,7 +2,10 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@matterlabs/hardhat-zksync";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.28",
+  solidity: {
+    version: "0.8.24",
+    eraVersion: "1.0.0",
+  },
   zksolc: {
     settings: {
       // Note: This must be true to call NonceHolder & ContractDeployer system contracts
