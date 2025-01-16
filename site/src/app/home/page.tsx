@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { useAccount } from 'wagmi';
 import ReactHowler from "react-howler";
 import headgif from '../../../public/assets/png_gif/spinhead.gif';
 import BoboVision from '../../../public/assets/png_gif/BoboVision2.png';
@@ -31,11 +31,10 @@ const HomePage: NextPage = () => {
     setPlaying(false);
   };
 
-  // ABSTRACT HOOKS
-
-  // CONNECTIVITY
-
+  // WAGMI HOOKS
   const { login, logout } = useLoginWithAbstract();
+  const { address } = useAccount();
+  
 
   // CONTRACT ARGUMENTS FOR MINTING
   const [mintAmount, setMintAmount] = useState<number>(0);

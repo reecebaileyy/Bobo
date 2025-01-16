@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AbstracProvider from "@/components/AbstractProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 
 export const metadata: Metadata = {
   title: "BOBOVISION",
@@ -26,11 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="custom-cursor">
       <AbstracProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+        <body>
+          {children}
+        </body>
       </AbstracProvider>
     </html>
   );
