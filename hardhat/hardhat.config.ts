@@ -2,11 +2,8 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@matterlabs/hardhat-zksync";
 
 const config: HardhatUserConfig = {
-  solidity: {
-    version: "0.8.24",
-    eraVersion: "1.0.0",
-  },
   zksolc: {
+    version: "1.5.7", // Ensure version is 1.5.7!
     settings: {
       // Note: This must be true to call NonceHolder & ContractDeployer system contracts
       enableEraVMExtensions: true,
@@ -18,8 +15,26 @@ const config: HardhatUserConfig = {
       url: "https://api.testnet.abs.xyz",
       ethNetwork: "sepolia",
       zksync: true,
-      verifyURL: "https://api-explorer-verify.testnet.abs.xyz/contract_verification",
+      chainId: 11124,
     },
+  },
+  etherscan: {
+    apiKey: {
+      abstractTestnet: "TACK2D1RGYX9U7MC31SZWWQ7FCWRYQ96AD",
+    },
+    customChains: [
+      {
+        network: "abstractTestnet",
+        chainId: 11124,
+        urls: {
+          apiURL: "https://api-sepolia.abscan.org/api",
+          browserURL: "https://sepolia.abscan.org/",
+        },
+      },
+    ],
+  },
+  solidity: {
+    version: "0.8.24",
   },
 };
 

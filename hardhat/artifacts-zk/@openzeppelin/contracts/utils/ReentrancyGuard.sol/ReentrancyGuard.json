@@ -1,0 +1,17 @@
+{
+  "_format": "hh-zksolc-artifact-1",
+  "contractName": "ReentrancyGuard",
+  "sourceName": "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "factoryDeps": {}
+}
