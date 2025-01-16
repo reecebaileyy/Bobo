@@ -23,12 +23,11 @@ contract Boogers is
 
     address private _owner;
     uint256 private _currentIndex = 1;
-    uint256 public _burnCounter;
     string public _name;
     string private _symbol;
-    uint256 public cost = 1 ether;
-    string public baseURI = "https://www.bobovision.xyz/api/tokens/";
-    uint256 public _maxSupply = 4444;
+    uint256 public cost = 0.0069 ether;
+    string public baseURI = "https://www.WEBSITE.xyz/api/tokens/";
+    uint256 public _maxSupply = 999;
     bool public isSaleActive = true;
 
     constructor()
@@ -149,7 +148,7 @@ contract Boogers is
     // Team Address For Payout
     uint256[] private _teamShares = [50, 50];
     address[] private _team = [
-        0x0529ed359EE75799Fd95b7BC8bDC8511AC1C0A0F, //REPLACE
-        0x57b18277B530Fa0C1748C29F9b1887B7691FF701 //REPLACE
+        0xWALLET, //REPLACE
+        0XWALLET //REPLACE
     ];
 }

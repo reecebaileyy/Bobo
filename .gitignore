@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Build output
+.next/
+out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Tailwind output
+*.css.map
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-workspace
+
+# MacOS files
+.DS_Store
+
+# Editor backups
+*.swp
+*.bak
+*.tmp
+
+# Coverage directory used by testing tools
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Miscellaneous
+*.log
+*.lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Optional: ignore public assets that aren't meant for version control
+# /public/assets/temp/
