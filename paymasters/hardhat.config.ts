@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "inMemoryNode",
+  defaultNetwork: "abstractTestnet",
   networks: {
     abstractTestnet: {
       url: "https://api.testnet.abs.xyz",
@@ -13,6 +13,7 @@ const config: HardhatUserConfig = {
       zksync: true,
       verifyURL:
         "https://api-explorer-verify.testnet.abs.xyz/contract_verification",
+      chainId: 11124,
     },
     inMemoryNode: {
       url: "http://127.0.0.1:8011",
@@ -24,11 +25,25 @@ const config: HardhatUserConfig = {
     },
   },
   zksolc: {
-    version: "latest",
+    version: "1.5.7",
     settings: {
-      // find all available options in the official documentation
-      // https://docs.zksync.io/build/tooling/hardhat/hardhat-zksync-solc#configuration
+      enableEraVMExtensions: true,
     },
+  },
+  etherscan: {
+    apiKey: {
+      abstractTestnet: "TACK2D1RGYX9U7MC31SZWWQ7FCWRYQ96AD",
+    },
+    customChains: [
+      {
+        network: "abstractTestnet",
+        chainId: 11124,
+        urls: {
+          apiURL: "https://api-sepolia.abscan.org/api",
+          browserURL: "https://sepolia.abscan.org/",
+        },
+      },
+    ],
   },
   solidity: {
     version: "0.8.24",
