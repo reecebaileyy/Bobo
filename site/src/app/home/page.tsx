@@ -20,7 +20,7 @@ import OSicon from '../../../public/assets/png_gif/OSicon.gif';
 import chat from '../../../public/assets/png_gif/chat.gif';
 import profile from '../../../public/assets/png_gif/Identification.gif';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
-import mint from '../../../public/assets/png_gif/mint.gif';
+import mintImage from '../../../public/assets/png_gif/mint.gif';
 import etherscan from '../../../public/assets/png_gif/etherscan.gif';
 import { useLoginWithAbstract, useWriteContractSponsored } from '@abstract-foundation/agw-react';
 import { writeContract } from 'viem/actions';
@@ -46,7 +46,7 @@ const HomePage: NextPage = () => {
   const { login, logout } = useLoginWithAbstract();
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
-  const { writeContractSponsored }= useWriteContractSponsored();
+  const { writeContractSponsored } = useWriteContractSponsored();
 
   const { data: maxSupplyData, isPending: isMaxSupplyLoading } = useReadContract({
     abi,
@@ -71,17 +71,25 @@ const HomePage: NextPage = () => {
   const currentIndex = currentIndexData ? BigNumber.from(currentIndexData).toNumber() : null;
 
   // MINTING
-  async function mint() {
-    const hash = await writeContractSponsored({
-      abi,
-      address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
-      functionName: '_mint',
-      args: [mintAmount],
-      paymaster: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
-      paymasterInput: getGeneralPaymasterInput({
-        innerInput: "0x",
-    })
-  });
+  // Corrected mint function
+  const mint = async () => {
+    try {
+      const hash = await writeContractSponsored({
+        abi,
+        address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+        functionName: '_mint',
+        args: [mintAmount],
+        paymaster: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+        paymasterInput: getGeneralPaymasterInput({
+          innerInput: "0x",
+        }),
+      });
+      console.log("Mint successful! Transaction hash:", hash);
+    } catch (error) {
+      console.error("Minting error:", error);
+    }
+  };
+
 
 
   // Reload page when currentIndex increases by 1
@@ -181,19 +189,19 @@ const HomePage: NextPage = () => {
 
           <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
             <button
-              // className="z-30 flex flex-col items-center"
-              // onClick={() => writeContract({
-              //   abi,
-              //   address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
-              //   functionName: '_mint',
-              //   args: [mintAmount],
-              //   value: parseEther('0.0069') * BigInt(mintAmount),
-              // })}
-              >
+            // className="z-30 flex flex-col items-center"
+            // onClick={() => writeContract({
+            //   abi,
+            //   address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+            //   functionName: '_mint',
+            //   args: [mintAmount],
+            //   value: parseEther('0.0069') * BigInt(mintAmount),
+            // })}
+            >
               <div className="w-full flex justify-center">
                 <Image
                   alt="Bobo's Big Ass Cranium"
-                  src={mint}
+                  src={mintImage}
                   className="w-44 sm:w-20 md:w-32"
                 />
               </div>
