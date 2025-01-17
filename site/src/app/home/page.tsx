@@ -73,6 +73,7 @@ const HomePage: NextPage = () => {
   // MINTING
   // Corrected mint function
   const mint = async () => {
+    console.log("ABI:", abi);
     if (!address) return;
     try {
       const hash = await writeContractSponsoredAsync({
@@ -189,16 +190,17 @@ const HomePage: NextPage = () => {
           </div>
 
           <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-            <button
-            className="z-30 flex flex-col items-center"
-            onClick={mint}
+            <div
+              className="z-30 flex flex-col items-center"
             >
               <div className="w-full flex justify-center">
-                <Image
-                  alt="Bobo's Big Ass Cranium"
-                  src={mintImage}
-                  className="w-44 sm:w-20 md:w-32"
-                />
+                <button onClick={mint} className="focus:outline-none">
+                  <Image
+                    alt="Mint Medal"
+                    src={mintImage}
+                    className="w-44 sm:w-20 md:w-32 cursor-pointer"
+                  />
+                </button>
               </div>
               <div className="flex items-center justify-center mt-2">
                 <button
@@ -231,7 +233,7 @@ const HomePage: NextPage = () => {
                   +
                 </button>
               </div>
-            </button>
+            </div>
 
             {1 >= 1 ? (
               <div className='flex flex-col items-center'>
