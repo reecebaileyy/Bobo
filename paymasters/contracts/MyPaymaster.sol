@@ -68,4 +68,9 @@ contract MyPaymaster is IPaymaster {
 
     // Needs to be able to receive ETH to pay the bootloader
     receive() external payable {}
+
+    function withdraw () publiic onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
+
+    }
 }
