@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from "next/link";
 import { useState } from 'react';
 import ReactHowler from "react-howler";
+import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { BsFillSkipEndCircleFill } from "react-icons/bs";
 import { WindupChildren, useSkip } from "windups";
@@ -42,8 +43,14 @@ const Lore: NextPage = () => {
     );
   }
 
-  // ABSTRACT HOOKS
+  const [hovered, setHovered] = useState(false);
+
+  // WAGMI HOOKS
   const { login, logout } = useLoginWithAbstract();
+
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
+
 
   return (
     <>
@@ -79,10 +86,16 @@ const Lore: NextPage = () => {
                 />
               </Link>
               <button
-              onClick={login}
+                onClick={() => (address ? disconnect() : login())}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 className="bg-black ml-20 hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
               >
-                Connect
+                {address
+                  ? hovered
+                    ? "Disconnect"
+                    : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+                  : "Connect"}
               </button>
             </div>
           </div>
@@ -98,11 +111,17 @@ const Lore: NextPage = () => {
               />
             </Link>
             <button
-            onClick={login}
-                className="bg-black hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
-              >
-                Connect
-              </button>
+              onClick={() => (address ? disconnect() : login())}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+              className="bg-black hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
+            >
+              {address
+                ? hovered
+                  ? "Disconnect"
+                  : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+                : "Connect"}
+            </button>
           </div>
 
           <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>

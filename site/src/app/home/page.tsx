@@ -2,10 +2,15 @@
 "use client";
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useBalance, useDisconnect, useReadContract } from 'wagmi';
+import { parseEther, } from 'viem';
+import { getGeneralPaymasterInput } from 'viem/zksync';
+import { BigNumber } from "ethers";
+import { abi } from '../../../../hardhat/artifacts-zk/contracts/Boogers.sol/Boogers.json'
 import ReactHowler from "react-howler";
 import headgif from '../../../public/assets/png_gif/spinhead.gif';
 import BoboVision from '../../../public/assets/png_gif/BoboVision2.png';
@@ -17,11 +22,15 @@ import profile from '../../../public/assets/png_gif/Identification.gif';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import mint from '../../../public/assets/png_gif/mint.gif';
 import etherscan from '../../../public/assets/png_gif/etherscan.gif';
-import { useLoginWithAbstract } from '@abstract-foundation/agw-react';
+import { useLoginWithAbstract, useWriteContractSponsored } from '@abstract-foundation/agw-react';
+import { writeContract } from 'viem/actions';
 
 const HomePage: NextPage = () => {
-  // PLAY OR PAUSE MUSIC
+  // ------------------ MISC ------------------
   const [playing, setPlaying] = useState<boolean>(false);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const [mintAmount, setMintAmount] = useState<number>(0);
+  const router = useRouter();
 
   const playSound = () => {
     setPlaying(true);
@@ -31,14 +40,59 @@ const HomePage: NextPage = () => {
     setPlaying(false);
   };
 
-  // WAGMI HOOKS
+  const [hovered, setHovered] = useState(false);
+
+  // ------------------ WAGMI HOOKS ------------------
   const { login, logout } = useLoginWithAbstract();
+  const { disconnect } = useDisconnect();
   const { address } = useAccount();
-  
+  const { writeContractSponsored }= useWriteContractSponsored();
+
+  const { data: maxSupplyData, isPending: isMaxSupplyLoading } = useReadContract({
+    abi,
+    address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+    functionName: '_maxSupply',
+  });
+
+  const { data: isSaleActiveData, isPending: isSaleActiveLoading } = useReadContract({
+    abi,
+    address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+    functionName: 'isSaleActive',
+  });
+
+  const { data: currentIndexData, isPending: isCurrentIndexLoading } = useReadContract({
+    abi,
+    address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+    functionName: '_currentIndex',
+  });
+
+  const maxSupply = maxSupplyData ? BigNumber.from(maxSupplyData).toString() : null;
+  const isSaleActive = isSaleActiveData || false;
+  const currentIndex = currentIndexData ? BigNumber.from(currentIndexData).toNumber() : null;
+
+  // MINTING
+  async function mint() {
+    const hash = await writeContractSponsored({
+      abi,
+      address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+      functionName: '_mint',
+      args: [mintAmount],
+      paymaster: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+      paymasterInput: getGeneralPaymasterInput({
+        innerInput: "0x",
+    })
+  });
+
+
+  // Reload page when currentIndex increases by 1
+  useEffect(() => {
+    if (currentIndex !== null && prevIndex !== null && currentIndex === prevIndex + 1) {
+      router.refresh(); // Reload the page
+    }
+    setPrevIndex(currentIndex);
+  }, [currentIndex, prevIndex, router]);
 
   // CONTRACT ARGUMENTS FOR MINTING
-  const [mintAmount, setMintAmount] = useState<number>(0);
-  const [totalCost, setTotalCost] = useState<number>(0);
 
   return (
     <>
@@ -53,10 +107,20 @@ const HomePage: NextPage = () => {
         <div className='fixed w-4/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-between'>
           <div className="sm:hidden flex justify-between items-center">
             <div className='z-10 flex flex-col-reverse justify-center items-center'>
-              <p className='font-pressStart text-center text-xs animate-pulse'>
-                Mint coming soon Bobos!!
-              </p>
-              <h2 className='font-pressStart text-center'>Stay Tuned</h2>
+              {
+                isSaleActive ? (
+                  <h2 className="font-pressStart text-center">
+                    {currentIndex || 0}/{maxSupply || "Loading..."} Bobos Minted
+                  </h2>
+                ) : (
+                  <>
+                    <p className='font-pressStart text-center text-xs animate-pulse'>
+                      Mint coming soon Bobos!!
+                    </p>
+                    <h2 className='font-pressStart text-center'>Stay Tuned</h2>
+                  </>
+                )
+              }
               <Link className='' href="/">
                 <Image
                   alt='BoboVision'
@@ -68,7 +132,7 @@ const HomePage: NextPage = () => {
               </Link>
             </div>
             <div className="flex flex-col items-center">
-              <Link href="/">
+              <Link href="/home">
                 <Image
                   alt='BoboVision'
                   className='md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'
@@ -78,14 +142,19 @@ const HomePage: NextPage = () => {
                 />
               </Link>
               <button
-              onClick={login}
+                onClick={() => (address ? disconnect() : login())}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 className="bg-black ml-20 hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
               >
-                Connect
+                {address
+                  ? hovered
+                    ? "Disconnect"
+                    : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+                  : "Connect"}
               </button>
             </div>
           </div>
-
           <div className='z-10 gap-1 flex flex-col items-center md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden'>
             <Link href="/">
               <Image
@@ -97,16 +166,30 @@ const HomePage: NextPage = () => {
               />
             </Link>
             <button
-            onClick={login}
-                className="bg-black hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
-              >
-                Connect
-              </button>
-            <h2 className='font-pressStart text-center'>xxx/xxx Bobos Minted</h2>
+              onClick={() => (address ? disconnect() : login())}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+              className="bg-black hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
+            >
+              {address
+                ? hovered
+                  ? "Disconnect"
+                  : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+                : "Connect"}
+            </button>
           </div>
 
-          <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-            <button className="z-30 flex flex-col items-center">
+          <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
+            <button
+              // className="z-30 flex flex-col items-center"
+              // onClick={() => writeContract({
+              //   abi,
+              //   address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+              //   functionName: '_mint',
+              //   args: [mintAmount],
+              //   value: parseEther('0.0069') * BigInt(mintAmount),
+              // })}
+              >
               <div className="w-full flex justify-center">
                 <Image
                   alt="Bobo's Big Ass Cranium"
@@ -115,19 +198,35 @@ const HomePage: NextPage = () => {
                 />
               </div>
               <div className="flex items-center justify-center mt-2">
+                <button
+                  className="bg-black text-white rounded-l-md px-3 py-1"
+                  onClick={() => setMintAmount((prev) => Math.max(1, prev - 1))}
+                >
+                  -
+                </button>
                 <input
-                  className="z-50 bg-black rounded-md font-pressStart text-white text-center"
-                  type="number"
+                  className="z-50 bg-black rounded-none font-pressStart text-white text-center h-8 py-2"
                   min="1"
                   value={mintAmount}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    if (!isNaN(value) && value >= 1) {
+                      setMintAmount(value);
+                    }
+                  }}
                   style={{
                     width: `${Math.max(45, mintAmount.toString().length * 8)}px`,
-                    padding: '0 4px',
+                    padding: "0 4px",
+                    appearance: "none",
+                    MozAppearance: "textfield",
                   }}
                 />
-                <h1 className="font-pressStart text-3xl sm:text-xl md:text-2xl ml-2">
-                  Mint
-                </h1>
+                <button
+                  className="bg-black text-white rounded-r-md px-3 py-1"
+                  onClick={() => setMintAmount((prev) => Math.max(1, prev + 1))}
+                >
+                  +
+                </button>
               </div>
             </button>
 

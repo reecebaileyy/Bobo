@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import AbstracProvider from "@/components/AbstractProvider";
+import AbstractProvider from "@/components/AbstractProvider";
 
 declare global {
   interface Window {
@@ -20,11 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="custom-cursor">
-      <AbstracProvider>
+      <AbstractProvider>
         <body>
           {children}
         </body>
-      </AbstracProvider>
+      </AbstractProvider>
     </html>
   );
 }

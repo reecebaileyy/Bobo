@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from "next/link";
+import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { io, Socket } from 'socket.io-client';
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
@@ -26,21 +27,26 @@ const Chat: NextPage = () => {
     setPlaying(false);
   };
 
-  // ABSTRACT HOOKS
+  const [hovered, setHovered] = useState(false);
+
+  // WAGMI HOOKS
   const { login, logout } = useLoginWithAbstract();
 
-  // STORE USER'S ADDRESS
-//   const { address: addy } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
 
-//   const { data: balanceOf } = useContractRead({
-//     address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
-//     abi: ABI,
-//     functionName: 'balanceOf',
-//     args: [addy],
-//   });
+  // STORE USER'S ADDRESS
+  //   const { address: addy } = useAccount();
+
+  //   const { data: balanceOf } = useContractRead({
+  //     address: '0x0D390E21A4a7568d7a1e9344C53EFa9f2Cc1866D',
+  //     abi: ABI,
+  //     functionName: 'balanceOf',
+  //     args: [addy],
+  //   });
 
   // STORING USER'S ADDRESS/ENS AS USERNAME
-//   const { address } = getAccount() ?? {};
+  //   const { address } = getAccount() ?? {};
   const [username, setUsername] = useState<string>('Brokie');
   const [newUsername, setNewUsername] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -74,37 +80,37 @@ const Chat: NextPage = () => {
     toggleModal();
   };
 
-//   function getUsernameClassName(): string {
-//     const balance = balanceOf?.toNumber() ?? 0;
-//     if (balance >= 100) {
-//       return 'text-red-500';
-//     } else if (balance >= 75) {
-//       return 'text-yellow-300';
-//     } else if (balance >= 50) {
-//       return 'text-red-500';
-//     } else if (balance >= 40) {
-//       return 'text-blue-800';
-//     } else if (balance >= 30) {
-//       return 'text-blue-400';
-//     } else if (balance >= 20) {
-//       return 'text-yellow-300';
-//     } else if (balance >= 15) {
-//       return 'text-slate-100';
-//     } else if (balance >= 10) {
-//       return 'text-orange-700';
-//     } else if (balance >= 5) {
-//       return 'text-lime-800';
-//     } else {
-//       return 'text-yellow-800';
-//     }
-//   }
+  //   function getUsernameClassName(): string {
+  //     const balance = balanceOf?.toNumber() ?? 0;
+  //     if (balance >= 100) {
+  //       return 'text-red-500';
+  //     } else if (balance >= 75) {
+  //       return 'text-yellow-300';
+  //     } else if (balance >= 50) {
+  //       return 'text-red-500';
+  //     } else if (balance >= 40) {
+  //       return 'text-blue-800';
+  //     } else if (balance >= 30) {
+  //       return 'text-blue-400';
+  //     } else if (balance >= 20) {
+  //       return 'text-yellow-300';
+  //     } else if (balance >= 15) {
+  //       return 'text-slate-100';
+  //     } else if (balance >= 10) {
+  //       return 'text-orange-700';
+  //     } else if (balance >= 5) {
+  //       return 'text-lime-800';
+  //     } else {
+  //       return 'text-yellow-800';
+  //     }
+  //   }
 
   const [usernameClassName, setUsernameClassName] = useState<string>('text-yellow-800');
 
-//   useEffect(() => {
-//     const newUsernameClassName = getUsernameClassName();
-//     setUsernameClassName(newUsernameClassName);
-//   }, [balanceOf]);
+  //   useEffect(() => {
+  //     const newUsernameClassName = getUsernameClassName();
+  //     setUsernameClassName(newUsernameClassName);
+  //   }, [balanceOf]);
 
   function displayMessage(username: string, message: string, className: string) {
     const messageContainer = document.createElement('div');
@@ -221,10 +227,16 @@ const Chat: NextPage = () => {
                 />
               </Link>
               <button
-              onClick={login}
+                onClick={() => (address ? disconnect() : login())}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 className="bg-black ml-20 hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
               >
-                Connect
+                {address
+                  ? hovered
+                    ? "Disconnect"
+                    : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+                  : "Connect"}
               </button>
             </div>
           </div>
@@ -240,11 +252,17 @@ const Chat: NextPage = () => {
               />
             </Link>
             <button
-            onClick={login}
-                className="bg-black hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
-              >
-                Connect
-              </button>
+              onClick={() => (address ? disconnect() : login())}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+              className="bg-black hover:bg-gray-800 text-white font-pressStart rounded px-6 py-2 transition-all"
+            >
+              {address
+                ? hovered
+                  ? "Disconnect"
+                  : `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
+                : "Connect"}
+            </button>
           </div>
 
           <div className='relative h-full grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-y-4 overflow-y-auto'>
