@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from "next/link";
-import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { io, Socket } from 'socket.io-client';
 import ReactHowler from "react-howler";
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
@@ -30,7 +30,7 @@ const Chat: NextPage = () => {
   const [hovered, setHovered] = useState(false);
 
   // WAGMI HOOKS
-  const { login, logout } = useLoginWithAbstract();
+  const { login } = useLoginWithAbstract();
 
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
@@ -105,7 +105,7 @@ const Chat: NextPage = () => {
   //     }
   //   }
 
-  const [usernameClassName, setUsernameClassName] = useState<string>('text-yellow-800');
+  const [usernameClassName] = useState<string>('text-yellow-800');
 
   //   useEffect(() => {
   //     const newUsernameClassName = getUsernameClassName();
@@ -169,7 +169,7 @@ const Chat: NextPage = () => {
     return () => {
       form.removeEventListener('submit', handleSendMessage);
     };
-  }, []);
+  }, [usernameClassName]);
 
   return (
     <>

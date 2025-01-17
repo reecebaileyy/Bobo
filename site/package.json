@@ -26,6 +26,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-howler": "^5.2.3",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
     "postcss": "^8",

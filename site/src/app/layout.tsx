@@ -2,12 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AbstractProvider from "@/components/AbstractProvider";
 
-declare global {
-  interface Window {
-    ethereum: any;
-  }
-}
-
 export const metadata: Metadata = {
   title: "BOBOVISION",
   description: "Bobo see Bobo do",

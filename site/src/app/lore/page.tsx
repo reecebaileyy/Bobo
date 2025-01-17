@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from "next/link";
 import { useState } from 'react';
 import ReactHowler from "react-howler";
-import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import { BsFillSkipEndCircleFill } from "react-icons/bs";
 import { WindupChildren, useSkip } from "windups";
@@ -17,7 +17,6 @@ import lore3 from '../../../public/assets/png_gif/lore3.png';
 import lore4 from '../../../public/assets/png_gif/lore4.png';
 import lore5 from '../../../public/assets/png_gif/lore5.png';
 import lore6 from '../../../public/assets/png_gif/lore6.png';
-import lore7 from '../../../public/assets/png_gif/lore7.png';
 import lore8 from '../../../public/assets/png_gif/lore8.png';
 import lore9 from '../../../public/assets/png_gif/lore9.png';
 import lore10 from '../../../public/assets/png_gif/lore10.png';
@@ -46,7 +45,7 @@ const Lore: NextPage = () => {
   const [hovered, setHovered] = useState(false);
 
   // WAGMI HOOKS
-  const { login, logout } = useLoginWithAbstract();
+  const { login } = useLoginWithAbstract();
 
   const { disconnect } = useDisconnect();
   const { address } = useAccount();

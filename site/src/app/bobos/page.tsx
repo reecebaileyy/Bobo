@@ -5,12 +5,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from "next/link";
 import { useState } from 'react';
-import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import ReactHowler from "react-howler";
 import BoboVision from '../../../public/assets/png_gif/BoboVision2.png';
-// import TokenDivs from '../components/TokenDivs';
+import TokenDivs from '../components/TokenDivs';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
-import { useLoginWithAbstract } from '@abstract-foundation/agw-react';
+import { useLoginWithAbstract, } from '@abstract-foundation/agw-react';
 
 
 const Bobos: NextPage = () => {
@@ -30,7 +30,7 @@ const Bobos: NextPage = () => {
   const [hovered, setHovered] = useState(false);
 
   // WAGMI HOOKS
-  const { login, logout } = useLoginWithAbstract();
+  const { login } = useLoginWithAbstract();
 
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
@@ -108,7 +108,7 @@ const Bobos: NextPage = () => {
           </div>
 
           <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10  h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
-            {/* <TokenDivs /> */}
+            <TokenDivs />
           </div>
 
           <div className='sm:flex sm:flex-row'>
