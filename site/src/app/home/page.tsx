@@ -46,7 +46,7 @@ const HomePage: NextPage = () => {
   const { login, logout } = useLoginWithAbstract();
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
-  const { writeContractSponsored } = useWriteContractSponsored();
+  const { writeContractSponsoredAsync } = useWriteContractSponsored();
 
   const { data: maxSupplyData, isPending: isMaxSupplyLoading } = useReadContract({
     abi,
@@ -73,13 +73,14 @@ const HomePage: NextPage = () => {
   // MINTING
   // Corrected mint function
   const mint = async () => {
+    if (!address) return;
     try {
-      const hash = await writeContractSponsored({
+      const hash = await writeContractSponsoredAsync({
         abi,
         address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
         functionName: '_mint',
         args: [mintAmount],
-        paymaster: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
+        paymaster: '0x82e2b359fE20A4D02CC9Bd9AF859C7dBeFC6F7eB',
         paymasterInput: getGeneralPaymasterInput({
           innerInput: "0x",
         }),
@@ -189,14 +190,8 @@ const HomePage: NextPage = () => {
 
           <div className='z-0 grid-container absolute inset-x-0 bottom-10 py-10 h-4/5 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto'>
             <button
-            // className="z-30 flex flex-col items-center"
-            // onClick={() => writeContract({
-            //   abi,
-            //   address: '0x1F486199338EecA2E1e2aad555B9384e785efeCf',
-            //   functionName: '_mint',
-            //   args: [mintAmount],
-            //   value: parseEther('0.0069') * BigInt(mintAmount),
-            // })}
+            className="z-30 flex flex-col items-center"
+            onClick={mint}
             >
               <div className="w-full flex justify-center">
                 <Image
