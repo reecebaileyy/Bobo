@@ -42,7 +42,7 @@ const Profile: NextPage = () => {
 
   const balance = BigNumber.from(balanceOf || 0).toNumber();
 
-  const { data: tokenIds } = useReadContract({
+  const { data: tokenIds, isPending: pendingTokenIds } = useReadContract({
     address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf", // Replace with your contract address
     abi,
     functionName: "tokensOfOwner",
@@ -50,9 +50,31 @@ const Profile: NextPage = () => {
   });
 
   const nfts = Array.isArray(tokenIds)
-    ? tokenIds.map((id: BigNumber) => id.toNumber())
-    : [];
-    
+  ? tokenIds.map((id) => {
+      if (typeof id === "bigint") {
+        // Convert BigInt to a regular number safely
+        return Number(id);
+      } else if (BigNumber.isBigNumber(id)) {
+        // Convert BigNumber to a regular number
+        return id.toNumber();
+      } else if (typeof id === "number") {
+        // Use plain numbers directly
+        return id;
+      } else {
+        console.error("Unexpected token ID type:", id);
+        return null;
+      }
+    }).filter((id) => id !== null) // Filter out any invalid IDs
+  : [];
+
+// Show a loading state if the tokenIds are still pending
+if (pendingTokenIds) {
+  return (
+    <div className="text-center font-pressStart text-xs text-gray-500 animate-pulse">
+      Loading NFTs...
+    </div>
+  );
+}
   return (
     <>
       <Head>
