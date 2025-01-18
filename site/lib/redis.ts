@@ -13,6 +13,7 @@ export const getAsync = promisify(client.get).bind(client) as (key: string) => P
 export const setAsync = promisify(client.set).bind(client) as (
   key: string,
   value: string,
-  ...args: any[]
+  ...args: Array<string | number>
 ) => Promise<void>;
+
 export const delAsync = promisify(client.del).bind(client) as (key: string) => Promise<number>;

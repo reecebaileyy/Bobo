@@ -10,13 +10,9 @@ import { abi } from "../../../../hardhat/artifacts-zk/contracts/Boogers.sol/Boog
 import { useAccount, useDisconnect, useReadContract } from "wagmi";
 import { BigNumber } from "ethers";
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BoboVision from "../../../public/assets/png_gif/BoboVision2.png";
 import { useLoginWithAbstract } from "@abstract-foundation/agw-react";
-
-interface NFT {
-  tokenId: number;
-}
 
 const Profile: NextPage = () => {
   // PLAY OR PAUSE MUSIC
@@ -53,8 +49,10 @@ const Profile: NextPage = () => {
     args: [address],
   });
 
-  const nfts = Array.isArray(tokenIds) ? tokenIds.map((id: any) => BigNumber.from(id).toNumber()) : [];
-
+  const nfts = Array.isArray(tokenIds)
+    ? tokenIds.map((id: BigNumber) => id.toNumber())
+    : [];
+    
   return (
     <>
       <Head>
@@ -235,17 +233,18 @@ const Profile: NextPage = () => {
             )}
 
             <div className="col-span-4 sm:col-span-2 md:col-span-3 text-center font-bold text-xs font-pressStart">
-              You have {balance} Bobos... counting yourself
+              You have {balance} Bobos... not counting yourself
             </div>
 
-            {/* Display some NFTs if needed */}
             {nfts.length > 0 ? (
               nfts.map((tokenId) => (
                 <ProfileToken key={tokenId} tokenId={tokenId} />
               ))
             ) : (
-              <div className="text-center font-pressStart text-xs text-gray-500 animate-pulse">
-                Loading NFTs...
+              <div className="flex items-center justify-center col-span-4 sm:col-span-2 md:col-span-3 h-full">
+                <div className="text-center font-pressStart text-xs text-gray-500 animate-pulse">
+                  Loading NFTs...
+                </div>
               </div>
             )}
 

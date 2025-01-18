@@ -1,6 +1,10 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../../lib/prisma";
 
-export default async function handler(req: { method: string; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { id: number; name: string; }[] | { error: string }): void; new(): any; }; end: { (arg0: string): void; new(): any; }; }; setHeader: (arg0: string, arg1: string[]) => void; }) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === "GET") {
     try {
       const tokensMetadata = await prisma.metadatas.findMany({
@@ -12,7 +16,7 @@ export default async function handler(req: { method: string; }, res: { status: (
 
       const parsedMetadata = tokensMetadata.map((token) => ({
         id: token.token,
-        name: token.metadata.name,
+        name: (token.metadata as { name: string }).name, // Explicitly cast metadata type
       }));
 
       res.status(200).json(parsedMetadata);

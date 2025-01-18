@@ -1,8 +1,10 @@
+// src/models/Metadata.ts
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface MetadataDocument extends Document {
   token: number;
-  metadata: Record<string, any>;
+  // Use `unknown` if there's no strict type, or define a more specific interface
+  metadata: Record<string, unknown>;
 }
 
 const metadataSchema = new Schema<MetadataDocument>({

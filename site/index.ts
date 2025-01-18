@@ -21,7 +21,6 @@ async function main() {
           ],
         },
         token: 1, // Replace with a unique token ID
-        v: 1, // Replace with the version number or any integer value
       },
     });
 
