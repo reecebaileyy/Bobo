@@ -1,44 +1,56 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useReadContract, useAccount } from "wagmi";
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { abi } from "../../../../hardhat/artifacts-zk/contracts/Boogers.sol/Boogers.json";
-import ProfileToken from "./ProfileToken";
+// Rename.tsx
+import React, { useState, ChangeEvent } from "react";
 
-const Rename: NextPage = () => {
-  const [tokenIds, setTokenIds] = useState<number[]>([]); // Token IDs as an array of numbers
-  const { address } = useAccount();
+interface RenameProps {
+  tokenId: number;
+}
 
-  const { data: balanceOf } = useReadContract({
-    address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf",
-    abi,
-    functionName: "balanceOf",
-    args: [address],
-  }) as { data: bigint | undefined }; // Expecting `bigint` for balanceOf
+const Rename: React.FC<RenameProps> = ({ tokenId }) => {
+  const [newName, setNewName] = useState<string>("");
+  const [success, setSuccess] = useState<boolean>(false);
 
-  const { data: tokensOfOwner } = useReadContract({
-    address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf",
-    abi,
-    functionName: "tokensOfOwner",
-    args: [address],
-    // enabled: !!balanceOf && balanceOf > 0n, // Use the `enabled` property instead of `shouldExecute`
-  }) as { data: number[] | undefined }; // Expecting an array of token IDs
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewName(e.target.value);
+  };
 
-  useEffect(() => {
-    if (tokensOfOwner) {
-      setTokenIds(tokensOfOwner);
+  const handleUpdate = async () => {
+    try {
+      const response = await fetch(`/api/tokens/${tokenId}/update-name`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newName }),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 3000);
+      } else {
+        console.error("Failed to update name");
+      }
+    } catch (error) {
+      console.error("Error updating name:", error);
     }
-  }, [tokensOfOwner]);
+  };
 
   return (
-    <>
-      {tokenIds.map((tokenId) => (
-        <ProfileToken key={tokenId} tokenId={tokenId} />
-      ))}
-    </>
+    <div className="flex flex-col items-center">
+      <input
+        type="text"
+        value={newName}
+        onChange={handleNameChange}
+        placeholder="Enter new name"
+        className="text-center border rounded mb-2 p-1"
+      />
+      <button
+        onClick={handleUpdate}
+        className="bg-black text-white py-1 px-2 rounded"
+      >
+        Update Name
+      </button>
+      {success && (
+        <p className="text-green-500 mt-2">Name updated successfully!</p>
+      )}
+    </div>
   );
 };
 

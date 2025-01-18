@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 interface TokenProps {
   tokenId: number; // tokenId is a required number prop
@@ -10,14 +9,12 @@ interface TokenProps {
 interface Metadata {
   name: string;
   image: string;
-  [key: string]: any; // Allow additional properties in the metadata object
+  key: string; // Allow additional properties in the metadata object
 }
 
 const Token: React.FC<TokenProps> = ({ tokenId }) => {
   const [metadata, setMetadata] = useState<Metadata | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-
-  const router = useRouter();
 
   useEffect(() => {
     const fetchMetadata = async () => {
@@ -34,7 +31,7 @@ const Token: React.FC<TokenProps> = ({ tokenId }) => {
         setImageUrl(
           `https://localhost:3000/images/${tokenId.toString()}.gif`
         );
-      } catch (error: any) {
+      } catch (error) {
         console.error(error.message);
       }
     };

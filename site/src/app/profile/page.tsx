@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import Rename from '../components/Rename'; // <--- Make sure this is a .tsx file or has proper TS definitions
+import ProfileToken from '../components/ProfileToken'; // <--- Make sure this is a .tsx file or has proper TS definitions
 import ReactHowler from "react-howler";
 import { abi } from "../../../../hardhat/artifacts-zk/contracts/Boogers.sol/Boogers.json";
 import { useAccount, useDisconnect, useReadContract } from "wagmi";
@@ -13,6 +13,10 @@ import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import BoboVision from "../../../public/assets/png_gif/BoboVision2.png";
 import { useLoginWithAbstract } from "@abstract-foundation/agw-react";
+
+interface NFT {
+  tokenId: number;
+}
 
 const Profile: NextPage = () => {
   // PLAY OR PAUSE MUSIC
@@ -30,12 +34,11 @@ const Profile: NextPage = () => {
 
   // WAGMI HOOKS
   const { login } = useLoginWithAbstract();
-
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
-
+  // Fetch the number of tokens owned by the user
   const { data: balanceOf } = useReadContract({
-    address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf",
+    address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf", // Replace with your contract address
     abi,
     functionName: "balanceOf",
     args: [address],
@@ -43,20 +46,14 @@ const Profile: NextPage = () => {
 
   const balance = BigNumber.from(balanceOf || 0).toNumber();
 
-  const [nfts, setNfts] = useState<number[]>([]);
+  const { data: tokenIds } = useReadContract({
+    address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf", // Replace with your contract address
+    abi,
+    functionName: "tokensOfOwner",
+    args: [address],
+  });
 
-  useEffect(() => {
-    if (balance) {
-      const tokenIds: number[] = [];
-      for (let i = 0; i < balance; i++) {
-        // If you actually need token IDs or something from the contract, you'd do a separate read here.
-        // For now, we’re just simulating 'balance' times.
-        tokenIds.push(i);
-      }
-      setNfts(tokenIds);
-      console.log(nfts);
-    }
-  }, [balanceOf]);
+  const nfts = Array.isArray(tokenIds) ? tokenIds.map((id: any) => BigNumber.from(id).toNumber()) : [];
 
   return (
     <>
@@ -99,8 +96,8 @@ const Profile: NextPage = () => {
                   ? hovered
                     ? "Disconnect"
                     : `${address.substring(0, 6)}...${address.substring(
-                        address.length - 4
-                      )}`
+                      address.length - 4
+                    )}`
                   : "Connect"}
               </button>
             </div>
@@ -126,8 +123,8 @@ const Profile: NextPage = () => {
                 ? hovered
                   ? "Disconnect"
                   : `${address.substring(0, 6)}...${address.substring(
-                      address.length - 4
-                    )}`
+                    address.length - 4
+                  )}`
                 : "Connect"}
             </button>
           </div>
@@ -240,16 +237,18 @@ const Profile: NextPage = () => {
             <div className="col-span-4 sm:col-span-2 md:col-span-3 text-center font-bold text-xs font-pressStart">
               You have {balance} Bobos... counting yourself
             </div>
-            <Rename />
 
             {/* Display some NFTs if needed */}
-            {nfts.map((tokenId) => (
-              <div key={tokenId} className='text-center font-pressStart text-xs'>
-                NFT #{tokenId}
+            {nfts.length > 0 ? (
+              nfts.map((tokenId) => (
+                <ProfileToken key={tokenId} tokenId={tokenId} />
+              ))
+            ) : (
+              <div className="text-center font-pressStart text-xs text-gray-500 animate-pulse">
+                Loading NFTs...
               </div>
-            ))}
+            )}
 
-            <Rename />
           </div>
 
           <div className="sm:flex sm:flex-row">

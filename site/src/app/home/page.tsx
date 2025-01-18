@@ -68,7 +68,7 @@ const HomePage: NextPage = () => {
     functionName: "totalSupply",
   });
 
-  const { data: balanceOf, isPending: pendingBalanceOf } = useReadContract({
+  const { data: balanceOf } = useReadContract({
     abi,
     args: [address],
     address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf",

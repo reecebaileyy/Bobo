@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 async function updateImageUrls() {
   const oldBaseURL = 'https://www.bobovision.xyz';
-  const newBaseURL = 'https://www.bobo.vision';
+  const newBaseURL = 'https://bobovision.vercel.app';
 
   const allMetadata = await prisma.metadatas.findMany();
 

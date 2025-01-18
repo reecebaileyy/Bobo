@@ -4,15 +4,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface TokenProps {
-  tokenId: number; // Specify that tokenId is a number
+  tokenId: number;
 }
 
 interface Metadata {
   name: string;
-  [key: string]: any; // In case the metadata object has additional properties
+  image: string; // Include the image URL in metadata if needed
 }
 
-const Token: React.FC<TokenProps> = ({ tokenId }) => {
+const ProfileToken: React.FC<TokenProps> = ({ tokenId }) => {
+  console.log(`ProfileToken component rendered for tokenId: ${tokenId}`);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [newName, setNewName] = useState<string>("");
   const [metadata, setMetadata] = useState<Metadata | null>(null);
@@ -20,6 +21,7 @@ const Token: React.FC<TokenProps> = ({ tokenId }) => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(`Fetching metadata for token ${tokenId}`);
     const fetchMetadata = async () => {
       try {
         const response = await fetch(`/api/tokens/getMetadata?tokenId=${tokenId}`);
@@ -28,8 +30,10 @@ const Token: React.FC<TokenProps> = ({ tokenId }) => {
           throw new Error(`Failed to fetch tokens: ${errorData.error}`);
         }
         const responseData: Metadata = await response.json();
+        console.log(`Metadata for token ${tokenId}:`, responseData); // Log the metadata
         setMetadata(responseData);
-        setImageUrl(`localhost:3000/images/${tokenId}.gif`);
+  
+        setImageUrl(responseData.image || `/images/${tokenId}.gif`);
       } catch (error) {
         console.error(error);
       }
@@ -56,15 +60,10 @@ const Token: React.FC<TokenProps> = ({ tokenId }) => {
         throw new Error(`Failed to update name: ${errorData.error}`);
       }
 
-      // Show success message
       alert("Your new name has been updated");
-
-      // Refresh the page after updating the name
-      router.replace(router.asPath);
-    } catch (error: any) {
+      router.refresh();
+    } catch (error) {
       console.error(error);
-
-      // Show error message
       alert("Oops! Bobo is rugging... try one more time.");
     }
   };
@@ -104,4 +103,4 @@ const Token: React.FC<TokenProps> = ({ tokenId }) => {
   );
 };
 
-export default Token;
+export default ProfileToken;
