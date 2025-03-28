@@ -1,8 +1,10 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
 const NFT = buildModule("BoogersModule", (m) => {
-  // Deploy the Boogers contract; no constructor parameters are needed.
-  const nft = m.contract("NFT");
+  const name = m.getParameter("name", "My NFT Collection");
+  const symbol = m.getParameter("symbol", "MYNFT");
+  const owner = m.getParameter("owner", "0xOwnersAddress");
+  const nft = m.contract("NFT", [name, symbol, owner]);
   return { nft };
 });
 

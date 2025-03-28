@@ -1,3 +1,9 @@
 [submodule "hardhat/creator-token-contracts"]
 	path = hardhat/creator-token-contracts
 	url = https://github.com/limitbreakinc/creator-token-contracts.git
+[submodule "hardhat/external/creator-token-standards"]
+	path = hardhat/external/creator-token-standards
+	url = https://github.com/limitbreakinc/creator-token-standards
+[submodule "hardhat/external/solady"]
+	path = hardhat/external/solady
+	url = https://github.com/Vectorized/solady

@@ -5,7 +5,7 @@ dotenv.config();
 
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "sonicTestnet",
+  defaultNetwork: "base-sepolia",
   networks: {
     sonic: {
       url: "https://rpc.soniclabs.com",
@@ -16,7 +16,12 @@ const config: HardhatUserConfig = {
       url: "https://rpc.blaze.soniclabs.com",
       chainId: 57054,
       accounts: [process.env.SONIC_PRIVATE_KEY || ""]
-    }
+    },
+    'base-sepolia': {
+      url: 'https://sepolia.base.org',
+      accounts: [process.env.SONIC_PRIVATE_KEY || ""],
+      chainId: 84532
+    },
   },
   solidity: {
     version: "0.8.20",
@@ -39,7 +44,8 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       sonic: process.env.SONICSCAN_API_KEY || "",
-      sonicTestnet: process.env.SONICSCAN_API_KEY || ""
+      sonicTestnet: process.env.SONICSCAN_API_KEY || "",
+      'base-sepolia': process.env.BASESCAN_API_KEY || ""
     },
     customChains: [
       {
@@ -56,6 +62,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api-testnet.sonicscan.org/api",
           browserURL: "https://testnet.sonicscan.org"
+        }
+      },
+      {
+        network: "base-sepolia",
+        chainId: 84532,
+        urls: {
+         apiURL: "https://api-sepolia.basescan.org/api",
+         browserURL: "https://sepolia.basescan.org"
         }
       }
     ]
