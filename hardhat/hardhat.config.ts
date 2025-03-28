@@ -1,41 +1,65 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@matterlabs/hardhat-zksync";
+import type { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox-viem";
+import * as dotenv from "dotenv";
+dotenv.config();
+
 
 const config: HardhatUserConfig = {
-  zksolc: {
-    version: "1.5.7", // Ensure version is 1.5.7!
-    settings: {
-      // Note: This must be true to call NonceHolder & ContractDeployer system contracts
-      enableEraVMExtensions: true,
-    },
-  },
-  defaultNetwork: "abstractTestnet",
+  defaultNetwork: "sonicTestnet",
   networks: {
-    abstractTestnet: {
-      url: "https://api.testnet.abs.xyz",
-      ethNetwork: "sepolia",
-      zksync: true,
-      chainId: 11124,
+    sonic: {
+      url: "https://rpc.soniclabs.com",
+      chainId: 146,
+      accounts: [process.env.SONIC_PRIVATE_KEY || ""]
     },
+    sonicTestnet: {
+      url: "https://rpc.blaze.soniclabs.com",
+      chainId: 57054,
+      accounts: [process.env.SONIC_PRIVATE_KEY || ""]
+    }
+  },
+  solidity: {
+    version: "0.8.20",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200
+      }
+    }
+  },
+  paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts"
+  },
+  mocha: {
+    timeout: 40000
   },
   etherscan: {
     apiKey: {
-      abstractTestnet: "TACK2D1RGYX9U7MC31SZWWQ7FCWRYQ96AD",
+      sonic: process.env.SONICSCAN_API_KEY || "",
+      sonicTestnet: process.env.SONICSCAN_API_KEY || ""
     },
     customChains: [
       {
-        network: "abstractTestnet",
-        chainId: 11124,
+        network: "sonic",
+        chainId: 146,
         urls: {
-          apiURL: "https://api-sepolia.abscan.org/api",
-          browserURL: "https://sepolia.abscan.org/",
-        },
+          apiURL: "https://api.sonicscan.org/api",
+          browserURL: "https://sonicscan.org"
+        }
       },
-    ],
-  },
-  solidity: {
-    version: "0.8.24",
-  },
+      {
+        network: "sonicTestnet",
+        chainId: 57054,
+        urls: {
+          apiURL: "https://api-testnet.sonicscan.org/api",
+          browserURL: "https://testnet.sonicscan.org"
+        }
+      }
+    ]
+  } 
 };
 
 export default config;
