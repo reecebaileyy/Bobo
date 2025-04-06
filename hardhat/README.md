@@ -1,13 +1,26 @@
-# Sample Hardhat Project
+# Deployment Steps
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This basically demonstrates how to deploy using hardhat ignition :D 
 
-Try running some of the following tasks:
+## Run the following in terminal
 
+### Step 1
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+cd hardhat
+npm install
+npx hardhat compile
 ```
+
+### Step 2
+Ensure that the deployer contract adress is pasted in place of "0xOwnersAddress" in ignition/modules/NFT.ts
+```shell
+npx hardhat ignition deploy ./ignition/modules/NFT.ts --network <your-network>
+```
+
+# Verification Steps
+
+This step is optional and only needed if you want your NFT to be verified onchain.
+```shell
+npx hardhat verify --network <your-network> <contract-address> "My NFT Collection" "MYNFT" <owner-address>
+```
+
