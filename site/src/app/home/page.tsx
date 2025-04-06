@@ -6,12 +6,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useAccount, useDisconnect, useReadContract } from "wagmi";
-import { getGeneralPaymasterInput } from "viem/zksync";
-import { BigNumber } from "ethers";
-import { parseEther } from 'viem'
-import { abi } from "../../../../hardhat/artifacts-zk/contracts/Boogers.sol/Boogers.json";
-import ReactHowler from "react-howler";
+import { HiVolumeOff, HiVolumeUp } from "react-icons/hi"; //Icons
+import ReactHowler from "react-howler"; //For Sound
+
+
+// Website Stuff
 import headgif from "../../../public/assets/png_gif/spinhead.gif";
 import BoboVision from "../../../public/assets/png_gif/BoboVision2.png";
 import twitter from "../../../public/assets/png_gif/twitter.gif";
@@ -19,13 +18,21 @@ import lore from "../../../public/assets/png_gif/lore.gif";
 import OSicon from "../../../public/assets/png_gif/OSicon.gif";
 import chat from "../../../public/assets/png_gif/chat.gif";
 import profile from "../../../public/assets/png_gif/Identification.gif";
-import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import mintImage from "../../../public/assets/png_gif/mint.gif";
 import etherscan from "../../../public/assets/png_gif/etherscan.gif";
-import {
-  useLoginWithAbstract,
-  useWriteContractSponsored,
-} from "@abstract-foundation/agw-react";
+
+// blockchain interaction
+import { abi } from "../../../../hardhat/ignition/deployments/chain-84532/artifacts/BoogersModule#NFT.json";
+import { useAccount, useDisconnect, useReadContract } from "wagmi";
+import { getGeneralPaymasterInput } from "viem/zksync";
+import { BigNumber } from "ethers";
+import { parseEther } from 'viem'
+
+//Base Imports
+import { Wallet } from '@coinbase/onchainkit/wallet';
+import { Avatar, Identity, Name, Badge, Address } from '@coinbase/onchainkit/identity';
+
+
 
 const HomePage: NextPage = () => {
   // ------------------ MISC ------------------
@@ -45,10 +52,8 @@ const HomePage: NextPage = () => {
   const [hovered, setHovered] = useState(false);
 
   // ------------------ WAGMI HOOKS ------------------
-  const { login } = useLoginWithAbstract();
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
-  const { writeContractSponsoredAsync } = useWriteContractSponsored();
 
   const { data: maxSupplyData } = useReadContract({
     abi,
@@ -86,24 +91,7 @@ const HomePage: NextPage = () => {
   // MINTING
   // Corrected mint function
   const mint = async () => {
-    console.log("ABI:", abi);
-    if (!address) return;
-    try {
-      const hash = await writeContractSponsoredAsync({
-        abi,
-        address: "0x1F486199338EecA2E1e2aad555B9384e785efeCf",
-        functionName: "_mint",
-        args: [mintAmount],
-        value: balanceOf && BigNumber.from(balanceOf).gt(0) ? parseEther((mintAmount * 0.0069).toString()) : undefined,
-        paymaster: "0x82e2b359fE20A4D02CC9Bd9AF859C7dBeFC6F7eB",
-        paymasterInput: getGeneralPaymasterInput({
-          innerInput: "0x",
-        }),
-      });
-      console.log("Mint successful! Transaction hash:", hash);
-    } catch (error) {
-      console.error("Minting error:", error);
-    }
+   console.log(0)
   };
 
   // Reload page when currentIndex increases by 1
@@ -165,7 +153,7 @@ const HomePage: NextPage = () => {
                   height={500}
                 />
               </Link>
-              <button
+              {/* <button
                 onClick={() => (address ? disconnect() : login())}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
@@ -178,7 +166,9 @@ const HomePage: NextPage = () => {
                         address.length - 4
                       )}`
                   : "Connect"}
-              </button>
+              </button> */}
+              <Wallet className="z-10"/>
+              
             </div>
           </div>
           <div className="z-10 gap-1 flex flex-col items-center md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden">
@@ -191,7 +181,7 @@ const HomePage: NextPage = () => {
                 height={500}
               />
             </Link>
-            <button
+            {/* <button
               onClick={() => (address ? disconnect() : login())}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
@@ -204,7 +194,8 @@ const HomePage: NextPage = () => {
                       address.length - 4
                     )}`
                 : "Connect"}
-            </button>
+            </button> */}
+            <Wallet className="z-10"/>
           </div>
           {/* <div className="z-10 gap-1 flex flex-col items-center md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden">
             <Link href="/">

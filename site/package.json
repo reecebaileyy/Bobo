@@ -11,6 +11,7 @@
   "dependencies": {
     "@abstract-foundation/agw-client": "^0.1.8",
     "@abstract-foundation/agw-react": "^1.0.0",
+    "@coinbase/onchainkit": "^0.38.5",
     "@prisma/client": "^6.2.1",
     "@tanstack/react-query": "^5.64.1",
     "dotenv": "^16.4.7",
@@ -18,6 +19,7 @@
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.5",
     "next": "^15.1.4",
+    "onchainkit-monorepo": "github:coinbase/onchainkit",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-howler": "^5.2.0",

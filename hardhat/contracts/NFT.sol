@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import {
     ERC721ACQueryable, ERC721A, IERC721A
-} from "../external/misc/ERC721ACQueryable.sol";
+} from "external/misc/ERC721ACQueryable.sol";
 import {SafeTransferLib} from "external/solady/src/utils/SafeTransferLib.sol";
 import {ERC2981} from "external/solady/src/tokens/ERC2981.sol";
 import {Ownable} from "solady/src/auth/Ownable.sol";
